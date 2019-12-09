@@ -26,7 +26,7 @@ public class Admin extends User {
                 aptNumber = Integer.parseInt(input.nextLine());
                 validInput = true;
             } catch (NumberFormatException e){
-                System.out.println("[ERROR] Only numeric values allowed");
+                System.out.println("<ERROR> Only numeric values allowed");
             }
         }
         validInput = false;
@@ -36,7 +36,7 @@ public class Admin extends User {
                 rentCost = Integer.parseInt(input.nextLine());
                 validInput = true;
             } catch (NumberFormatException e){
-                System.out.println("[ERROR] Only numeric values allowed");
+                System.out.println("<ERROR> Only numeric values allowed");
             }
         }
 
