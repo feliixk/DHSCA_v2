@@ -37,5 +37,5 @@ public class ApartmentOwner extends User {
     public String getName(){
         return user;
     }
-    
+
 }
