@@ -18,15 +18,12 @@ public class DistrictHeatSavingsApp {
         DHSCA.userArrayList.add(new ApartmentOwner("felix", "hemligt", 3, 320));
 
         DHSCA.currentLoggedInUser = DHSCA.login();
-        System.out.println("<Inloggad som: "+DHSCA.currentLoggedInUser.toString()+">");
-
-
-
+        System.out.println("<Inloggad som: " + DHSCA.currentLoggedInUser.toString() + ">");
 
         DHSCA.showMenu();
     }
 
-    public User login(){
+    public User login() {
         User result = null;
         Scanner input = new Scanner(System.in);
         System.out.println("Please enter your username: ");
@@ -49,29 +46,40 @@ public class DistrictHeatSavingsApp {
     }
 
     public void showMenu() {
-        int choice = 666;
-        int loopindex = 666;
+        int choice;
         Scanner input = new Scanner(System.in);
 
         do {
             if (currentLoggedInUser instanceof Admin) {
+                System.out.println("--------------------------------------------------------");
                 System.out.println("[1] Add apartment" +
                         "\n[2] Add outdoor temperature measurement" +
                         "\n[3] Show today's outdoor measurements" +
                         "\n[4] Show last 7 days outdoor measurements" +
                         "\n[5] Show average heat setting" +
+                        "\n[6] Show apartments" +
                         "\n[0] Exit menu" +
                         "\n[666] TERMINATE APPLICATION");
+                System.out.println("--------------------------------------------------------");
             } else if (currentLoggedInUser instanceof ApartmentOwner) {
+                System.out.println("--------------------------------------------------------");
                 System.out.println("[1] Add indoor temperature" +
                         "\n[2] Change heat value" +
                         "\n[3] Show average heat setting" +
                         "\n[4] Show today's indoor measurement" +
                         "\n[5] Show last 7 day's indoor measurement" +
+                        "\n[6] Show apartments" +
                         "\n[0] Exit menu" +
                         "\n[666] TERMINATE APPLICATION");
+                System.out.println("--------------------------------------------------------");
             }
-            choice = input.nextInt();
+
+            try {
+                choice = input.nextInt();
+            } catch (InputMismatchException e) {
+                choice = 404;
+                input.nextLine();
+            }
 
             switch (choice) {
                 case 1:
@@ -110,6 +118,9 @@ public class DistrictHeatSavingsApp {
                         System.out.println("<Du valde show last 7 day's indoor measurement>");
                     }
                     break;
+                case 6:
+                    printApartments();
+                    break;
                 case 0:
                     System.out.println("<Exiting menu>");
                     break;
@@ -117,9 +128,33 @@ public class DistrictHeatSavingsApp {
                     System.out.println("<TERMINATING APPLICATION>");
                     System.exit(0);
                 default:
-                    System.out.println("<Option not found>");
+                    System.out.println("<No option found for input>");
                     break;
             }
         } while (choice != 0);
+    }
+
+    public void printApartments() {
+        System.out.println("--------------------------------------------------------");
+        if (currentLoggedInUser instanceof Admin) {
+            for (User u :
+                    userArrayList) {
+                if (u instanceof ApartmentOwner) {
+                    System.out.println(u.toString() + " Rent cost: " + ((ApartmentOwner) u).getRentCost() +
+                            ", Password: " + u.getPass());
+                }
+            }
+        } else if (currentLoggedInUser instanceof ApartmentOwner) {
+            for (User u :
+                    userArrayList) {
+                if (u instanceof ApartmentOwner && currentLoggedInUser.equals(u)) {
+                    System.out.println("<LOGGED IN USER> " + u.toString() + " Rent cost: " +
+                            ((ApartmentOwner) u).getRentCost() + ", Password: " + u.getPass());
+                } else if (u instanceof ApartmentOwner && !currentLoggedInUser.equals(u)) {
+                    System.out.println(u.toString());
+                }
+            }
+        }
+        System.out.println("--------------------------------------------------------");
     }
 }
