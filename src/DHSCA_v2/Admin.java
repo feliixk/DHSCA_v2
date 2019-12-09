@@ -11,16 +11,34 @@ public class Admin extends User {
     public User addApartmentOwner(){
         Scanner input = new Scanner(System.in);
         String user, pass;
-        int aptNumber;
-        int rentCost;
-        System.out.println("What is the name of owner?");
+        int aptNumber = 0;
+        int rentCost = 0;
+        boolean validInput = false;
+        System.out.print("Please set the name of the owner: ");
         user = input.nextLine();
-        System.out.println("What is the password of owner?");
+        System.out.print("Please set the password of the owner: ");
         pass = input.nextLine();
-        System.out.println("What is the apartment number");
-        aptNumber = Integer.parseInt(input.nextLine());
-        System.out.println("What is the rent cost?");
-        rentCost = Integer.parseInt(input.nextLine());
+
+        //Tillfällig lösning.
+        while(!validInput){
+            try {
+                System.out.print("Please set the Apartment number: ");
+                aptNumber = Integer.parseInt(input.nextLine());
+                validInput = true;
+            } catch (NumberFormatException e){
+                System.out.println("[ERROR] Only numeric values allowed");
+            }
+        }
+        validInput = false;
+        while(!validInput){
+            try {
+                System.out.print("Please set the rent cost: ");
+                rentCost = Integer.parseInt(input.nextLine());
+                validInput = true;
+            } catch (NumberFormatException e){
+                System.out.println("[ERROR] Only numeric values allowed");
+            }
+        }
 
 
         System.out.println("Apartment owner added");
