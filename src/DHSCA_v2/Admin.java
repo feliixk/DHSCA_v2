@@ -29,4 +29,11 @@ public class Admin extends User {
     public void addOutdoorTemp(){
 
     }
+
+    @Override
+    public String toString() {
+        return "Admin{" +
+                "user='" + user + '\'' +
+                '}';
+    }
 }

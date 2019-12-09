@@ -14,4 +14,11 @@ public class ApartmentOwner extends User {
     public void addIndoorTemp(){
 
     }
+
+    @Override
+    public String toString() {
+        return "ApartmentOwner{" +
+                "user='" + user + '\'' +
+                '}';
+    }
 }
