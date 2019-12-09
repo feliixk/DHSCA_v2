@@ -11,12 +11,14 @@ public class DistrictHeatSavingsApp {
         DistrictHeatSavingsApp DHSCA = new DistrictHeatSavingsApp();
 
         //variabler för testning av users
-        DHSCA.userArrayList.add(new Admin("admin", "root"));
+        Admin admin = new Admin ("admin", "root");
+        DHSCA.userArrayList.add(admin);
         DHSCA.userArrayList.add(new ApartmentOwner("sven", "nevs", 2, 300));
         DHSCA.userArrayList.add(new ApartmentOwner("felix", "hemligt", 3, 320));
 
         DHSCA.currentLoggedInUser = DHSCA.login();
         System.out.println("<Inloggad som: "+DHSCA.currentLoggedInUser.toString()+">");
+        DHSCA.userArrayList.add(admin.addApartmentOwner());
     }
 
     public User login(){
@@ -26,7 +28,6 @@ public class DistrictHeatSavingsApp {
         String username = input.nextLine();
         System.out.println("Please enter your password: ");
         String password = input.nextLine();
-        input.close();
 
         for (User userInLoop :
                 userArrayList) {
