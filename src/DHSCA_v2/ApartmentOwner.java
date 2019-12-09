@@ -18,12 +18,24 @@ public class ApartmentOwner extends User {
     @Override
     public String toString() {
         return "ApartmentOwner{" +
-                "apartmentNumber=" + apartmentNumber +
-                ", user='" + user + '\'' +
+                "user='" + user + '\'' +
                 '}';
     }
 
-    public int getRentCost() {
+    public int getApartmentNumber() {
+        return apartmentNumber;
+    }
+
+    public int getRentCost(){
         return rentCost;
     }
+
+    public void setRentCost(int rentCost){
+        this.rentCost = rentCost;
+    }
+
+    public String getName(){
+        return user;
+    }
+
 }
