@@ -21,4 +21,21 @@ public class ApartmentOwner extends User {
                 "user='" + user + '\'' +
                 '}';
     }
+
+    public int getApartmentNumber() {
+        return apartmentNumber;
+    }
+
+    public int getRentCost(){
+        return rentCost;
+    }
+
+    public void setRentCost(int rentCost){
+        this.rentCost = rentCost;
+    }
+
+    public String getName(){
+        return user;
+    }
+    
 }
