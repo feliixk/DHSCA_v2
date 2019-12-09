@@ -1,6 +1,8 @@
 package DHSCA_v2;
 
+import java.lang.module.FindException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class DistrictHeatSavingsApp {
@@ -47,7 +49,8 @@ public class DistrictHeatSavingsApp {
     }
 
     public void showMenu() {
-        int choice;
+        int choice = 666;
+        int loopindex = 666;
         Scanner input = new Scanner(System.in);
 
         do {
@@ -57,17 +60,19 @@ public class DistrictHeatSavingsApp {
                         "\n[3] Show today's outdoor measurements" +
                         "\n[4] Show last 7 days outdoor measurements" +
                         "\n[5] Show average heat setting" +
-                        "\n[0] EXIT");
+                        "\n[0] Exit menu" +
+                        "\n[666] TERMINATE APPLICATION");
             } else if (currentLoggedInUser instanceof ApartmentOwner) {
                 System.out.println("[1] Add indoor temperature" +
                         "\n[2] Change heat value" +
                         "\n[3] Show average heat setting" +
                         "\n[4] Show today's indoor measurement" +
                         "\n[5] Show last 7 day's indoor measurement" +
-                        "\n[0] EXIT");
+                        "\n[0] Exit menu" +
+                        "\n[666] TERMINATE APPLICATION");
             }
             choice = input.nextInt();
-            //TODO[SS]: Gör så den inte kan krascha vid input
+            loopindex = choice;
 
             switch (choice) {
                 case 1:
@@ -106,7 +111,16 @@ public class DistrictHeatSavingsApp {
                         System.out.println("<Du valde show last 7 day's indoor measurement>");
                     }
                     break;
+                case 0:
+                    System.out.println("<Exiting menu>");
+                    break;
+                case 666:
+                    System.out.println("<TERMINATING APPLICATION>");
+                    System.exit(0);
+                default:
+                    System.out.println("<Option not found>");
+                    break;
             }
-        } while (choice != 0);
+        } while (loopindex != 0);
     }
 }
