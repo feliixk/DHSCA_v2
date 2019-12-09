@@ -72,7 +72,6 @@ public class DistrictHeatSavingsApp {
                         "\n[666] TERMINATE APPLICATION");
             }
             choice = input.nextInt();
-            loopindex = choice;
 
             switch (choice) {
                 case 1:
@@ -121,6 +120,6 @@ public class DistrictHeatSavingsApp {
                     System.out.println("<Option not found>");
                     break;
             }
-        } while (loopindex != 0);
+        } while (choice != 0);
     }
 }
