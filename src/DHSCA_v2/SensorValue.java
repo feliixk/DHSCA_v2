@@ -22,4 +22,13 @@ public class SensorValue  {
         } else return dateFormat.format(dateObject);
     }
 
+    public String getTimeStamp() {
+        return timeStamp;
+    }
+
+    @Override
+    public String toString() {
+        return "timeStamp='" + timeStamp + '\'' +
+                '}';
+    }
 }

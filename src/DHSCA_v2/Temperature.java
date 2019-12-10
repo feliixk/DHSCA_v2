@@ -18,5 +18,14 @@ public class Temperature extends SensorValue {
         return degrees;
     }
 
+    public double getDegrees() {
+        return degrees;
+    }
+
+    @Override
+    public String toString() {
+        return super.getTimeStamp()+ " Degrees='" + degrees ;
+    }
+
 
 }
