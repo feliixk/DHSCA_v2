@@ -44,7 +44,7 @@ public class DistrictHeatSavingsApp {
 
             for (User userInLoop :
                     userArrayList) {
-                if (userInLoop.getUser().contains(username) && userInLoop.getPass().contains(password)) {
+                if (userInLoop.getUser().equals(username) && userInLoop.getPass().equals(password)) {
                     if (userInLoop instanceof Admin) {
                         result = userInLoop;
                     } else if (userInLoop instanceof ApartmentOwner) {
