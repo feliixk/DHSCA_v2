@@ -6,6 +6,10 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class DistrictHeatSavingsApp {
+    public User getCurrentLoggedInUser() {
+        return currentLoggedInUser;
+    }
+
     public User currentLoggedInUser;
     private ArrayList<User> userArrayList = new ArrayList<>();
 
