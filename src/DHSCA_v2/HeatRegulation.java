@@ -44,7 +44,7 @@ public class HeatRegulation extends SensorValue {
 
         for (HeatRegulation heatRegulation :
              heatRegulationArrayList) {
-            if (apartmentNumber == heatRegulation.aptNumber && formattedDate.equals(dateInput)){
+            if (apartmentNumber == heatRegulation.aptNumber && heatRegulation.getTimeStamp().contains(dateInput)){
                 heatRegulationsInMethod.add(heatRegulation);
             }
         }
