@@ -11,7 +11,7 @@ public class SensorValue  {
         this.timeStamp = timeStamp;
     }
 
-    public String readTimestamp(String timeStamp){
+    public String readTimestamp(){
         Scanner input = new Scanner(System.in);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date dateObject = new Date();

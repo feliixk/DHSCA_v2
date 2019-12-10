@@ -9,9 +9,5 @@ public class Temperature extends SensorValue {
         super(timeStamp);
         this.degrees = degrees;
     }
-    public double readTempFromKeyboard(){
-        Scanner input = new Scanner(System.in);
-        System.out.println("Please input the current temperature.");
-        return input.nextDouble();
-    }
+
 }
