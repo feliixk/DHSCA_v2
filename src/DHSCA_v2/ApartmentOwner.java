@@ -17,12 +17,12 @@ public class ApartmentOwner extends User {
 
     }
 
-    @Override
-    public String toString() {
-        return "ApartmentOwner{" +
-                "user='" + user + '\'' +
-                '}';
-    }
+   // @Override
+   // public String toString() {
+   //     return "ApartmentOwner{" +
+   //             "user='" + user + '\'' +
+   //             '}';
+   // }
 
     public int getApartmentNumber() {
         return apartmentNumber;
@@ -44,4 +44,12 @@ public class ApartmentOwner extends User {
         return user;
     }
 
+    @Override
+    public String toString() {
+        return "ApartmentOwner{" +
+                "apartmentNumber=" + apartmentNumber +
+                ", buildingAddress='" + buildingAddress + '\'' +
+                ", user='" + user + '\'' +
+                '}';
+    }
 }

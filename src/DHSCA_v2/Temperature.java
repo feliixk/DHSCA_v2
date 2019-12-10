@@ -11,7 +11,7 @@ public class Temperature extends SensorValue {
         this.degrees = degrees;
     }
     public  double readTempFromKeyboard(){
-        System.out.println("Enter what temperature it is in your apartment!");
+        System.out.println("Enter what temperature: ");
         System.out.print("> ");
         double degrees = input.nextDouble();
         input.nextLine();

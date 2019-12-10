@@ -6,12 +6,13 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class DistrictHeatSavingsApp {
-    public User getCurrentLoggedInUser() {
-        return currentLoggedInUser;
-    }
-
     public User currentLoggedInUser;
     private ArrayList<User> userArrayList = new ArrayList<>();
+    private ArrayList<Double> outdoorTemps = new ArrayList<>();
+    private ArrayList<IndoorTemp> indoorTemps = new ArrayList<>();
+    private ArrayList<String> sensorValues = new ArrayList<>();
+    private SensorValue sensorValue = new SensorValue("");
+    private OutdoorTemp outdoorTemp = new OutdoorTemp("", 0.0, "");
 
     public static void main(String[] args) {
         DistrictHeatSavingsApp DHSCA = new DistrictHeatSavingsApp();
@@ -97,6 +98,8 @@ public class DistrictHeatSavingsApp {
                 case 2:
                     if (currentLoggedInUser instanceof Admin) {
                         System.out.println("<Du valde add outdoor temperature measurement>");
+                        sensorValues.add(sensorValue.readTimestamp());
+                        outdoorTemps.add(outdoorTemp.readTempFromKeyboard());
                     } else if (currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde change heat value>");
                     }
@@ -160,5 +163,9 @@ public class DistrictHeatSavingsApp {
             }
         }
         System.out.println("--------------------------------------------------------");
+    }
+
+    public User getCurrentLoggedInUser() {
+        return currentLoggedInUser;
     }
 }
