@@ -1,10 +1,13 @@
 package DHSCA_v2;
 
+
 public class ApartmentOwner extends User {
 
     public int apartmentNumber;
     public int rentCost;
     public String buildingAddress;
+    private IndoorTemp indoorTemp = new IndoorTemp(0,0.0,"");
+
 
     public ApartmentOwner(String name, String pass, int apartmentNumber, int rentCost, String buildingAddress){
         super(name, pass);
@@ -13,7 +16,11 @@ public class ApartmentOwner extends User {
         this.buildingAddress = buildingAddress;
     }
 
-    public void addIndoorTemp(){
+    public IndoorTemp addIndoorTemp(User user){
+        String tempsTimes = indoorTemp.readTimestamp();
+        double tempIndoor = indoorTemp.readTempFromKeyboard();
+        int aptNumber = ((ApartmentOwner) user).getApartmentNumber();
+        return new IndoorTemp(aptNumber, tempIndoor, tempsTimes);
 
     }
 
