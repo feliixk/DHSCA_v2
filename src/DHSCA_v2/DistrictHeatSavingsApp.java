@@ -35,22 +35,28 @@ public class DistrictHeatSavingsApp {
     public User login() {
         User result = null;
         Scanner input = new Scanner(System.in);
-        System.out.println("Please enter your username: ");
-        String username = input.nextLine();
-        System.out.println("Please enter your password: ");
-        String password = input.nextLine();
 
-        for (User userInLoop :
-                userArrayList) {
-            if (userInLoop.getUser().contains(username) && userInLoop.getPass().contains(password)) {
-                if (userInLoop instanceof Admin) {
-                    result = userInLoop;
-                } else if (userInLoop instanceof ApartmentOwner) {
-                    result = userInLoop;
+        while(result == null){
+            System.out.println("Please enter your username: ");
+            String username = input.nextLine();
+            System.out.println("Please enter your password: ");
+            String password = input.nextLine();
+
+            for (User userInLoop :
+                    userArrayList) {
+                if (userInLoop.getUser().contains(username) && userInLoop.getPass().contains(password)) {
+                    if (userInLoop instanceof Admin) {
+                        result = userInLoop;
+                    } else if (userInLoop instanceof ApartmentOwner) {
+                        result = userInLoop;
+                    }
                 }
             }
-        }
-        //TODO[SS]: Gör att login inte kan krascha vid input
+
+            if(result == null){
+                System.out.println("<Wrong username or password>");
+            }
+    }
         return result;
     }
 
