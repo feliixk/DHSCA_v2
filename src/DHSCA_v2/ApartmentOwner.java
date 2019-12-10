@@ -7,6 +7,7 @@ public class ApartmentOwner extends User {
     public int rentCost;
     public String buildingAddress;
     private IndoorTemp indoorTemp = new IndoorTemp(0,0.0,"");
+    private HeatRegulation heatRegulation = new HeatRegulation(0,0, "");
 
 
     public ApartmentOwner(String name, String pass, int apartmentNumber, int rentCost, String buildingAddress){
@@ -24,12 +25,13 @@ public class ApartmentOwner extends User {
 
     }
 
-   // @Override
-   // public String toString() {
-   //     return "ApartmentOwner{" +
-   //             "user='" + user + '\'' +
-   //             '}';
-   // }
+    public HeatRegulation changeHeatingValue(User user){
+        String timeStamp = heatRegulation.readTimestamp();
+        double heatValue = heatRegulation.readHeatValueFromKeyBoard();
+        int aptNumber = ((ApartmentOwner) user).getApartmentNumber();
+        return new HeatRegulation(aptNumber, heatValue, timeStamp);
+
+    }
 
     public int getApartmentNumber() {
         return apartmentNumber;
