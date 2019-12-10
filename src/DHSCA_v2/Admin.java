@@ -10,7 +10,7 @@ public class Admin extends User {
 
     public User addApartmentOwner(){
         Scanner input = new Scanner(System.in);
-        String user, pass;
+        String user, pass, buildingAddress;
         int aptNumber = 0;
         int rentCost = 0;
         boolean validInput = false;
@@ -40,9 +40,14 @@ public class Admin extends User {
             }
         }
 
+        System.out.print("Please set the building address: ");
+        buildingAddress = input.nextLine();
+
+
+
 
         System.out.println("Apartment owner added");
-        return new ApartmentOwner(user, pass, aptNumber, rentCost);
+        return new ApartmentOwner(user, pass, aptNumber, rentCost, buildingAddress);
 
     }
 

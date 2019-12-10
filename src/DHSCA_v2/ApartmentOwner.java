@@ -4,11 +4,13 @@ public class ApartmentOwner extends User {
 
     public int apartmentNumber;
     public int rentCost;
+    public String buildingAddress;
 
-    public ApartmentOwner(String name, String pass, int apartmentNumber, int rentCost){
+    public ApartmentOwner(String name, String pass, int apartmentNumber, int rentCost, String buildingAddress){
         super(name, pass);
         this.apartmentNumber = apartmentNumber;
         this.rentCost = rentCost;
+        this.buildingAddress = buildingAddress;
     }
 
     public void addIndoorTemp(){
@@ -24,6 +26,10 @@ public class ApartmentOwner extends User {
 
     public int getApartmentNumber() {
         return apartmentNumber;
+    }
+
+    public String getBuildingAddress(){
+        return buildingAddress;
     }
 
     public int getRentCost(){

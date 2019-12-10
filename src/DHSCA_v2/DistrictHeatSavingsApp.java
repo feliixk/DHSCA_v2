@@ -14,8 +14,8 @@ public class DistrictHeatSavingsApp {
 
         //variabler för testning av users
         DHSCA.userArrayList.add(new Admin("admin", "root"));
-        DHSCA.userArrayList.add(new ApartmentOwner("sven", "nevs", 2, 300));
-        DHSCA.userArrayList.add(new ApartmentOwner("felix", "hemligt", 3, 320));
+        DHSCA.userArrayList.add(new ApartmentOwner("sven", "nevs", 2, 300, "Kyrkogatan"));
+        DHSCA.userArrayList.add(new ApartmentOwner("felix", "hemligt", 3, 320, "Kyrkogatan"));
 
         DHSCA.currentLoggedInUser = DHSCA.login();
         System.out.println("<Inloggad som: " + DHSCA.currentLoggedInUser.toString() + ">");
@@ -52,7 +52,7 @@ public class DistrictHeatSavingsApp {
         do {
             if (currentLoggedInUser instanceof Admin) {
                 System.out.println("--------------------------------------------------------");
-                System.out.println("[1] Add apartment" +
+                System.out.println("[1] Add apartment Owner" +
                         "\n[2] Add outdoor temperature measurement" +
                         "\n[3] Show today's outdoor measurements" +
                         "\n[4] Show last 7 days outdoor measurements" +
