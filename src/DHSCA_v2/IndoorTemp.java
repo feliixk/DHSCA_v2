@@ -1,5 +1,7 @@
 package DHSCA_v2;
 
+
+
 public class IndoorTemp extends Temperature {
     private int apartmentNr;
 
@@ -7,5 +9,11 @@ public class IndoorTemp extends Temperature {
         super(degrees, timeStamp);
         this.apartmentNr = apartmentNr;
 
+    }
+
+
+    public  int getApartmentNumber(ApartmentOwner user) {
+        apartmentNr = user.getApartmentNumber();
+        return apartmentNr;
     }
 }
