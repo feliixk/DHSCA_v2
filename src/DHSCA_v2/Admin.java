@@ -53,12 +53,12 @@ private OutdoorTemp outdoorTemp = new OutdoorTemp("",0,"");
 
     public OutdoorTemp addOutdoorTemp(){
         Scanner input = new Scanner(System.in);
-        String temptimes=outdoorTemp.readTimestamp();
-        double temptepm=outdoorTemp.readTempFromKeyboard();
+        String timestamp=outdoorTemp.readTimestamp();
+        double tempstamp=outdoorTemp.readTempFromKeyboard();
         System.out.println("Insert building adress number: ");
         input.next();
         String buildingadress = input.nextLine();
-        OutdoorTemp test = new OutdoorTemp(buildingadress,temptepm,temptimes);
+        OutdoorTemp test = new OutdoorTemp(buildingadress,tempstamp,timestamp);
         return test;
     }
 
