@@ -7,10 +7,12 @@ import java.util.Scanner;
 
 public class DistrictHeatSavingsApp {
     public User currentLoggedInUser;
+    // Arraylistor som sparar allt
     private ArrayList<User> userArrayList = new ArrayList<>();
     private ArrayList<OutdoorTemp> outdoorTemps = new ArrayList<>();
     private ArrayList<IndoorTemp> indoorTemps = new ArrayList<>();
     private ArrayList<String> sensorValues = new ArrayList<>();
+    // Objekt som används för att kalla på metoder
     private OutdoorTemp outdoorTemp = new OutdoorTemp("", 0.0, "");
     private IndoorTemp indoorTemp = new IndoorTemp(0,0.0,"");
     private Admin admin = new Admin("","");
