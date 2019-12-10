@@ -1,6 +1,7 @@
 package DHSCA_v2;
 
 import java.lang.module.FindException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -12,9 +13,11 @@ public class DistrictHeatSavingsApp {
     private ArrayList<OutdoorTemp> outdoorTemps = new ArrayList<>();
     private ArrayList<IndoorTemp> indoorTemps = new ArrayList<>();
     private ArrayList<String> sensorValues = new ArrayList<>();
+    private ArrayList<HeatRegulation> heatValues = new ArrayList<HeatRegulation>();
     // Objekt som används för att kalla på metoder
     private OutdoorTemp outdoorTemp = new OutdoorTemp("", 0.0, "");
     private IndoorTemp indoorTemp = new IndoorTemp(0,0.0,"");
+    private HeatRegulation heatRegulation = new HeatRegulation(0, 0, "");
     private Admin admin = new Admin("","");
     private ApartmentOwner apartmentOwner = new ApartmentOwner("", "",0,0,"");
 
@@ -113,6 +116,7 @@ public class DistrictHeatSavingsApp {
                         outdoorTemps.add(admin.addOutdoorTemp());
                     } else if (currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde change heat value>");
+                        heatValues.add(apartmentOwner.changeHeatingValue(currentLoggedInUser));
                     }
                     break;
                 case 3:
