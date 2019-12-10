@@ -8,10 +8,9 @@ import java.util.Scanner;
 public class DistrictHeatSavingsApp {
     public User currentLoggedInUser;
     private ArrayList<User> userArrayList = new ArrayList<>();
-    private ArrayList<Double> outdoorTemps = new ArrayList<>();
+    private ArrayList<OutdoorTemp> outdoorTemps = new ArrayList<>();
     private ArrayList<IndoorTemp> indoorTemps = new ArrayList<>();
     private ArrayList<String> sensorValues = new ArrayList<>();
-    private SensorValue sensorValue = new SensorValue("");
     private OutdoorTemp outdoorTemp = new OutdoorTemp("", 0.0, "");
 
     public static void main(String[] args) {
@@ -98,8 +97,14 @@ public class DistrictHeatSavingsApp {
                 case 2:
                     if (currentLoggedInUser instanceof Admin) {
                         System.out.println("<Du valde add outdoor temperature measurement>");
-                        sensorValues.add(sensorValue.readTimestamp());
-                        outdoorTemps.add(outdoorTemp.readTempFromKeyboard());
+                        String temptimes=outdoorTemp.readTimestamp();
+                        double temptepm=outdoorTemp.readTempFromKeyboard();
+                        System.out.println("Insert building adress number: ");
+                        input.next();
+                        String buildingadress = input.nextLine();
+                        outdoorTemps.add(new OutdoorTemp(buildingadress,temptepm,temptimes));
+                        System.out.println(outdoorTemps);
+
                     } else if (currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde change heat value>");
                     }
