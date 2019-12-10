@@ -3,7 +3,7 @@ package DHSCA_v2;
 import java.util.Scanner;
 
 public class Admin extends User {
-
+private OutdoorTemp outdoorTemp = new OutdoorTemp("",0,"");
     public Admin(String user, String pass){
         super(user, pass);
     }
@@ -51,8 +51,15 @@ public class Admin extends User {
 
     }
 
-    public void addOutdoorTemp(){
-
+    public OutdoorTemp addOutdoorTemp(){
+        Scanner input = new Scanner(System.in);
+        String temptimes=outdoorTemp.readTimestamp();
+        double temptepm=outdoorTemp.readTempFromKeyboard();
+        System.out.println("Insert building adress number: ");
+        input.next();
+        String buildingadress = input.nextLine();
+        OutdoorTemp test = new OutdoorTemp(buildingadress,temptepm,temptimes);
+        return test;
     }
 
     @Override

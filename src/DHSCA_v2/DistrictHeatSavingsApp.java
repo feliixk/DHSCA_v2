@@ -13,6 +13,7 @@ public class DistrictHeatSavingsApp {
     private ArrayList<String> sensorValues = new ArrayList<>();
     private OutdoorTemp outdoorTemp = new OutdoorTemp("", 0.0, "");
     private IndoorTemp indoorTemp = new IndoorTemp(0,0.0,"");
+    private Admin admin = new Admin("","");
 
     public static void main(String[] args) {
         DistrictHeatSavingsApp DHSCA = new DistrictHeatSavingsApp();
@@ -104,14 +105,7 @@ public class DistrictHeatSavingsApp {
                 case 2:
                     if (currentLoggedInUser instanceof Admin) {
                         System.out.println("<Du valde add outdoor temperature measurement>");
-                        String temptimes=outdoorTemp.readTimestamp();
-                        double temptepm=outdoorTemp.readTempFromKeyboard();
-                        System.out.println("Insert building adress number: ");
-                        input.next();
-                        String buildingadress = input.nextLine();
-                        outdoorTemps.add(new OutdoorTemp(buildingadress,temptepm,temptimes));
-                        System.out.println(outdoorTemps);
-
+                        outdoorTemps.add(admin.addOutdoorTemp());
                     } else if (currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde change heat value>");
                     }
