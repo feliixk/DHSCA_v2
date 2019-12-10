@@ -12,6 +12,7 @@ public class DistrictHeatSavingsApp {
     private ArrayList<IndoorTemp> indoorTemps = new ArrayList<>();
     private ArrayList<String> sensorValues = new ArrayList<>();
     private OutdoorTemp outdoorTemp = new OutdoorTemp("", 0.0, "");
+    private IndoorTemp indoorTemp = new IndoorTemp(0,0.0,"");
 
     public static void main(String[] args) {
         DistrictHeatSavingsApp DHSCA = new DistrictHeatSavingsApp();
@@ -92,6 +93,12 @@ public class DistrictHeatSavingsApp {
                         userArrayList.add(((Admin) currentLoggedInUser).addApartmentOwner());
                     } else if (currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde add indoor temperature>");
+                        String tempsTimes = indoorTemp.readTimestamp();
+                        double tempIndoor = indoorTemp.readTempFromKeyboard();
+                        int aptNumber = ((ApartmentOwner) currentLoggedInUser).getApartmentNumber();
+                        indoorTemps.add(new IndoorTemp(aptNumber,tempIndoor,tempsTimes));
+                        System.out.println(indoorTemps);
+
                     }
                     break;
                 case 2:
