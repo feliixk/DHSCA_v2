@@ -1,7 +1,6 @@
 package DHSCA_v2;
 
 import java.util.Scanner;
-
 public class Admin extends User {
 private OutdoorTemp outdoorTemp = new OutdoorTemp("",0,"");
     public Admin(String user, String pass){
@@ -50,7 +49,6 @@ private OutdoorTemp outdoorTemp = new OutdoorTemp("",0,"");
         return new ApartmentOwner(user, pass, aptNumber, rentCost, buildingAddress);
 
     }
-
     public OutdoorTemp addOutdoorTemp(){
         Scanner input = new Scanner(System.in);
         String timestamp=outdoorTemp.readTimestamp();

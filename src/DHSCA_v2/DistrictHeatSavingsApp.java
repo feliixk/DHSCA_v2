@@ -3,6 +3,7 @@ package DHSCA_v2;
 import java.lang.module.FindException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -122,6 +123,7 @@ public class DistrictHeatSavingsApp {
                 case 3:
                     if (currentLoggedInUser instanceof Admin) {
                         System.out.println("<Du valde show today's outdoor measurements>");
+                        printOutdoorTemp_Currentday();
                     } else if (currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde show average heat setting>");
                     }
@@ -129,6 +131,7 @@ public class DistrictHeatSavingsApp {
                 case 4:
                     if (currentLoggedInUser instanceof Admin) {
                         System.out.println("<Du valde show last 7 days outdoor measurements>");
+                        printOutdoorTemp_7lastDays();
                     } else if (currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde show today's indoor measurement>");
                     }
@@ -195,5 +198,43 @@ public class DistrictHeatSavingsApp {
 
     public User getCurrentLoggedInUser() {
         return currentLoggedInUser;
+    }
+
+    public void printOutdoorTemp_Currentday() {
+        int times = 1;
+        if (times <= outdoorTemps.size()) {
+            Collections.reverse(outdoorTemps);
+
+
+            for (int i = 0; i < times; i++) {
+                System.out.println("Outdoor temperature: " + outdoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + outdoorTemps.get(i).getTimeStamp());
+                System.out.println("----------------------------------");
+
+            }
+        } else {
+            System.out.println("You have not saved anything!!");
+            }
+        }
+
+
+    public void printOutdoorTemp_7lastDays() {
+        int times = 7;
+        if (times <= outdoorTemps.size()) {
+            Collections.reverse(outdoorTemps);
+
+
+            for (int i = 0; i < times; i++) {
+                System.out.println("Outdoor temperature: " + outdoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + outdoorTemps.get(i).getTimeStamp());
+                System.out.println("----------------------------------");
+
+            }
+        } else {
+            System.out.println("This is what you have saved!");
+            for (int i = outdoorTemps.size() - 1; i >= 0; i--) {
+                System.out.println("Outdoor temperature: " + outdoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + outdoorTemps.get(i).getDegrees());
+                System.out.println("----------------------------------");
+
+            }
+        }
     }
 }
