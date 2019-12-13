@@ -17,10 +17,10 @@ public class DistrictHeatSavingsApp {
     private ArrayList<HeatRegulation> heatValues = new ArrayList<HeatRegulation>();
     // Objekt som används för att kalla på metoder
     private OutdoorTemp outdoorTemp = new OutdoorTemp("", 0.0, "");
-    private IndoorTemp indoorTemp = new IndoorTemp(0,0.0,"");
+    private IndoorTemp indoorTemp = new IndoorTemp(0, 0.0, "");
     private HeatRegulation heatRegulation = new HeatRegulation(0, 0, "");
-    private Admin admin = new Admin("","");
-    private ApartmentOwner apartmentOwner = new ApartmentOwner("", "",0,0,"");
+    private Admin admin = new Admin("", "");
+    private ApartmentOwner apartmentOwner = new ApartmentOwner("", "", 0, 0, "");
 
     public static void main(String[] args) {
         DistrictHeatSavingsApp DHSCA = new DistrictHeatSavingsApp();
@@ -40,7 +40,7 @@ public class DistrictHeatSavingsApp {
         User result = null;
         Scanner input = new Scanner(System.in);
 
-        while(result == null){
+        while (result == null) {
             System.out.println("Please enter your username: ");
             String username = input.nextLine();
             System.out.println("Please enter your password: ");
@@ -57,10 +57,10 @@ public class DistrictHeatSavingsApp {
                 }
             }
 
-            if(result == null){
+            if (result == null) {
                 System.out.println("<Wrong username or password>");
             }
-    }
+        }
         return result;
     }
 
@@ -139,7 +139,6 @@ public class DistrictHeatSavingsApp {
                 case 5:
                     if (currentLoggedInUser instanceof Admin) {
                         System.out.println("<Du valde show average heat setting>");
-
                         //för testning
                         heatValues.add(new HeatRegulation(3, 23.3, "2019-12-06 21:34:55"));
                         heatValues.add(new HeatRegulation(3, 56, "2019-12-07 21:34:55"));
@@ -201,7 +200,16 @@ public class DistrictHeatSavingsApp {
     }
 
     public void printOutdoorTemp_Currentday() {
-        int times = 1;
+        ArrayList<Double> test= new ArrayList<>();
+        double sum = 0;
+        for (var i = 0; i <outdoorTemps.size(); i++) {
+            test.add(outdoorTemps.get(i).getDegrees());
+        }
+
+        for (int i = 0; i < test.size(); i++) {
+            sum+=test.get(i);
+        }
+        var times = 1;
         if (times <= outdoorTemps.size()) {
             Collections.reverse(outdoorTemps);
 
@@ -211,13 +219,23 @@ public class DistrictHeatSavingsApp {
                 System.out.println("----------------------------------");
 
             }
+            System.out.println("Average temperature:"+sum/test.size()+"°C");
         } else {
             System.out.println("You have not saved anything!!");
-            }
         }
+    }
 
 
     public void printOutdoorTemp_7lastDays() {
+        ArrayList<Double> test= new ArrayList<>();
+        double sum = 0;
+        for (var i = 0; i <outdoorTemps.size(); i++) {
+            test.add(outdoorTemps.get(i).getDegrees());
+        }
+
+        for (int i = 0; i < test.size(); i++) {
+            sum+=test.get(i);
+        }
         int times = 7;
         if (times <= outdoorTemps.size()) {
             Collections.reverse(outdoorTemps);
@@ -231,10 +249,11 @@ public class DistrictHeatSavingsApp {
         } else {
             System.out.println("This is what you have saved!");
             for (int i = outdoorTemps.size() - 1; i >= 0; i--) {
-                System.out.println("Outdoor temperature: " + outdoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + outdoorTemps.get(i).getDegrees());
+                System.out.println("Outdoor temperature: " + outdoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + outdoorTemps.get(i).getTimeStamp());
                 System.out.println("----------------------------------");
 
             }
+            System.out.println("Average temperature:"+sum/test.size()+"°C");
         }
     }
 }
