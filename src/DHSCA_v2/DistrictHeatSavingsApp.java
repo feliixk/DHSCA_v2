@@ -13,7 +13,6 @@ public class DistrictHeatSavingsApp {
     private Admin admin = new Admin("", "");
     private ApartmentOwner apartmentOwner = new ApartmentOwner("", "", 0, 0, "");
 
-    private StaticClasses storer = StaticClasses.getInstance();
 
     public static void main(String[] args) {
         DistrictHeatSavingsApp DHSCA = new DistrictHeatSavingsApp();
