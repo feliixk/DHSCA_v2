@@ -6,8 +6,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Scanner;
 public class Admin extends User {
-private OutdoorTemp outdoorTemp = new OutdoorTemp("",0,"");
-    public Admin(String user, String pass){
+
+public Admin(String user, String pass){
         super(user, pass);
     }
 
@@ -55,8 +55,8 @@ private OutdoorTemp outdoorTemp = new OutdoorTemp("",0,"");
     }
     public OutdoorTemp addOutdoorTemp(){
         Scanner input = new Scanner(System.in);
-        String timestamp=outdoorTemp.readTimestamp();
-        double tempstamp=outdoorTemp.readTempFromKeyboard();
+        String timestamp=Data.getInstance().outdoorTemp.readTimestamp();
+        double tempstamp=Data.getInstance().outdoorTemp.readTempFromKeyboard();
         System.out.println("Insert building adress number: ");
         input.next();
         String buildingadress = input.nextLine();

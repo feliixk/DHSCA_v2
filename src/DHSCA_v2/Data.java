@@ -14,6 +14,8 @@ public class Data {
     public ArrayList<HeatRegulation> heatValues = new ArrayList<HeatRegulation>();
     public HeatRegulation heatRegulation = new HeatRegulation(0, 0, "");
     public Admin admin = new Admin("", "");
+    public OutdoorTemp outdoorTemp = new OutdoorTemp("",0,"");
+    public IndoorTemp indoorTemp = new IndoorTemp(0,0.0,"");
     public ApartmentOwner apartmentOwner = new ApartmentOwner("", "", 0, 0, "");
     public Logic logic = new Logic();
 
