@@ -8,12 +8,6 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class DistrictHeatSavingsApp {
-
-    private HeatRegulation heatRegulation = new HeatRegulation(0, 0, "");
-    private Admin admin = new Admin("", "");
-    private ApartmentOwner apartmentOwner = new ApartmentOwner("", "", 0, 0, "");
-
-
     public static void main(String[] args) {
         DistrictHeatSavingsApp DHSCA = new DistrictHeatSavingsApp();
 
@@ -99,18 +93,18 @@ public class DistrictHeatSavingsApp {
                         Data.getInstance().userArrayList.add(((Admin) Data.getInstance().currentLoggedInUser).addApartmentOwner());
                     } else if (Data.getInstance().currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde add indoor temperature>");
-                        Data.getInstance().indoorTemps.add(apartmentOwner.addIndoorTemp(Data.getInstance().currentLoggedInUser));
+                        Data.getInstance().indoorTemps.add(Data.getInstance().apartmentOwner.addIndoorTemp(Data.getInstance().currentLoggedInUser));
 
                     }
                     break;
                 case 2:
                     if (Data.getInstance().currentLoggedInUser instanceof Admin) {
                         System.out.println("<Du valde add outdoor temperature measurement>");
-                        Data.getInstance().outdoorTemps.add(admin.addOutdoorTemp());
+                        Data.getInstance().outdoorTemps.add(Data.getInstance().admin.addOutdoorTemp());
                         
                     } else if (Data.getInstance().currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde change heat value>");
-                        Data.getInstance().heatValues.add(apartmentOwner.changeHeatingValue(Data.getInstance().currentLoggedInUser));
+                        Data.getInstance().heatValues.add(Data.getInstance().apartmentOwner.changeHeatingValue(Data.getInstance().currentLoggedInUser));
                     }
                     break;
                 case 3:
@@ -141,7 +135,7 @@ public class DistrictHeatSavingsApp {
                         Data.getInstance().heatValues.add(new HeatRegulation(2, 23.3, "2019-12-06 21:34:55"));
                         Data.getInstance().heatValues.add(new HeatRegulation(3, 23.3, "2019-12-06 21:34:55"));
 
-                        heatRegulation.showAverageHeatSetting(Data.getInstance().heatValues, Data.getInstance().userArrayList);
+                        Data.getInstance().admin.showAverageHeatSetting(Data.getInstance().heatValues, Data.getInstance().userArrayList);
 
                         Data.getInstance().heatValues.clear();
                     } else if (Data.getInstance().currentLoggedInUser instanceof ApartmentOwner) {
