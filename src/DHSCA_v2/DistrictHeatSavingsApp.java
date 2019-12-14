@@ -36,7 +36,6 @@ public class DistrictHeatSavingsApp {
         System.out.println("<Inloggad som: " + DHSCA.currentLoggedInUser.toString() + ">");
 
         DHSCA.showMenu();
-        DHSCA.showMenu();
     }
 
     public User login() {
@@ -147,18 +146,18 @@ public class DistrictHeatSavingsApp {
                     if (currentLoggedInUser instanceof Admin) {
                         System.out.println("<Du valde show average heat setting>");
                         //för testning
-/*
+
                         heatValues.add(new HeatRegulation(3, 23.3, "2019-12-06 21:34:55"));
                         heatValues.add(new HeatRegulation(3, 56, "2019-12-07 21:34:55"));
                         heatValues.add(new HeatRegulation(1, 23.3, "2019-12-06 21:34:55"));
                         heatValues.add(new HeatRegulation(3, 23.3, "2019-12-06 20:34:55"));
                         heatValues.add(new HeatRegulation(2, 23.3, "2019-12-06 21:34:55"));
                         heatValues.add(new HeatRegulation(3, 23.3, "2019-12-06 21:34:55"));
-*/
+
                         heatRegulation.showAverageHeatSetting(heatValues, userArrayList);
                         //storer.getHeatRegulation().showAverageHeatSetting(heatValues, userArrayList);
 
-
+                        heatValues.clear();
                         //för testning
                     } else if (currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde show last 7 day's indoor measurement>");
