@@ -15,12 +15,14 @@ public class DistrictHeatSavingsApp {
     private ArrayList<IndoorTemp> indoorTemps = new ArrayList<>();
     private ArrayList<String> sensorValues = new ArrayList<>();
     private ArrayList<HeatRegulation> heatValues = new ArrayList<HeatRegulation>();
-    // Objekt som används för att kalla på metoder
+
     private OutdoorTemp outdoorTemp = new OutdoorTemp("", 0.0, "");
     private IndoorTemp indoorTemp = new IndoorTemp(0, 0.0, "");
     private HeatRegulation heatRegulation = new HeatRegulation(0, 0, "");
     private Admin admin = new Admin("", "");
     private ApartmentOwner apartmentOwner = new ApartmentOwner("", "", 0, 0, "");
+
+    private StaticClasses storer = StaticClasses.getInstance();
 
     public static void main(String[] args) {
         DistrictHeatSavingsApp DHSCA = new DistrictHeatSavingsApp();
@@ -33,6 +35,7 @@ public class DistrictHeatSavingsApp {
         DHSCA.currentLoggedInUser = DHSCA.login();
         System.out.println("<Inloggad som: " + DHSCA.currentLoggedInUser.toString() + ">");
 
+        DHSCA.showMenu();
         DHSCA.showMenu();
     }
 
@@ -107,17 +110,17 @@ public class DistrictHeatSavingsApp {
                         userArrayList.add(((Admin) currentLoggedInUser).addApartmentOwner());
                     } else if (currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde add indoor temperature>");
-                        indoorTemps.add(apartmentOwner.addIndoorTemp(currentLoggedInUser));
+                        indoorTemps.add(storer.getApartmentOwner().addIndoorTemp(currentLoggedInUser));
 
                     }
                     break;
                 case 2:
                     if (currentLoggedInUser instanceof Admin) {
                         System.out.println("<Du valde add outdoor temperature measurement>");
-                        outdoorTemps.add(admin.addOutdoorTemp());
+                        outdoorTemps.add(storer.getAdmin().addOutdoorTemp());
                     } else if (currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde change heat value>");
-                        heatValues.add(apartmentOwner.changeHeatingValue(currentLoggedInUser));
+                        heatValues.add(storer.getApartmentOwner().changeHeatingValue(currentLoggedInUser));
                     }
                     break;
                 case 3:
@@ -140,17 +143,18 @@ public class DistrictHeatSavingsApp {
                     if (currentLoggedInUser instanceof Admin) {
                         System.out.println("<Du valde show average heat setting>");
                         //för testning
+/*
                         heatValues.add(new HeatRegulation(3, 23.3, "2019-12-06 21:34:55"));
                         heatValues.add(new HeatRegulation(3, 56, "2019-12-07 21:34:55"));
                         heatValues.add(new HeatRegulation(1, 23.3, "2019-12-06 21:34:55"));
                         heatValues.add(new HeatRegulation(3, 23.3, "2019-12-06 20:34:55"));
                         heatValues.add(new HeatRegulation(2, 23.3, "2019-12-06 21:34:55"));
                         heatValues.add(new HeatRegulation(3, 23.3, "2019-12-06 21:34:55"));
+*/
 
-                        heatRegulation.showAverageHeatSetting(heatValues);
+                        storer.getHeatRegulation().showAverageHeatSetting(heatValues, userArrayList);
 
                         //för testning
-                        heatValues.clear();
                     } else if (currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde show last 7 day's indoor measurement>");
                     }
@@ -159,14 +163,17 @@ public class DistrictHeatSavingsApp {
                     printApartments();
                     break;
                 case 0:
-                    System.out.println("<Exiting menu>");
-                    break;
+                    //System.out.println("<Exiting menu>");
+                    //break;
+                    currentLoggedInUser = userArrayList.get(0);
                 case 666:
-                    System.out.println("<TERMINATING APPLICATION>");
-                    System.exit(0);
+                    currentLoggedInUser = userArrayList.get(0);
+                    /*System.out.println("<TERMINATING APPLICATION>");
+                    System.exit(0);*/
                 default:
-                    System.out.println("<No option found for input>");
-                    break;
+                    /*System.out.println("<No option found for input>");
+                    break;*/
+                    currentLoggedInUser = userArrayList.get(0);
             }
         } while (choice != 0);
     }
