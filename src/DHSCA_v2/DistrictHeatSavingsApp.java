@@ -141,7 +141,7 @@ public class DistrictHeatSavingsApp {
                         Data.getInstance().heatValues.add(new HeatRegulation(2, 23.3, "2019-12-06 21:34:55"));
                         Data.getInstance().heatValues.add(new HeatRegulation(3, 23.3, "2019-12-06 21:34:55"));
 
-                        heatRegulation.showAverageHeatSetting(Data.getInstance().heatValues, Data.getInstance().userArrayList);
+                        heatRegulation.showAverageHeatSetting();
 
                         Data.getInstance().heatValues.clear();
                     } else if (Data.getInstance().currentLoggedInUser instanceof ApartmentOwner) {

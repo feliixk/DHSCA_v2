@@ -28,7 +28,7 @@ public class HeatRegulation extends SensorValue {
         return heatValue;
     }
 
-    public void showAverageHeatSetting(ArrayList<HeatRegulation> heatRegulationArrayList, ArrayList<User> userList){
+    public void showAverageHeatSetting(){
         Scanner input = new Scanner(System.in);
         int apartmentNumber;
         String dateInput;
@@ -49,13 +49,13 @@ public class HeatRegulation extends SensorValue {
         dateInput = input.nextLine();
 
         for (HeatRegulation heatRegulation :
-             heatRegulationArrayList) {
+             Data.getInstance().heatValues) {
             if (apartmentNumber == heatRegulation.aptNumber && heatRegulation.getTimeStamp().contains(dateInput)){
                 heatRegulationsInMethod.add(heatRegulation);
             }
         }
 
-        for(User u: userList){
+        for(User u: Data.getInstance().userArrayList){
             if (u instanceof ApartmentOwner) {
                 if (apartmentNumber == ((ApartmentOwner) u).getApartmentNumber()) {
                     daily_base_amount = ((ApartmentOwner) u).getRentCost() / 300;
