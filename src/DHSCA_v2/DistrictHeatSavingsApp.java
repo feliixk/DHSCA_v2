@@ -110,7 +110,8 @@ public class DistrictHeatSavingsApp {
                         userArrayList.add(((Admin) currentLoggedInUser).addApartmentOwner());
                     } else if (currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde add indoor temperature>");
-                        indoorTemps.add(storer.getApartmentOwner().addIndoorTemp(currentLoggedInUser));
+                        //indoorTemps.add(storer.getApartmentOwner().addIndoorTemp(currentLoggedInUser));
+                        indoorTemps.add(apartmentOwner.addIndoorTemp(currentLoggedInUser));
 
                     }
                     break;
@@ -120,7 +121,8 @@ public class DistrictHeatSavingsApp {
                         outdoorTemps.add(storer.getAdmin().addOutdoorTemp());
                     } else if (currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde change heat value>");
-                        heatValues.add(storer.getApartmentOwner().changeHeatingValue(currentLoggedInUser));
+                        heatValues.add(apartmentOwner.changeHeatingValue(currentLoggedInUser));
+                        //heatValues.add(storer.getApartmentOwner().changeHeatingValue(currentLoggedInUser));
                     }
                     break;
                 case 3:
