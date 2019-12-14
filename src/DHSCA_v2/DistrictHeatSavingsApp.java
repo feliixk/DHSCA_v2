@@ -118,7 +118,8 @@ public class DistrictHeatSavingsApp {
                 case 2:
                     if (currentLoggedInUser instanceof Admin) {
                         System.out.println("<Du valde add outdoor temperature measurement>");
-                        outdoorTemps.add(storer.getAdmin().addOutdoorTemp());
+                        outdoorTemps.add(admin.addOutdoorTemp());
+                        //outdoorTemps.add(storer.getAdmin().addOutdoorTemp());
                         
                     } else if (currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde change heat value>");
