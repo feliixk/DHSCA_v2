@@ -8,16 +8,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class DistrictHeatSavingsApp {
-    public User currentLoggedInUser;
-    // Arraylistor som sparar allt
-    private ArrayList<User> userArrayList = new ArrayList<>();
-    private ArrayList<OutdoorTemp> outdoorTemps = new ArrayList<>();
-    private ArrayList<IndoorTemp> indoorTemps = new ArrayList<>();
-    private ArrayList<String> sensorValues = new ArrayList<>();
-    private ArrayList<HeatRegulation> heatValues = new ArrayList<HeatRegulation>();
 
-    private OutdoorTemp outdoorTemp = new OutdoorTemp("", 0.0, "");
-    private IndoorTemp indoorTemp = new IndoorTemp(0, 0.0, "");
     private HeatRegulation heatRegulation = new HeatRegulation(0, 0, "");
     private Admin admin = new Admin("", "");
     private ApartmentOwner apartmentOwner = new ApartmentOwner("", "", 0, 0, "");
@@ -28,12 +19,12 @@ public class DistrictHeatSavingsApp {
         DistrictHeatSavingsApp DHSCA = new DistrictHeatSavingsApp();
 
         //variabler för testning av users
-        DHSCA.userArrayList.add(new Admin("admin", "root"));
-        DHSCA.userArrayList.add(new ApartmentOwner("sven", "nevs", 2, 300, "Kyrkogatan"));
-        DHSCA.userArrayList.add(new ApartmentOwner("felix", "hemligt", 3, 320, "Kyrkogatan"));
+        Data.getInstance().userArrayList.add(new Admin("admin", "root"));
+        Data.getInstance().userArrayList.add(new ApartmentOwner("sven", "nevs", 2, 300, "Kyrkogatan"));
+        Data.getInstance().userArrayList.add(new ApartmentOwner("felix", "hemligt", 3, 320, "Kyrkogatan"));
 
-        DHSCA.currentLoggedInUser = DHSCA.login();
-        System.out.println("<Inloggad som: " + DHSCA.currentLoggedInUser.toString() + ">");
+        Data.getInstance().currentLoggedInUser = DHSCA.login();
+        System.out.println("<Inloggad som: " + Data.getInstance().currentLoggedInUser.toString() + ">");
 
         DHSCA.showMenu();
     }
@@ -49,7 +40,7 @@ public class DistrictHeatSavingsApp {
             String password = input.nextLine();
 
             for (User userInLoop :
-                    userArrayList) {
+                    Data.getInstance().userArrayList) {
                 if (userInLoop.getUser().equals(username) && userInLoop.getPass().equals(password)) {
                     if (userInLoop instanceof Admin) {
                         result = userInLoop;
@@ -71,7 +62,7 @@ public class DistrictHeatSavingsApp {
         Scanner input = new Scanner(System.in);
 
         do {
-            if (currentLoggedInUser instanceof Admin) {
+            if (Data.getInstance().currentLoggedInUser instanceof Admin) {
                 System.out.println("--------------------------------------------------------");
                 System.out.println("[1] Add apartment Owner" +
                         "\n[2] Add outdoor temperature measurement" +
@@ -82,7 +73,7 @@ public class DistrictHeatSavingsApp {
                         "\n[0] Exit menu" +
                         "\n[666] TERMINATE APPLICATION");
                 System.out.println("--------------------------------------------------------");
-            } else if (currentLoggedInUser instanceof ApartmentOwner) {
+            } else if (Data.getInstance().currentLoggedInUser instanceof ApartmentOwner) {
                 System.out.println("--------------------------------------------------------");
                 System.out.println("[1] Add indoor temperature" +
                         "\n[2] Change heat value" +
@@ -104,62 +95,57 @@ public class DistrictHeatSavingsApp {
 
             switch (choice) {
                 case 1:
-                    if (currentLoggedInUser instanceof Admin) {
+                    if (Data.getInstance().currentLoggedInUser instanceof Admin) {
                         System.out.println("<Du valde add apartment>");
-                        userArrayList.add(((Admin) currentLoggedInUser).addApartmentOwner());
-                    } else if (currentLoggedInUser instanceof ApartmentOwner) {
+                        Data.getInstance().userArrayList.add(((Admin) Data.getInstance().currentLoggedInUser).addApartmentOwner());
+                    } else if (Data.getInstance().currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde add indoor temperature>");
-                        //indoorTemps.add(storer.getApartmentOwner().addIndoorTemp(currentLoggedInUser));
-                        indoorTemps.add(apartmentOwner.addIndoorTemp(currentLoggedInUser));
+                        Data.getInstance().indoorTemps.add(apartmentOwner.addIndoorTemp(Data.getInstance().currentLoggedInUser));
 
                     }
                     break;
                 case 2:
-                    if (currentLoggedInUser instanceof Admin) {
+                    if (Data.getInstance().currentLoggedInUser instanceof Admin) {
                         System.out.println("<Du valde add outdoor temperature measurement>");
-                        outdoorTemps.add(admin.addOutdoorTemp());
-                        //outdoorTemps.add(storer.getAdmin().addOutdoorTemp());
+                        Data.getInstance().outdoorTemps.add(admin.addOutdoorTemp());
                         
-                    } else if (currentLoggedInUser instanceof ApartmentOwner) {
+                    } else if (Data.getInstance().currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde change heat value>");
-                        heatValues.add(apartmentOwner.changeHeatingValue(currentLoggedInUser));
-                        //heatValues.add(storer.getApartmentOwner().changeHeatingValue(currentLoggedInUser));
+                        Data.getInstance().heatValues.add(apartmentOwner.changeHeatingValue(Data.getInstance().currentLoggedInUser));
                     }
                     break;
                 case 3:
-                    if (currentLoggedInUser instanceof Admin) {
+                    if (Data.getInstance().currentLoggedInUser instanceof Admin) {
                         System.out.println("<Du valde show today's outdoor measurements>");
                         printOutdoorTemp_Currentday();
-                    } else if (currentLoggedInUser instanceof ApartmentOwner) {
+                    } else if (Data.getInstance().currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde show average heat setting>");
                     }
                     break;
                 case 4:
-                    if (currentLoggedInUser instanceof Admin) {
+                    if (Data.getInstance().currentLoggedInUser instanceof Admin) {
                         System.out.println("<Du valde show last 7 days outdoor measurements>");
                         printOutdoorTemp_7lastDays();
-                    } else if (currentLoggedInUser instanceof ApartmentOwner) {
+                    } else if (Data.getInstance().currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde show today's indoor measurement>");
                     }
                     break;
                 case 5:
-                    if (currentLoggedInUser instanceof Admin) {
+                    if (Data.getInstance().currentLoggedInUser instanceof Admin) {
                         System.out.println("<Du valde show average heat setting>");
                         //för testning
 
-                        heatValues.add(new HeatRegulation(3, 23.3, "2019-12-06 21:34:55"));
-                        heatValues.add(new HeatRegulation(3, 56, "2019-12-07 21:34:55"));
-                        heatValues.add(new HeatRegulation(1, 23.3, "2019-12-06 21:34:55"));
-                        heatValues.add(new HeatRegulation(3, 23.3, "2019-12-06 20:34:55"));
-                        heatValues.add(new HeatRegulation(2, 23.3, "2019-12-06 21:34:55"));
-                        heatValues.add(new HeatRegulation(3, 23.3, "2019-12-06 21:34:55"));
+                        Data.getInstance().heatValues.add(new HeatRegulation(3, 23.3, "2019-12-06 21:34:55"));
+                        Data.getInstance().heatValues.add(new HeatRegulation(3, 56, "2019-12-07 21:34:55"));
+                        Data.getInstance().heatValues.add(new HeatRegulation(1, 23.3, "2019-12-06 21:34:55"));
+                        Data.getInstance().heatValues.add(new HeatRegulation(3, 23.3, "2019-12-06 20:34:55"));
+                        Data.getInstance().heatValues.add(new HeatRegulation(2, 23.3, "2019-12-06 21:34:55"));
+                        Data.getInstance().heatValues.add(new HeatRegulation(3, 23.3, "2019-12-06 21:34:55"));
 
-                        heatRegulation.showAverageHeatSetting(heatValues, userArrayList);
-                        //storer.getHeatRegulation().showAverageHeatSetting(heatValues, userArrayList);
+                        heatRegulation.showAverageHeatSetting(Data.getInstance().heatValues, Data.getInstance().userArrayList);
 
-                        heatValues.clear();
-                        //för testning
-                    } else if (currentLoggedInUser instanceof ApartmentOwner) {
+                        Data.getInstance().heatValues.clear();
+                    } else if (Data.getInstance().currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde show last 7 day's indoor measurement>");
                     }
                     break;
@@ -181,21 +167,21 @@ public class DistrictHeatSavingsApp {
 
     public void printApartments() {
         System.out.println("--------------------------------------------------------");
-        if (currentLoggedInUser instanceof Admin) {
+        if (Data.getInstance().currentLoggedInUser instanceof Admin) {
             for (User u :
-                    userArrayList) {
+                    Data.getInstance().userArrayList) {
                 if (u instanceof ApartmentOwner) {
                     System.out.println(u.toString() + " Rent cost: " + ((ApartmentOwner) u).getRentCost() +
                             ", Password: " + u.getPass());
                 }
             }
-        } else if (currentLoggedInUser instanceof ApartmentOwner) {
+        } else if (Data.getInstance().currentLoggedInUser instanceof ApartmentOwner) {
             for (User u :
-                    userArrayList) {
-                if (u instanceof ApartmentOwner && currentLoggedInUser.equals(u)) {
+                    Data.getInstance().userArrayList) {
+                if (u instanceof ApartmentOwner && Data.getInstance().currentLoggedInUser.equals(u)) {
                     System.out.println("<LOGGED IN USER> " + u.toString() + " Rent cost: " +
                             ((ApartmentOwner) u).getRentCost() + ", Password: " + u.getPass());
-                } else if (u instanceof ApartmentOwner && !currentLoggedInUser.equals(u)) {
+                } else if (u instanceof ApartmentOwner && !Data.getInstance().currentLoggedInUser.equals(u)) {
                     System.out.println(u.toString());
                 }
             }
@@ -204,26 +190,26 @@ public class DistrictHeatSavingsApp {
     }
 
     public User getCurrentLoggedInUser() {
-        return currentLoggedInUser;
+        return Data.getInstance().currentLoggedInUser;
     }
 
     public void printOutdoorTemp_Currentday() {
         ArrayList<Double> test= new ArrayList<>();
         double sum = 0;
-        for (var i = 0; i <outdoorTemps.size(); i++) {
-            test.add(outdoorTemps.get(i).getDegrees());
+        for (var i = 0; i <Data.getInstance().outdoorTemps.size(); i++) {
+            test.add(Data.getInstance().outdoorTemps.get(i).getDegrees());
         }
 
         for (int i = 0; i < test.size(); i++) {
             sum+=test.get(i);
         }
         var times = 1;
-        if (times <= outdoorTemps.size()) {
-            Collections.reverse(outdoorTemps);
+        if (times <= Data.getInstance().outdoorTemps.size()) {
+            Collections.reverse(Data.getInstance().outdoorTemps);
 
 
             for (int i = 0; i < times; i++) {
-                System.out.println("Outdoor temperature: " + outdoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + outdoorTemps.get(i).getTimeStamp());
+                System.out.println("Outdoor temperature: " + Data.getInstance().outdoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + Data.getInstance().outdoorTemps.get(i).getTimeStamp());
                 System.out.println("----------------------------------");
 
             }
@@ -237,27 +223,27 @@ public class DistrictHeatSavingsApp {
     public void printOutdoorTemp_7lastDays() {
         ArrayList<Double> test= new ArrayList<>();
         double sum = 0;
-        for (var i = 0; i <outdoorTemps.size(); i++) {
-            test.add(outdoorTemps.get(i).getDegrees());
+        for (var i = 0; i <Data.getInstance().outdoorTemps.size(); i++) {
+            test.add(Data.getInstance().outdoorTemps.get(i).getDegrees());
         }
 
         for (int i = 0; i < test.size(); i++) {
             sum+=test.get(i);
         }
         int times = 7;
-        if (times <= outdoorTemps.size()) {
-            Collections.reverse(outdoorTemps);
+        if (times <= Data.getInstance().outdoorTemps.size()) {
+            Collections.reverse(Data.getInstance().outdoorTemps);
 
 
             for (int i = 0; i < times; i++) {
-                System.out.println("Outdoor temperature: " + outdoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + outdoorTemps.get(i).getTimeStamp());
+                System.out.println("Outdoor temperature: " + Data.getInstance().outdoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + Data.getInstance().outdoorTemps.get(i).getTimeStamp());
                 System.out.println("----------------------------------");
 
             }
         } else {
             System.out.println("This is what you have saved!");
-            for (int i = outdoorTemps.size() - 1; i >= 0; i--) {
-                System.out.println("Outdoor temperature: " + outdoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + outdoorTemps.get(i).getTimeStamp());
+            for (int i = Data.getInstance().outdoorTemps.size() - 1; i >= 0; i--) {
+                System.out.println("Outdoor temperature: " + Data.getInstance().outdoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + Data.getInstance().outdoorTemps.get(i).getTimeStamp());
                 System.out.println("----------------------------------");
 
             }
