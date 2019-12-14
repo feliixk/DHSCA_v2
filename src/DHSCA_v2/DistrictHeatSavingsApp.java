@@ -119,6 +119,7 @@ public class DistrictHeatSavingsApp {
                     if (currentLoggedInUser instanceof Admin) {
                         System.out.println("<Du valde add outdoor temperature measurement>");
                         outdoorTemps.add(storer.getAdmin().addOutdoorTemp());
+                        
                     } else if (currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde change heat value>");
                         heatValues.add(apartmentOwner.changeHeatingValue(currentLoggedInUser));
@@ -153,8 +154,9 @@ public class DistrictHeatSavingsApp {
                         heatValues.add(new HeatRegulation(2, 23.3, "2019-12-06 21:34:55"));
                         heatValues.add(new HeatRegulation(3, 23.3, "2019-12-06 21:34:55"));
 */
+                        heatRegulation.showAverageHeatSetting(heatValues, userArrayList);
+                        //storer.getHeatRegulation().showAverageHeatSetting(heatValues, userArrayList);
 
-                        storer.getHeatRegulation().showAverageHeatSetting(heatValues, userArrayList);
 
                         //för testning
                     } else if (currentLoggedInUser instanceof ApartmentOwner) {
@@ -165,17 +167,14 @@ public class DistrictHeatSavingsApp {
                     printApartments();
                     break;
                 case 0:
-                    //System.out.println("<Exiting menu>");
-                    //break;
-                    currentLoggedInUser = userArrayList.get(0);
+                    System.out.println("<Exiting menu>");
+                    break;
                 case 666:
-                    currentLoggedInUser = userArrayList.get(0);
-                    /*System.out.println("<TERMINATING APPLICATION>");
-                    System.exit(0);*/
+                    System.out.println("<TERMINATING APPLICATION>");
+                    System.exit(0);
                 default:
-                    /*System.out.println("<No option found for input>");
-                    break;*/
-                    currentLoggedInUser = userArrayList.get(0);
+                    System.out.println("<No option found for input>");
+                    break;
             }
         } while (choice != 0);
     }
