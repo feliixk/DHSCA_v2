@@ -2,6 +2,7 @@ package DHSCA_v2;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Scanner;
 public class Admin extends User {
@@ -116,6 +117,64 @@ private OutdoorTemp outdoorTemp = new OutdoorTemp("",0,"");
 
         //TODO[SS, FK]: Beräkna avg heat value och printa, just nu hittar den rätt apartment till rätt datum, men
         // den beräknar inte avg heat value
+    }
+
+    public void printOutdoorTemp_Currentday() {
+        ArrayList<Double> test= new ArrayList<>();
+        double sum = 0;
+        for (var i = 0; i <Data.getInstance().outdoorTemps.size(); i++) {
+            test.add(Data.getInstance().outdoorTemps.get(i).getDegrees());
+        }
+
+        for (int i = 0; i < test.size(); i++) {
+            sum+=test.get(i);
+        }
+        var times = 1;
+        if (times <= Data.getInstance().outdoorTemps.size()) {
+            Collections.reverse(Data.getInstance().outdoorTemps);
+
+
+            for (int i = 0; i < times; i++) {
+                System.out.println("Outdoor temperature: " + Data.getInstance().outdoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + Data.getInstance().outdoorTemps.get(i).getTimeStamp());
+                System.out.println("----------------------------------");
+
+            }
+            System.out.println("Average temperature:"+sum/test.size()+"°C");
+        } else {
+            System.out.println("You have not saved anything!!");
+        }
+    }
+
+
+    public void printOutdoorTemp_7lastDays() {
+        ArrayList<Double> test= new ArrayList<>();
+        double sum = 0;
+        for (var i = 0; i <Data.getInstance().outdoorTemps.size(); i++) {
+            test.add(Data.getInstance().outdoorTemps.get(i).getDegrees());
+        }
+
+        for (int i = 0; i < test.size(); i++) {
+            sum+=test.get(i);
+        }
+        int times = 7;
+        if (times <= Data.getInstance().outdoorTemps.size()) {
+            Collections.reverse(Data.getInstance().outdoorTemps);
+
+
+            for (int i = 0; i < times; i++) {
+                System.out.println("Outdoor temperature: " + Data.getInstance().outdoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + Data.getInstance().outdoorTemps.get(i).getTimeStamp());
+                System.out.println("----------------------------------");
+
+            }
+        } else {
+            System.out.println("This is what you have saved!");
+            for (int i = Data.getInstance().outdoorTemps.size() - 1; i >= 0; i--) {
+                System.out.println("Outdoor temperature: " + Data.getInstance().outdoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + Data.getInstance().outdoorTemps.get(i).getTimeStamp());
+                System.out.println("----------------------------------");
+
+            }
+            System.out.println("Average temperature:"+sum/test.size()+"°C");
+        }
     }
 
     @Override
