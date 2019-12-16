@@ -1,5 +1,6 @@
 package DHSCA_v2;
 
+import java.io.File;
 import java.lang.module.FindException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -265,5 +266,14 @@ public class DistrictHeatSavingsApp {
             }
             System.out.printf("Average temperature:%.1f°C%n",sum);
         }
+
+    }
+    public void saveArrays(){
+        File file= new File("DHSCA_v2");
+        //todo spara arrayList till en fil
+
+
+
+
     }
 }
