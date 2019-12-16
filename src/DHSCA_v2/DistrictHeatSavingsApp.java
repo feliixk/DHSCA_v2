@@ -217,6 +217,7 @@ public class DistrictHeatSavingsApp {
         for (int i = 0; i < test.size(); i++) {
             sum+=test.get(i);
         }
+        sum/=test.size();
         var times = 1;
         if (times <= outdoorTemps.size()) {
             Collections.reverse(outdoorTemps);
@@ -227,7 +228,7 @@ public class DistrictHeatSavingsApp {
                 System.out.println("----------------------------------");
 
             }
-            System.out.println("Average temperature:"+sum/test.size()+"°C");
+            System.out.printf("Average temperature:%.1f°C%n",sum);
         } else {
             System.out.println("You have not saved anything!!");
         }
@@ -244,6 +245,7 @@ public class DistrictHeatSavingsApp {
         for (int i = 0; i < test.size(); i++) {
             sum+=test.get(i);
         }
+        sum/=test.size();
         int times = 7;
         if (times <= outdoorTemps.size()) {
             Collections.reverse(outdoorTemps);
@@ -261,7 +263,7 @@ public class DistrictHeatSavingsApp {
                 System.out.println("----------------------------------");
 
             }
-            System.out.println("Average temperature:"+sum/test.size()+"°C");
+            System.out.printf("Average temperature:%.1f°C%n",sum);
         }
     }
 }
