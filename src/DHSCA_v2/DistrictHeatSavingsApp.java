@@ -246,6 +246,12 @@ public class DistrictHeatSavingsApp {
     public void printIndoorTemp7Days(){
         int timers = 7;
         int index = 0;
+        double sum = 0;
+        int indexes = indoorTemps.size();
+
+        for (int i = 0; i < indoorTemps.size(); i++) {
+            sum = sum + indoorTemps.get(i).getDegrees();
+        }
 
         //System.out.println("Saved measurements for apartment: " + indoorTemps.get(index).getApartmentNumber(apartmentOwner));
         if (timers <= indoorTemps.size()){
@@ -275,6 +281,7 @@ public class DistrictHeatSavingsApp {
 
             }
         }
+        System.out.println("Average: " + sum/indexes + "°C" );
     }
 
     public void printOutdoorTemp_Currentday() {
