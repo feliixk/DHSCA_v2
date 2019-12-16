@@ -141,6 +141,7 @@ public class DistrictHeatSavingsApp {
                         printOutdoorTemp_7lastDays();
                     } else if (currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde show today's indoor measurement>");
+                        printIndoorTempToday();
                     }
                     break;
                 case 5:
@@ -162,6 +163,7 @@ public class DistrictHeatSavingsApp {
                         //för testning
                     } else if (currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde show last 7 day's indoor measurement>");
+                        printIndoorTemp7Days();
                     }
                     break;
                 case 6:
@@ -206,6 +208,73 @@ public class DistrictHeatSavingsApp {
 
     public User getCurrentLoggedInUser() {
         return currentLoggedInUser;
+    }
+
+    public void printIndoorTempToday(){
+        int timer = 1;
+        double sum = 0;
+        int indexes = indoorTemps.size();
+
+        for (int i = 0; i < indoorTemps.size() ; i++) {
+            sum = sum + indoorTemps.get(i).getDegrees();
+
+        }
+
+       if (timer <= indoorTemps.size()){
+            /*
+            Gör så att högsta index skrivs först
+             */
+           Collections.reverse(indoorTemps);
+
+           for (int i = 0; i < timer ; i++) {
+               /*
+               appartment funkar inte 100 ännu
+                */
+               System.out.println("Indoor temperature: " + indoorTemps.get(i).getDegrees() + "°C "
+               + "\nDate: " + indoorTemps.get(i).getTimeStamp());
+
+               System.out.println("---------------------------------");
+
+           }
+           System.out.println("Average: " + sum/indexes + "°C" );
+       }else {
+           System.out.println("You haven't saved any temperatures inside! " +
+                   "\nPlease do it before going to this option.");
+       }
+    }
+
+    public void printIndoorTemp7Days(){
+        int timers = 7;
+        int index = 0;
+
+        //System.out.println("Saved measurements for apartment: " + indoorTemps.get(index).getApartmentNumber(apartmentOwner));
+        if (timers <= indoorTemps.size()){
+            /*
+            Gör så att högsta index skrivs först
+             */
+            Collections.reverse(indoorTemps);
+
+            //System.out.println("Saved measurements for apartment: " + indoorTemps.get(index).getApartmentNumber(apartmentOwner));
+            for (int i = 0; i < indoorTemps.size() ; i++) {
+                System.out.println("Indoor temperature: " + indoorTemps.get(i).getDegrees() + "°C " +
+                        "\nDate: " + indoorTemps.get(i).getTimeStamp());
+
+                System.out.println("-------------------------");
+
+            }
+        }else{
+            System.out.println("This is what you have saved to this option");
+            for (int i = indoorTemps.size()-1; i >= 0; i--) {
+
+                System.out.println("Indoor temperature: " + indoorTemps.get(i).getDegrees() + "°C " +
+                        "\nDate: " + indoorTemps.get(i).getTimeStamp());
+
+
+                System.out.println("-------------------------");
+
+
+            }
+        }
     }
 
     public void printOutdoorTemp_Currentday() {
