@@ -149,7 +149,7 @@ public class Logic {
             String password = input.nextLine();
 
             if(username.length() < 1 && password.length() < 1) {
-                System.out.println("TERMINATE APPLICATION? \n[666] Yes \n[0] No");
+                System.out.println("TERMINATE APPLICATION? \nConfirm with 666");
                 if(input.nextLine().equals("666")){
                     System.exit(0);
                 }
@@ -167,7 +167,7 @@ public class Logic {
             }
 
             if (result == null) {
-                System.out.println("<Wrong username or password>");
+                System.out.println("<Unable to find username or password>");
             }
         }
         return result;
