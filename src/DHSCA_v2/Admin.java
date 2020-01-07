@@ -57,7 +57,7 @@ public Admin(String user, String pass){
         Scanner input = new Scanner(System.in);
         String timestamp=Data.getInstance().outdoorTemp.readTimestamp();
         double tempstamp=Data.getInstance().outdoorTemp.readTempFromKeyboard();
-        System.out.println("Insert building adress number: ");
+        System.out.println("Insert building adress: ");
         input.next();
         String buildingadress = input.nextLine();
         OutdoorTemp test = new OutdoorTemp(buildingadress,tempstamp,timestamp);
