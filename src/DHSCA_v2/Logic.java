@@ -76,6 +76,7 @@ public class Logic {
                         Data.getInstance().admin.printOutdoorTemp_7lastDays();
                     } else if (Data.getInstance().currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde show today's indoor measurement>");
+                        Data.getInstance().apartmentOwner.printIndoorTempToday();
                     }
                     break;
                 case 5:
@@ -95,6 +96,7 @@ public class Logic {
                         Data.getInstance().heatValues.clear();
                     } else if (Data.getInstance().currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde show last 7 day's indoor measurement>");
+                        Data.getInstance().apartmentOwner.printIndoorTemp7Days();
                     }
                     break;
                 case 6:
