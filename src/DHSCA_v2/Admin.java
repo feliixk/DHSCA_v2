@@ -64,14 +64,14 @@ public Admin(String user, String pass){
         return test;
     }
 
-    public void showAverageHeatSetting(ArrayList<HeatRegulation> heatRegulationArrayList, ArrayList<User> userList){
+    public void showAverageHeatSetting(){
         Scanner input = new Scanner(System.in);
         int apartmentNumber;
         String dateInput;
         double averageHeatSetting = 0;
         double daily_base_amount = 0;
         double daily_saving_or_penalty = 0;
-        int heatValues = 0;
+        int numberOfHeatValues = 0;
         ArrayList<HeatRegulation> heatRegulationsInMethod = new ArrayList<>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date dateObject = new Date();
@@ -85,13 +85,13 @@ public Admin(String user, String pass){
         dateInput = input.nextLine();
 
         for (HeatRegulation heatRegulation :
-                heatRegulationArrayList) {
+                Data.getInstance().heatValues) {
             if (apartmentNumber == heatRegulation.aptNumber && heatRegulation.getTimeStamp().contains(dateInput)){
                 heatRegulationsInMethod.add(heatRegulation);
             }
         }
 
-        for(User u: userList){
+        for(User u: Data.getInstance().userArrayList){
             if (u instanceof ApartmentOwner) {
                 if (apartmentNumber == ((ApartmentOwner) u).getApartmentNumber()) {
                     daily_base_amount = ((ApartmentOwner) u).getRentCost() / 300;
@@ -103,15 +103,15 @@ public Admin(String user, String pass){
         for (HeatRegulation heatRegulation:
                 heatRegulationsInMethod) {
             averageHeatSetting += heatRegulation.getPercentageValue();
-            heatValues ++;
+            numberOfHeatValues++;
         }
 
         averageHeatSetting = averageHeatSetting / 100;
 
 
-        daily_saving_or_penalty = (averageHeatSetting / heatValues) * 20 - daily_base_amount;
+        daily_saving_or_penalty = (averageHeatSetting / numberOfHeatValues) * 20 - daily_base_amount;
 
-        System.out.println("Average heat setting for this apartment is: " + ((averageHeatSetting / heatValues) * 100) + " %");
+        System.out.println("Average heat setting for this apartment is: " + ((averageHeatSetting / numberOfHeatValues) * 100) + " %");
         System.out.println("Daily saving or penalty for this day : " + daily_saving_or_penalty + " SEK");
 
 
