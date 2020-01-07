@@ -31,6 +31,12 @@ public class ApartmentOwner extends User {
 
     }
 
+    public void totalRent(User user){
+
+
+
+    }
+
     public int getApartmentNumber() {
         return apartmentNumber;
     }
