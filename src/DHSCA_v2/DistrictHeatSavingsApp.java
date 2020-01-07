@@ -16,9 +16,10 @@ public class DistrictHeatSavingsApp {
         Data.getInstance().userArrayList.add(new ApartmentOwner("sven", "nevs", 2, 300, "Kyrkogatan"));
         Data.getInstance().userArrayList.add(new ApartmentOwner("felix", "hemligt", 3, 320, "Kyrkogatan"));
 
-        Data.getInstance().currentLoggedInUser = Data.getInstance().logic.login();
-        System.out.println("<Inloggad som: " + Data.getInstance().currentLoggedInUser.toString() + ">");
-
-        Data.getInstance().logic.showMenu();
+        while(1==1) {
+            Data.getInstance().currentLoggedInUser = Data.getInstance().logic.login();
+            System.out.println("<Inloggad som: " + Data.getInstance().currentLoggedInUser.toString() + ">");
+            Data.getInstance().logic.showMenu();
+        }
     }
 }
