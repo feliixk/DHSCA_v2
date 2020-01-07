@@ -1,5 +1,7 @@
 package DHSCA_v2;
 
+import java.io.File;
+import java.io.PrintWriter;
 import java.lang.module.FindException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -15,6 +17,9 @@ public class DistrictHeatSavingsApp {
         Data.getInstance().userArrayList.add(new Admin("admin", "root"));
         Data.getInstance().userArrayList.add(new ApartmentOwner("sven", "nevs", 2, 300, "Kyrkogatan"));
         Data.getInstance().userArrayList.add(new ApartmentOwner("felix", "hemligt", 3, 320, "Kyrkogatan"));
+
+        File users = new File("C:/Användare/Shmon/IdeaProjects/dhsca_v2/src/DHSCA_V2");
+        PrintWriter out = new PrintWriter(users);
 
         while(1==1) {
             Data.getInstance().currentLoggedInUser = Data.getInstance().logic.login();
