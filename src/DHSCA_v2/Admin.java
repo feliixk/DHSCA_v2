@@ -69,6 +69,7 @@ public Admin(String user, String pass){
         return test;
     }
 
+
     public void showAverageHeatSetting(){
         Scanner input = new Scanner(System.in);
         int apartmentNumber;
@@ -115,6 +116,8 @@ public Admin(String user, String pass){
         daily_saving_or_penalty = (averageHeatSetting / numberOfHeatValues) * 20 - daily_base_amount;
 
         Double averageValues = (averageHeatSetting/numberOfHeatValues)*100;
+
+        System.out.println("TEST " + daily_base_amount);
 
         System.out.println("Average heat setting for this apartment today is: " + String.format("%.2f", averageValues) + " %");
 

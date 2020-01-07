@@ -13,8 +13,8 @@ public class DistrictHeatSavingsApp {
 
         //variabler för testning av users
         Data.getInstance().userArrayList.add(new Admin("admin", "root"));
-        Data.getInstance().userArrayList.add(new ApartmentOwner("sven", "nevs", 2, 300, "Kyrkogatan"));
-        Data.getInstance().userArrayList.add(new ApartmentOwner("felix", "hemligt", 3, 320, "Kyrkogatan"));
+        Data.getInstance().userArrayList.add(new ApartmentOwner("sven", "nevs", 2, 3000, "Kyrkogatan"));
+        Data.getInstance().userArrayList.add(new ApartmentOwner("felix", "hemligt", 3, 3200, "Kyrkogatan"));
 
         while(1==1) {
             Data.getInstance().currentLoggedInUser = Data.getInstance().logic.login();
