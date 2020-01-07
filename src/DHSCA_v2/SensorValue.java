@@ -4,19 +4,28 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-public class SensorValue  {
+public class SensorValue {
     private String timeStamp;
 
     public SensorValue(String timeStamp) {
         this.timeStamp = timeStamp;
     }
 
-    public String readTimestamp(){
+    public String readTimestamp() {
+        final String regex = "[2][0][\\d]{2}[-]([0][\\d]|([1][0-2]))[-]([0][1-9]|[1-2][\\d]|[3][0-1])[ ]([0-1]{1}[\\d]{1}|([2][0-3]))[:][0-5][\\d][:][0-5][\\d]";
         Scanner input = new Scanner(System.in);
+        String dateInput = "";
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date dateObject = new Date();
-        System.out.println("please input the current date and time (yyyy-MM-dd HH:mm:ss)\nIf you press enter you will get the current time.");
-        String dateInput = input.nextLine();
+        do {
+            System.out.println("please input the current date and time (yyyy-MM-dd HH:mm:ss)\nIf you press enter you will get the current time.");
+            dateInput = input.nextLine();
+            if (!dateInput.matches(regex) && !dateInput.equals("")) {
+                System.out.println("Wrong format");
+            }
+
+        } while (!dateInput.matches(regex) && !dateInput.equals(""));
+
         if (!dateInput.equalsIgnoreCase("")) {
             return dateInput;
         } else return dateFormat.format(dateObject);

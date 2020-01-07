@@ -76,6 +76,7 @@ public class Logic {
                         Data.getInstance().admin.printOutdoorTemp_7lastDays();
                     } else if (Data.getInstance().currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde show today's indoor measurement>");
+                        Data.getInstance().apartmentOwner.printIndoorTempToday();
                     }
                     break;
                 case 5:
@@ -90,11 +91,12 @@ public class Logic {
                         Data.getInstance().heatValues.add(new HeatRegulation(2, 23.3, "2019-12-06 21:34:55"));
                         Data.getInstance().heatValues.add(new HeatRegulation(3, 23.3, "2019-12-06 21:34:55"));
 
-                        Data.getInstance().admin.showAverageHeatSetting(Data.getInstance().heatValues, Data.getInstance().userArrayList);
+                        Data.getInstance().admin.showAverageHeatSetting();
 
                         Data.getInstance().heatValues.clear();
                     } else if (Data.getInstance().currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde show last 7 day's indoor measurement>");
+                        Data.getInstance().apartmentOwner.printIndoorTemp7Days();
                     }
                     break;
                 case 6:
@@ -102,6 +104,7 @@ public class Logic {
                     break;
                 case 0:
                     System.out.println("<Exiting menu>");
+                    Data.getInstance().currentLoggedInUser = null;
                     break;
                 case 666:
                     System.out.println("<TERMINATING APPLICATION>");
@@ -146,6 +149,13 @@ public class Logic {
             String username = input.nextLine();
             System.out.println("Please enter your password: ");
             String password = input.nextLine();
+
+            if(username.length() < 1 && password.length() < 1) {
+                System.out.println("TERMINATE APPLICATION? \n[666] Yes \n[0] No");
+                if(input.nextLine().equals("666")){
+                    System.exit(0);
+                }
+            }
 
             for (User userInLoop :
                     Data.getInstance().userArrayList) {
