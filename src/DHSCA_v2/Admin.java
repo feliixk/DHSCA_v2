@@ -19,6 +19,11 @@ public Admin(String user, String pass){
         boolean validInput = false;
         System.out.print("Please set the name of the owner: ");
         user = input.nextLine();
+
+        if (user == "admin") {
+            System.out.println("Owner cannot be admin");
+            user = input.nextLine();
+        }
         System.out.print("Please set the password of the owner: ");
         pass = input.nextLine();
 
@@ -64,6 +69,7 @@ public Admin(String user, String pass){
         return test;
     }
 
+
     public void showAverageHeatSetting(){
         Scanner input = new Scanner(System.in);
         int apartmentNumber;
@@ -107,12 +113,16 @@ public Admin(String user, String pass){
         }
 
         averageHeatSetting = averageHeatSetting / 100;
-
-
         daily_saving_or_penalty = (averageHeatSetting / numberOfHeatValues) * 20 - daily_base_amount;
 
-        System.out.println("Average heat setting for this apartment is: " + ((averageHeatSetting / numberOfHeatValues) * 100) + " %");
-        System.out.println("Daily saving or penalty for this day : " + daily_saving_or_penalty + " SEK");
+        Double averageValues = (averageHeatSetting/numberOfHeatValues)*100;
+
+        System.out.println("TEST " + daily_base_amount);
+
+        System.out.println("Average heat setting for this apartment today is: " + String.format("%.2f", averageValues) + " %");
+
+
+        System.out.println("Daily saving or penalty for this day : " + String.format("%.2f", daily_saving_or_penalty) + " SEK");
 
 
         //TODO[SS, FK]: Beräkna avg heat value och printa, just nu hittar den rätt apartment till rätt datum, men
@@ -120,26 +130,27 @@ public Admin(String user, String pass){
     }
 
     public void printOutdoorTemp_Currentday() {
-        ArrayList<Double> test= new ArrayList<>();
+        ArrayList<Double> avreage= new ArrayList<>();
         double sum = 0;
         for (var i = 0; i <Data.getInstance().outdoorTemps.size(); i++) {
-            test.add(Data.getInstance().outdoorTemps.get(i).getDegrees());
+            avreage.add(Data.getInstance().outdoorTemps.get(i).getDegrees());
         }
 
-        for (int i = 0; i < test.size(); i++) {
-            sum+=test.get(i);
+        for (int i = 0; i < avreage.size(); i++) {
+            sum+=avreage.get(i);
         }
-        var times = 1;
-        if (times <= Data.getInstance().outdoorTemps.size()) {
-            Collections.reverse(Data.getInstance().outdoorTemps);
+
+        if (Data.getInstance().outdoorTemps.size() >=1) {
+
+            Collections.sort(Data.getInstance().outdoorTemps);
 
 
-            for (int i = 0; i < times; i++) {
-                System.out.println("Outdoor temperature: " + Data.getInstance().outdoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + Data.getInstance().outdoorTemps.get(i).getTimeStamp());
+
+                System.out.println("Outdoor temperature: " + Data.getInstance().outdoorTemps.get(0).getDegrees() + "°C" + "\nDate: " + Data.getInstance().outdoorTemps.get(0).getTimeStamp());
                 System.out.println("----------------------------------");
 
-            }
-            System.out.println("Average temperature:"+sum/test.size()+"°C");
+
+            System.out.println("Average temperature:"+sum/avreage.size()+"°C");
         } else {
             System.out.println("You have not saved anything!!");
         }
@@ -156,9 +167,17 @@ public Admin(String user, String pass){
         for (int i = 0; i < test.size(); i++) {
             sum+=test.get(i);
         }
+
+        Collections.sort(Data.getInstance().outdoorTemps);
+
+
+
+
+
         int times = 7;
         if (times <= Data.getInstance().outdoorTemps.size()) {
-            Collections.reverse(Data.getInstance().outdoorTemps);
+
+
 
 
             for (int i = 0; i < times; i++) {
@@ -166,9 +185,10 @@ public Admin(String user, String pass){
                 System.out.println("----------------------------------");
 
             }
-        } else {
+        }
+         else {
             System.out.println("This is what you have saved!");
-            for (int i = Data.getInstance().outdoorTemps.size() - 1; i >= 0; i--) {
+            for (int i = 0; i < Data.getInstance().outdoorTemps.size(); i++)  {
                 System.out.println("Outdoor temperature: " + Data.getInstance().outdoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + Data.getInstance().outdoorTemps.get(i).getTimeStamp());
                 System.out.println("----------------------------------");
 

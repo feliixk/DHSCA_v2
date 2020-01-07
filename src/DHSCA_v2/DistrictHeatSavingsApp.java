@@ -15,8 +15,8 @@ public class DistrictHeatSavingsApp {
 
         //variabler för testning av users
         Data.getInstance().userArrayList.add(new Admin("admin", "root"));
-        Data.getInstance().userArrayList.add(new ApartmentOwner("sven", "nevs", 2, 300, "Kyrkogatan"));
-        Data.getInstance().userArrayList.add(new ApartmentOwner("felix", "hemligt", 3, 320, "Kyrkogatan"));
+        Data.getInstance().userArrayList.add(new ApartmentOwner("sven", "nevs", 2, 3000, "Kyrkogatan"));
+        Data.getInstance().userArrayList.add(new ApartmentOwner("felix", "hemligt", 3, 3200, "Kyrkogatan"));
 
         File users = new File("C:/Användare/Shmon/IdeaProjects/dhsca_v2/src/DHSCA_V2");
         PrintWriter out = new PrintWriter(users);

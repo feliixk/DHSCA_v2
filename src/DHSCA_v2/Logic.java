@@ -59,7 +59,9 @@ public class Logic {
 
                     } else if (Data.getInstance().currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde change heat value>");
-                        Data.getInstance().heatValues.add(Data.getInstance().apartmentOwner.changeHeatingValue(Data.getInstance().currentLoggedInUser));
+                        Data.getInstance().heatValues.add
+                                (Data.getInstance().apartmentOwner.changeHeatingValue
+                                        (Data.getInstance().currentLoggedInUser));
                     }
                     break;
                 case 3:
@@ -68,6 +70,7 @@ public class Logic {
                         Data.getInstance().admin.printOutdoorTemp_Currentday();
                     } else if (Data.getInstance().currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde show average heat setting>");
+                        Data.getInstance().apartmentOwner.showAverageHeatSetting(Data.getInstance().currentLoggedInUser);
                     }
                     break;
                 case 4:
@@ -76,25 +79,26 @@ public class Logic {
                         Data.getInstance().admin.printOutdoorTemp_7lastDays();
                     } else if (Data.getInstance().currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde show today's indoor measurement>");
+                        Data.getInstance().apartmentOwner.printIndoorTempToday();
                     }
                     break;
                 case 5:
                     if (Data.getInstance().currentLoggedInUser instanceof Admin) {
                         System.out.println("<Du valde show average heat setting>");
                         //för testning
-
-                        Data.getInstance().heatValues.add(new HeatRegulation(3, 23.3, "2019-12-06 21:34:55"));
+/*                        Data.getInstance().heatValues.add(new HeatRegulation(3, 23.3, "2019-12-06 21:34:55"));
                         Data.getInstance().heatValues.add(new HeatRegulation(3, 56, "2019-12-07 21:34:55"));
                         Data.getInstance().heatValues.add(new HeatRegulation(1, 23.3, "2019-12-06 21:34:55"));
                         Data.getInstance().heatValues.add(new HeatRegulation(3, 23.3, "2019-12-06 20:34:55"));
                         Data.getInstance().heatValues.add(new HeatRegulation(2, 23.3, "2019-12-06 21:34:55"));
-                        Data.getInstance().heatValues.add(new HeatRegulation(3, 23.3, "2019-12-06 21:34:55"));
+                        Data.getInstance().heatValues.add(new HeatRegulation(3, 23.3, "2019-12-06 21:34:55"));*/
 
                         Data.getInstance().admin.showAverageHeatSetting();
 
-                        Data.getInstance().heatValues.clear();
+                        //Data.getInstance().heatValues.clear();
                     } else if (Data.getInstance().currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde show last 7 day's indoor measurement>");
+                        Data.getInstance().apartmentOwner.printIndoorTemp7Days();
                     }
                     break;
                 case 6:
