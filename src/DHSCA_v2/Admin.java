@@ -19,6 +19,11 @@ public Admin(String user, String pass){
         boolean validInput = false;
         System.out.print("Please set the name of the owner: ");
         user = input.nextLine();
+
+        if (user == "admin") {
+            System.out.println("Owner cannot be admin");
+            user = input.nextLine();
+        }
         System.out.print("Please set the password of the owner: ");
         pass = input.nextLine();
 
@@ -107,12 +112,14 @@ public Admin(String user, String pass){
         }
 
         averageHeatSetting = averageHeatSetting / 100;
-
-
         daily_saving_or_penalty = (averageHeatSetting / numberOfHeatValues) * 20 - daily_base_amount;
 
-        System.out.println("Average heat setting for this apartment is: " + ((averageHeatSetting / numberOfHeatValues) * 100) + " %");
-        System.out.println("Daily saving or penalty for this day : " + daily_saving_or_penalty + " SEK");
+        Double averageValues = (averageHeatSetting/numberOfHeatValues)*100;
+
+        System.out.println("Average heat setting for this apartment today is: " + String.format("%.2f", averageValues) + " %");
+
+
+        System.out.println("Daily saving or penalty for this day : " + String.format("%.2f", daily_saving_or_penalty) + " SEK");
 
 
         //TODO[SS, FK]: Beräkna avg heat value och printa, just nu hittar den rätt apartment till rätt datum, men

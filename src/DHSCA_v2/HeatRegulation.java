@@ -24,6 +24,10 @@ public class HeatRegulation extends SensorValue {
         System.out.println("Input desired heat value: ");
         System.out.print("> ");
 
+        while (Double.parseDouble(input.nextLine()) > 100){
+            System.out.println("Please input percentage value");
+        }
+
         heatValue = Double.parseDouble(input.nextLine());
         return heatValue;
     }
