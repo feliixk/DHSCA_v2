@@ -1,10 +1,11 @@
 package DHSCA_v2;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-public class SensorValue {
+public class SensorValue implements Comparable <SensorValue>{
     private String timeStamp;
 
     public SensorValue(String timeStamp) {
@@ -39,5 +40,17 @@ public class SensorValue {
     public String toString() {
         return "timeStamp='" + timeStamp + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(SensorValue o) {
+        SimpleDateFormat sortDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        try {
+            return sortDate.parse(o.getTimeStamp()).compareTo(sortDate.parse(this.getTimeStamp()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 }
