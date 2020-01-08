@@ -35,7 +35,12 @@ public class Data {
                  userArrayList) {
                 String name = user.getUser();
                 String password = user.getPass();
-                printWriter.println(name + ", " + password);
+                if(user instanceof ApartmentOwner){
+                    int apartmentNumber = ((ApartmentOwner) user).getApartmentNumber();
+                    String buildingAdress = ((ApartmentOwner) user).buildingAddress;
+                    int rentCost = ((ApartmentOwner) user).rentCost;
+                    printWriter.println(name + ", " + password + ", " + apartmentNumber + ", " + rentCost + ", " + buildingAdress);
+                }
             }
             printWriter.close();
         } catch (IOException e) {
@@ -50,7 +55,10 @@ public class Data {
             String[] stringSplitter = userString.split(", ");
             String name = stringSplitter[0];
             String password = stringSplitter[1];
-            userArrayList.add(new User(name, password));
+            int apartmentNumber = Integer.parseInt(stringSplitter[2]);
+            int rentCost = Integer.parseInt(stringSplitter[3]);
+            String buildingAdress = stringSplitter[4];
+            userArrayList.add(new ApartmentOwner(name, password, apartmentNumber, rentCost, buildingAdress));
         }
     }
 
