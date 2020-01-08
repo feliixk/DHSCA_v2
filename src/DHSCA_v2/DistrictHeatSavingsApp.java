@@ -13,16 +13,12 @@ import java.util.Scanner;
 public class DistrictHeatSavingsApp {
     public static void main(String[] args) {
         DistrictHeatSavingsApp DHSCA = new DistrictHeatSavingsApp();
-
-        //variabler för testning av users
-        //Data.getInstance().userArrayList.add(new Admin("admin", "root"));
-        //Data.getInstance().userArrayList.add(new ApartmentOwner("sven", "nevs", 2, 3000, "Kyrkogatan"));
-        //Data.getInstance().userArrayList.add(new ApartmentOwner("felix", "hemligt", 3, 3200, "Kyrkogatan"));
+        Data.getInstance().userArrayList.add(new Admin("admin", "root"));
 
         try {
             Data.getInstance().loadFromFile();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("<Userfile not found, creating on exit>");
         }
 
         while(1==1) {
