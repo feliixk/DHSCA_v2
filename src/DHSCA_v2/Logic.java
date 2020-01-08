@@ -107,6 +107,9 @@ public class Logic {
                 case 6:
                     printApartments();
                     break;
+                case 7:
+                    //Data.getInstance().admin.printoutSelectedTime();
+
                 case 0:
                     System.out.println("<Exiting menu>");
                     Data.getInstance().currentLoggedInUser = null;

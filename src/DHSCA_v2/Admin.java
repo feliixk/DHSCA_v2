@@ -144,7 +144,6 @@ public Admin(String user, String pass){
         }
 
         if (Data.getInstance().outdoorTemps.size() >=1) {
-
             Collections.sort(Data.getInstance().outdoorTemps);
             String currentDay = String.valueOf(calendar.getTime());
 
@@ -166,43 +165,31 @@ public Admin(String user, String pass){
 
 
     public void printOutdoorTemp_7lastDays() {
+        Collections.sort(Data.getInstance().outdoorTemps);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar cal = Calendar.getInstance();
+
+        for (int i=7;0<i;i--) {
+
+            for(int u = 0; u < Data.getInstance().outdoorTemps.size(); u++){
+                if(Data.getInstance().outdoorTemps.get(u).getTimeStamp().contains(dateFormat.format(cal.getTime()))){
+                    System.out.println("Outdoor temperature: " + Data.getInstance().outdoorTemps.get(u).getDegrees() + "°C" + "\nDate: " + Data.getInstance().outdoorTemps.get(u).getTimeStamp());
+                    System.out.println("----------------------------------");
+                }
+            }
+            //System.out.println(dateFormat.format(cal.getTime()));
+            cal.add(Calendar.DATE, -1);
+        }
+
         ArrayList<Double> test= new ArrayList<>();
         double sum = 0;
         for (var i = 0; i <Data.getInstance().outdoorTemps.size(); i++) {
             test.add(Data.getInstance().outdoorTemps.get(i).getDegrees());
         }
-
         for (int i = 0; i < test.size(); i++) {
             sum+=test.get(i);
         }
 
-        Collections.sort(Data.getInstance().outdoorTemps);
-
-
-
-
-
-        int times = 7;
-        if (times <= Data.getInstance().outdoorTemps.size()) {
-
-
-
-
-            for (int i = 0; i < times; i++) {
-                System.out.println("Outdoor temperature: " + Data.getInstance().outdoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + Data.getInstance().outdoorTemps.get(i).getTimeStamp());
-                System.out.println("----------------------------------");
-
-            }
-        }
-         else {
-            System.out.println("This is what you have saved!");
-            for (int i = 0; i < Data.getInstance().outdoorTemps.size(); i++)  {
-                System.out.println("Outdoor temperature: " + Data.getInstance().outdoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + Data.getInstance().outdoorTemps.get(i).getTimeStamp());
-                System.out.println("----------------------------------");
-
-            }
-            System.out.println("Average temperature:"+sum/test.size()+"°C");
-        }
     }
 
     @Override
