@@ -1,6 +1,7 @@
 package DHSCA_v2;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.lang.module.FindException;
 import java.lang.reflect.Array;
@@ -14,12 +15,15 @@ public class DistrictHeatSavingsApp {
         DistrictHeatSavingsApp DHSCA = new DistrictHeatSavingsApp();
 
         //variabler för testning av users
-        Data.getInstance().userArrayList.add(new Admin("admin", "root"));
-        Data.getInstance().userArrayList.add(new ApartmentOwner("sven", "nevs", 2, 3000, "Kyrkogatan"));
-        Data.getInstance().userArrayList.add(new ApartmentOwner("felix", "hemligt", 3, 3200, "Kyrkogatan"));
+        //Data.getInstance().userArrayList.add(new Admin("admin", "root"));
+        //Data.getInstance().userArrayList.add(new ApartmentOwner("sven", "nevs", 2, 3000, "Kyrkogatan"));
+        //Data.getInstance().userArrayList.add(new ApartmentOwner("felix", "hemligt", 3, 3200, "Kyrkogatan"));
 
-        File users = new File("C:/Användare/Shmon/IdeaProjects/dhsca_v2/src/DHSCA_V2");
-        PrintWriter out = new PrintWriter(users);
+        try {
+            Data.getInstance().loadFromFile();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         while(1==1) {
             Data.getInstance().currentLoggedInUser = Data.getInstance().logic.login();

@@ -1,6 +1,8 @@
 package DHSCA_v2;
 
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Data {
     private static Data single_instance = null;
@@ -22,8 +24,37 @@ public class Data {
     public ApartmentOwner apartmentOwner = new ApartmentOwner("", "", 0, 0, "");
     public Logic logic = new Logic();
 
-    private Data()
-    {
+    public void saveToFile(){
+        try {
+            File users = new File("users.txt");
+            if(!users.exists()){
+                    users.createNewFile();
+            }
+            PrintWriter printWriter = new PrintWriter(users);
+            for (User user:
+                 userArrayList) {
+                String name = user.getUser();
+                String password = user.getPass();
+                printWriter.println(name + ", " + password);
+            }
+            printWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadFromFile() throws FileNotFoundException {
+        Scanner fileScanner = new Scanner(new File("users.txt"));
+        while(fileScanner.hasNextLine()){
+            String userString = fileScanner.nextLine();
+            String[] stringSplitter = userString.split(", ");
+            String name = stringSplitter[0];
+            String password = stringSplitter[1];
+            userArrayList.add(new User(name, password));
+        }
+    }
+
+    private Data() {
     }
 
     public static Data getInstance()

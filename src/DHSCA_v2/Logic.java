@@ -1,5 +1,8 @@
 package DHSCA_v2;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -110,6 +113,7 @@ public class Logic {
                     break;
                 case 666:
                     System.out.println("<TERMINATING APPLICATION>");
+                    Data.getInstance().saveToFile();
                     System.exit(0);
                 default:
                     System.out.println("<No option found for input>");
@@ -155,6 +159,7 @@ public class Logic {
             if(username.length() < 1 && password.length() < 1) {
                 System.out.println("TERMINATE APPLICATION? \nConfirm with 666");
                 if(input.nextLine().equals("666")){
+                    Data.getInstance().saveToFile();
                     System.exit(0);
                 }
             }
