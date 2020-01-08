@@ -33,15 +33,11 @@ public class ApartmentOwner extends User {
         String timeStamp = Data.getInstance().heatRegulation.readTimestamp();
         double heatValue = Data.getInstance().heatRegulation.readHeatValueFromKeyBoard();
         int aptNumber = ((ApartmentOwner) user).getApartmentNumber();
-        //calculateAverageHeatSetting(((ApartmentOwner) user).getApartmentNumber(), timeStamp);
+
         return new HeatRegulation(aptNumber, heatValue, timeStamp);
 
     }
 
-    public void totalRent(){
-
-
-    }
 
     public void showAverageHeatSetting(User user){
         Scanner input = new Scanner(System.in);
@@ -83,9 +79,11 @@ public class ApartmentOwner extends User {
         daily_saving_or_penalty = (averageHeatSetting / numberOfHeatValues) * 20 - daily_base_amount;
         Double averageValues = (averageHeatSetting/numberOfHeatValues)*100;
 
-
+        Data.getInstance().savingOrPenalty.add(daily_saving_or_penalty);
         System.out.println("Average heat setting for this apartment today is: " + String.format("%.2f", averageValues) + " %");
         System.out.println("Daily saving or penalty for this day : " + String.format("%.2f", daily_saving_or_penalty) + " SEK");
+        System.out.println("Total saving ");
+
 
     }
 

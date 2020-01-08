@@ -20,7 +20,7 @@ public Admin(String user, String pass){
         System.out.print("Please set the name of the owner: ");
         user = input.nextLine();
 
-        if (user == "admin") {
+        if (user.contains("admin")){
             System.out.println("Owner cannot be admin");
             user = input.nextLine();
         }

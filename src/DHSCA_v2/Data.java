@@ -14,8 +14,7 @@ public class Data {
     public ArrayList<IndoorTemp> indoorTemps = new ArrayList<>();
     public ArrayList<String> sensorValues = new ArrayList<>();
     public ArrayList<HeatRegulation> heatValues = new ArrayList<HeatRegulation>();
-    //public ArrayList<Double> heatSavings = new ArrayList<>();
-    //Behövs inte, använd bara heatValues arrayen ovanför. Den har alla procent-värden.
+    public ArrayList<Double> savingOrPenalty = new ArrayList<>();
 
     public HeatRegulation heatRegulation = new HeatRegulation(0, 0, "");
     public Admin admin = new Admin("", "");

@@ -19,6 +19,7 @@ public class HeatRegulation extends SensorValue {
     }
 
     public double readHeatValueFromKeyBoard(){
+        final String regex = "[2][0][\\d]{2}[-]([0][\\d]|([1][0-2]))[-]([0][1-9]|[1-2][\\d]|[3][0-1])";
         double heatValue = 0;
         boolean cont = true;
         Scanner input = new Scanner(System.in);
@@ -30,7 +31,9 @@ public class HeatRegulation extends SensorValue {
 
 
         return heatValue;
+
     }
+
 
     public double getPercentageValue(){
         return percentageValue;
