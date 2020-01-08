@@ -1,10 +1,8 @@
 package DHSCA_v2;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
+
 public class Admin extends User {
 
 public Admin(String user, String pass){
@@ -130,6 +128,11 @@ public Admin(String user, String pass){
     }
 
     public void printOutdoorTemp_Currentday() {
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+        System.out.println(formatter.format(date));
+
         ArrayList<Double> avreage= new ArrayList<>();
         double sum = 0;
         for (var i = 0; i <Data.getInstance().outdoorTemps.size(); i++) {
@@ -143,12 +146,17 @@ public Admin(String user, String pass){
         if (Data.getInstance().outdoorTemps.size() >=1) {
 
             Collections.sort(Data.getInstance().outdoorTemps);
+            String currentDay = String.valueOf(calendar.getTime());
 
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date dateObject = new Date();
 
-
-                System.out.println("Outdoor temperature: " + Data.getInstance().outdoorTemps.get(0).getDegrees() + "°C" + "\nDate: " + Data.getInstance().outdoorTemps.get(0).getTimeStamp());
-                System.out.println("----------------------------------");
-
+            for(int i = 0; i < Data.getInstance().outdoorTemps.size(); i++){
+                if(Data.getInstance().outdoorTemps.get(i).getTimeStamp().contains(dateFormat.format(dateObject))){
+                    System.out.println("Outdoor temperature: " + Data.getInstance().outdoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + Data.getInstance().outdoorTemps.get(i).getTimeStamp());
+                    System.out.println("----------------------------------");
+                }
+            }
 
             System.out.println("Average temperature:"+sum/avreage.size()+"°C");
         } else {

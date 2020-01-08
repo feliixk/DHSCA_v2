@@ -12,6 +12,8 @@ public class ApartmentOwner extends User {
     public int apartmentNumber;
     public int rentCost;
     public String buildingAddress;
+    private int monthlySavingOrPenalty;
+
 
 
     public ApartmentOwner(String name, String pass, int apartmentNumber, int rentCost, String buildingAddress){
@@ -38,8 +40,13 @@ public class ApartmentOwner extends User {
 
     }
 
+    public void calculateMonthlySavingOrPenalty(double dailySavings){
+
+    }
+
 
     public void showAverageHeatSetting(User user){
+        Data.getInstance().savingOrPenalty.clear();
         Scanner input = new Scanner(System.in);
         int apartmentNumber;
         String dateInput;
@@ -79,10 +86,10 @@ public class ApartmentOwner extends User {
         daily_saving_or_penalty = (averageHeatSetting / numberOfHeatValues) * 20 - daily_base_amount;
         Double averageValues = (averageHeatSetting/numberOfHeatValues)*100;
 
-        Data.getInstance().savingOrPenalty.add(daily_saving_or_penalty);
+        monthlySavingOrPenalty += daily_saving_or_penalty;
         System.out.println("Average heat setting for this apartment today is: " + String.format("%.2f", averageValues) + " %");
         System.out.println("Daily saving or penalty for this day : " + String.format("%.2f", daily_saving_or_penalty) + " SEK");
-        System.out.println("Total saving ");
+        System.out.println("Total saving this month so far: " + monthlySavingOrPenalty);
 
 
     }
