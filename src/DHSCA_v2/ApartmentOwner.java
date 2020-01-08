@@ -101,7 +101,7 @@ public class ApartmentOwner extends User {
             /*
             Gör så att högsta index skrivs först
              */
-            Collections.reverse(Data.getInstance().indoorTemps);
+            Collections.sort(Data.getInstance().indoorTemps);
 
             for (int i = 0; i < timer ; i++) {
                /*
@@ -135,10 +135,10 @@ public class ApartmentOwner extends User {
             /*
             Gör så att högsta index skrivs först
              */
-            Collections.reverse(Data.getInstance().indoorTemps);
+            Collections.sort(Data.getInstance().indoorTemps);
 
             //System.out.println("Saved measurements for apartment: " + indoorTemps.get(index).getApartmentNumber(apartmentOwner));
-            for (int i = 0; i < Data.getInstance().indoorTemps.size() ; i++) {
+            for (int i = 0; i < timers ; i++) {
                 System.out.println("Indoor temperature: " + Data.getInstance().indoorTemps.get(i).getDegrees() + "°C " +
                         "\nDate: " + Data.getInstance().indoorTemps.get(i).getTimeStamp());
 
@@ -147,7 +147,7 @@ public class ApartmentOwner extends User {
             }
         }else{
             System.out.println("This is what you have saved to this option");
-            for (int i = Data.getInstance().indoorTemps.size()-1; i >= 0; i--) {
+            for (int i = 0;  i < Data.getInstance().indoorTemps.size();  i++) {
 
                 System.out.println("Indoor temperature: " + Data.getInstance().indoorTemps.get(i).getDegrees() + "°C " +
                         "\nDate: " + Data.getInstance().indoorTemps.get(i).getTimeStamp());
