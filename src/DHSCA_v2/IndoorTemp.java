@@ -11,9 +11,7 @@ public class IndoorTemp extends Temperature {
 
     }
 
-
-    public  int getApartmentNumber(ApartmentOwner user) {
-        apartmentNr = user.getApartmentNumber();
+    public int getAptNumber() {
         return apartmentNr;
     }
 }
