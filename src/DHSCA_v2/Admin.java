@@ -5,11 +5,11 @@ import java.util.*;
 
 public class Admin extends User {
 
-public Admin(String user, String pass){
+    public Admin(String user, String pass) {
         super(user, pass);
     }
 
-    public User addApartmentOwner(){
+    public User addApartmentOwner() {
         Scanner input = new Scanner(System.in);
         String user, pass, buildingAddress;
         int aptNumber = 0;
@@ -18,7 +18,7 @@ public Admin(String user, String pass){
         System.out.print("Please set the name of the owner: ");
         user = input.nextLine();
 
-        if (user.contains("admin")){
+        if (user.contains("admin")) {
             System.out.println("Owner cannot be admin");
             user = input.nextLine();
         }
@@ -26,22 +26,22 @@ public Admin(String user, String pass){
         pass = input.nextLine();
 
         //Tillfällig lösning.
-        while(!validInput){
+        while (!validInput) {
             try {
                 System.out.print("Please set the Apartment number: ");
                 aptNumber = Integer.parseInt(input.nextLine());
                 validInput = true;
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 System.out.println("<ERROR> Only numeric values allowed");
             }
         }
         validInput = false;
-        while(!validInput){
+        while (!validInput) {
             try {
                 System.out.print("Please set the rent cost: ");
                 rentCost = Integer.parseInt(input.nextLine());
                 validInput = true;
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 System.out.println("<ERROR> Only numeric values allowed");
             }
         }
@@ -50,25 +50,24 @@ public Admin(String user, String pass){
         buildingAddress = input.nextLine();
 
 
-
-
         System.out.println("Apartment owner added");
         return new ApartmentOwner(user, pass, aptNumber, rentCost, buildingAddress);
 
     }
-    public OutdoorTemp addOutdoorTemp(){
+
+    public OutdoorTemp addOutdoorTemp() {
         Scanner input = new Scanner(System.in);
-        String timestamp=Data.getInstance().outdoorTemp.readTimestamp();
-        double tempstamp=Data.getInstance().outdoorTemp.readTempFromKeyboard();
+        String timestamp = Data.getInstance().outdoorTemp.readTimestamp();
+        double tempstamp = Data.getInstance().outdoorTemp.readTempFromKeyboard();
         System.out.println("Insert building adress: ");
         input.next();
         String buildingadress = input.nextLine();
-        OutdoorTemp test = new OutdoorTemp(buildingadress,tempstamp,timestamp);
+        OutdoorTemp test = new OutdoorTemp(buildingadress, tempstamp, timestamp);
         return test;
     }
 
 
-    public void showAverageHeatSetting(){
+    public void showAverageHeatSetting() {
         Scanner input = new Scanner(System.in);
         int apartmentNumber;
         String dateInput;
@@ -90,12 +89,12 @@ public Admin(String user, String pass){
 
         for (HeatRegulation heatRegulation :
                 Data.getInstance().heatValues) {
-            if (apartmentNumber == heatRegulation.aptNumber && heatRegulation.getTimeStamp().contains(dateInput)){
+            if (apartmentNumber == heatRegulation.aptNumber && heatRegulation.getTimeStamp().contains(dateInput)) {
                 heatRegulationsInMethod.add(heatRegulation);
             }
         }
 
-        for(User u: Data.getInstance().userArrayList){
+        for (User u : Data.getInstance().userArrayList) {
             if (u instanceof ApartmentOwner) {
                 if (apartmentNumber == ((ApartmentOwner) u).getApartmentNumber()) {
                     daily_base_amount = ((ApartmentOwner) u).getRentCost() / 300;
@@ -104,7 +103,7 @@ public Admin(String user, String pass){
         }
 
         //Tillfällig metod
-        for (HeatRegulation heatRegulation:
+        for (HeatRegulation heatRegulation :
                 heatRegulationsInMethod) {
             averageHeatSetting += heatRegulation.getPercentageValue();
             numberOfHeatValues++;
@@ -113,7 +112,7 @@ public Admin(String user, String pass){
         averageHeatSetting = averageHeatSetting / 100;
         daily_saving_or_penalty = (averageHeatSetting / numberOfHeatValues) * 20 - daily_base_amount;
 
-        Double averageValues = (averageHeatSetting/numberOfHeatValues)*100;
+        Double averageValues = (averageHeatSetting / numberOfHeatValues) * 100;
 
         System.out.println("TEST " + daily_base_amount);
 
@@ -133,31 +132,31 @@ public Admin(String user, String pass){
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
         System.out.println(formatter.format(date));
 
-        ArrayList<Double> avreage= new ArrayList<>();
+        ArrayList<Double> avreage = new ArrayList<>();
         double sum = 0;
-        for (var i = 0; i <Data.getInstance().outdoorTemps.size(); i++) {
+        for (var i = 0; i < Data.getInstance().outdoorTemps.size(); i++) {
             avreage.add(Data.getInstance().outdoorTemps.get(i).getDegrees());
         }
 
         for (int i = 0; i < avreage.size(); i++) {
-            sum+=avreage.get(i);
+            sum += avreage.get(i);
         }
 
-        if (Data.getInstance().outdoorTemps.size() >=1) {
+        if (Data.getInstance().outdoorTemps.size() >= 1) {
             Collections.sort(Data.getInstance().outdoorTemps);
             String currentDay = String.valueOf(calendar.getTime());
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date dateObject = new Date();
 
-            for(int i = 0; i < Data.getInstance().outdoorTemps.size(); i++){
-                if(Data.getInstance().outdoorTemps.get(i).getTimeStamp().contains(dateFormat.format(dateObject))){
+            for (int i = 0; i < Data.getInstance().outdoorTemps.size(); i++) {
+                if (Data.getInstance().outdoorTemps.get(i).getTimeStamp().contains(dateFormat.format(dateObject))) {
                     System.out.println("Outdoor temperature: " + Data.getInstance().outdoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + Data.getInstance().outdoorTemps.get(i).getTimeStamp());
                     System.out.println("----------------------------------");
                 }
             }
 
-            System.out.println("Average temperature:"+sum/avreage.size()+"°C");
+            System.out.println("Average temperature:" + sum / avreage.size() + "°C");
         } else {
             System.out.println("You have not saved anything!!");
         }
@@ -168,28 +167,35 @@ public Admin(String user, String pass){
         Collections.sort(Data.getInstance().outdoorTemps);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Calendar cal = Calendar.getInstance();
+        double sum;
+        int times;
+        int timesTotal = 0;
+        double sumTotal = 0;
 
-        for (int i=7;0<i;i--) {
-
-            for(int u = 0; u < Data.getInstance().outdoorTemps.size(); u++){
-                if(Data.getInstance().outdoorTemps.get(u).getTimeStamp().contains(dateFormat.format(cal.getTime()))){
+        for (int i = 7; 0 < i; i--) {
+            sum = 0;
+            times = 0;
+            for (int u = 0; u < Data.getInstance().outdoorTemps.size(); u++) {
+                if (Data.getInstance().outdoorTemps.get(u).getTimeStamp().contains(dateFormat.format(cal.getTime()))) {
+                    sum += Data.getInstance().outdoorTemps.get(u).getDegrees();
+                    sumTotal += Data.getInstance().outdoorTemps.get(u).getDegrees();
+                    times++;
+                    timesTotal++;
                     System.out.println("Outdoor temperature: " + Data.getInstance().outdoorTemps.get(u).getDegrees() + "°C" + "\nDate: " + Data.getInstance().outdoorTemps.get(u).getTimeStamp());
-                    System.out.println("----------------------------------");
+                    if (Data.getInstance().outdoorTemps.get(u).getTimeStamp().contains(dateFormat.format(cal.getTime()))) {
+                        for (int c = 0; c < 1; c++) {
+                            System.out.println("Average: " + sum / times + "%" + " of this \ndate: " + dateFormat.format(cal.getTime()));
+                            System.out.println("----------------------------------");
+
+                        }
+                    }
                 }
             }
             //System.out.println(dateFormat.format(cal.getTime()));
             cal.add(Calendar.DATE, -1);
         }
-
-        ArrayList<Double> test= new ArrayList<>();
-        double sum = 0;
-        for (var i = 0; i <Data.getInstance().outdoorTemps.size(); i++) {
-            test.add(Data.getInstance().outdoorTemps.get(i).getDegrees());
-        }
-        for (int i = 0; i < test.size(); i++) {
-            sum+=test.get(i);
-        }
-
+        sumTotal/=timesTotal;
+        System.out.printf("Average: %.2f%% of the seven days%n",sumTotal );
     }
 
     @Override
