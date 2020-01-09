@@ -12,7 +12,7 @@ public class ApartmentOwner extends User {
     public int apartmentNumber;
     public int rentCost;
     public String buildingAddress;
-    private int monthlySavingOrPenalty;
+    private double monthlySavingOrPenalty;
 
 
 
@@ -89,41 +89,48 @@ public class ApartmentOwner extends User {
         monthlySavingOrPenalty += daily_saving_or_penalty;
         System.out.println("Average heat setting for this apartment today is: " + String.format("%.2f", averageValues) + " %");
         System.out.println("Daily saving or penalty for this day : " + String.format("%.2f", daily_saving_or_penalty) + " SEK");
-        System.out.println("Total saving this month so far: " + monthlySavingOrPenalty);
+        System.out.println("Total saving/penalty this month so far: " + monthlySavingOrPenalty);
+        System.out.println("Total rent cost this month so far: ");
 
 
     }
 
-    public void printIndoorTempToday(){
+    public void printIndoorTempToday() {
         int timer = 1;
         double sum = 0;
-        int indexes = Data.getInstance().indoorTemps.size();
+        boolean noSaved = true;
+        int indexes = 0;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateObject = new Date();
 
-        for (int i = 0; i < Data.getInstance().indoorTemps.size() ; i++) {
-            sum = sum + Data.getInstance().indoorTemps.get(i).getDegrees();
+        // for (int i = 0; i < Data.getInstance().indoorTemps.size() ; i++) {
+        //    sum = sum + Data.getInstance().indoorTemps.get(i).getDegrees();
 
-        }
+        //}
 
-        if (timer <= Data.getInstance().indoorTemps.size()){
             /*
             Gör så att högsta index skrivs först
              */
-            Collections.sort(Data.getInstance().indoorTemps);
+        Collections.sort(Data.getInstance().indoorTemps);
 
-            for (int i = 0; i < timer ; i++) {
-               /*
-               appartment funkar inte 100 ännu
-                */
-                System.out.println("Indoor temperature: " + Data.getInstance().indoorTemps.get(i).getDegrees() + "°C "
-                        + "\nDate: " + Data.getInstance().indoorTemps.get(i).getTimeStamp());
 
-                System.out.println("---------------------------------");
-
+        for (int i = 0; i < Data.getInstance().indoorTemps.size(); i++) {
+            if (Data.getInstance().indoorTemps.get(i).getAptNumber() == ((ApartmentOwner) Data.getInstance().currentLoggedInUser).apartmentNumber) {
+                if (Data.getInstance().indoorTemps.get(i).getTimeStamp().contains(dateFormat.format(dateObject))) {
+                    System.out.println("Outdoor temperature: " + Data.getInstance().indoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + Data.getInstance().indoorTemps.get(i).getTimeStamp());
+                    System.out.println("----------------------------------");
+                    sum += Data.getInstance().indoorTemps.get(i).getDegrees();
+                    indexes++;
+                    noSaved = false;
+                }
             }
-            System.out.println("Average: " + sum/indexes + "°C" );
-        }else {
-            System.out.println("You haven't saved any temperatures inside! " +
-                    "\nPlease do it before going to this option.");
+            if (!noSaved) {
+                System.out.println("Average: " + sum / indexes + "°C");
+            } else if (noSaved) {
+                System.out.println("You do not have any temperatures saved!\nTry adding some indoor measurements with option [1]");
+            }
+
+
         }
     }
 
