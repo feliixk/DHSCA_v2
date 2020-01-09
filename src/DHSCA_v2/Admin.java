@@ -138,7 +138,7 @@ public class Admin extends User {
 
         if (Data.getInstance().outdoorTemps.size() >= 1) {
             Collections.sort(Data.getInstance().outdoorTemps);
-            String currentDay = String.valueOf(calendar.getTime());
+            
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date dateObject = new Date();
