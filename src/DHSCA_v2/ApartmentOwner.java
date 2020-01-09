@@ -1,11 +1,9 @@
 package DHSCA_v2;
 
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 
 public class ApartmentOwner extends User {
 
@@ -135,44 +133,68 @@ public class ApartmentOwner extends User {
     }
 
     public void printIndoorTemp7Days(){
-        int timers = 7;
-        int index = 0;
-        double sum = 0;
-        int indexes = Data.getInstance().indoorTemps.size();
+        double sums = 0;
+        int index;
+        double sum;
+        int indexes = 0;
 
-        for (int i = 0; i < Data.getInstance().indoorTemps.size(); i++) {
-            sum = sum + Data.getInstance().indoorTemps.get(i).getDegrees();
-        }
+        Collections.sort(Data.getInstance().indoorTemps);
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendarDate = Calendar.getInstance();
+        DecimalFormat deci = new DecimalFormat("#.##");
+
+
+
+        //for (int i = 0; i < Data.getInstance().indoorTemps.size(); i++) {
+          //  sum = sum + Data.getInstance().indoorTemps.get(i).getDegrees();
+        //}
 
         //System.out.println("Saved measurements for apartment: " + indoorTemps.get(index).getApartmentNumber(apartmentOwner));
-        if (timers <= Data.getInstance().indoorTemps.size()){
             /*
             Gör så att högsta index skrivs först
              */
-            Collections.sort(Data.getInstance().indoorTemps);
+            // Collections.sort(Data.getInstance().indoorTemps);
 
             //System.out.println("Saved measurements for apartment: " + indoorTemps.get(index).getApartmentNumber(apartmentOwner));
-            for (int i = 0; i < timers ; i++) {
-                System.out.println("Indoor temperature: " + Data.getInstance().indoorTemps.get(i).getDegrees() + "°C " +
-                        "\nDate: " + Data.getInstance().indoorTemps.get(i).getTimeStamp());
 
-                System.out.println("-------------------------");
+        for (int i = 7; 0 < i ; i--) {
+            Date dateToday = calendarDate.getTime();
+            sum = 0;
+            index = 0;
 
-            }
-        }else{
-            System.out.println("This is what you have saved to this option");
-            for (int i = 0;  i < Data.getInstance().indoorTemps.size();  i++) {
+                for (int j = 0; j < Data.getInstance().indoorTemps.size(); j++) {
+                    if (Data.getInstance().indoorTemps.get(j).getAptNumber() == ((ApartmentOwner) Data.getInstance().currentLoggedInUser).apartmentNumber) {
+                        if (Data.getInstance().indoorTemps.get(j).getTimeStamp().contains(dateFormatter.format(calendarDate.getTime()))) {
+                            dateToday = calendarDate.getTime();
+                            sum += Data.getInstance().indoorTemps.get(j).getDegrees();
+                            index++;
+                            sums += Data.getInstance().indoorTemps.get(j).getDegrees();
+                            indexes++;
 
-                System.out.println("Indoor temperature: " + Data.getInstance().indoorTemps.get(i).getDegrees() + "°C " +
-                        "\nDate: " + Data.getInstance().indoorTemps.get(i).getTimeStamp());
+                            System.out.println("Indoor temperature: " + Data.getInstance().indoorTemps.get(j).getDegrees() + "°C " +
+                                    "\nDate: " + Data.getInstance().indoorTemps.get(j).getTimeStamp());
 
-
-                System.out.println("-------------------------");
-
-
-            }
+                            System.out.println("-------------------------");
+                        }
+                    }
+                }
+                 /*
+            En dags average
+             */
+           if (sum > 0){
+               sum =  sum/index;
+               System.out.println("Average: " + deci.format(sum) + "°C" +
+                       "\nDate: " + dateFormatter.format(dateToday));
+               System.out.println("-------------------------");
+           }
+           calendarDate.add(Calendar.DATE, -1);
         }
-        System.out.println("Average: " + sum/indexes + "°C" );
+         /*
+          flera dagar average
+         */
+        sums = sums/indexes;
+        System.out.println("Total average: " + deci.format(sums));
+       // System.out.println("Average: " + sum/indexes + "°C" );
     }
 
     public int getApartmentNumber() {
