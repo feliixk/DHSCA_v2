@@ -118,17 +118,12 @@ public class Admin extends User {
         System.out.println("TEST " + daily_base_amount);
 
         System.out.println("Average heat setting for this apartment today is: " + String.format("%.2f", averageValues) + " %");
-
-
         System.out.println("Daily saving or penalty for this day : " + String.format("%.2f", daily_saving_or_penalty) + " SEK");
-
-
-        //TODO[SS, FK]: Beräkna avg heat value och printa, just nu hittar den rätt apartment till rätt datum, men
-        // den beräknar inte avg heat value
     }
 
     public void printOutdoorTemp_Currentday() {
         Date date = new Date();
+        int indexes = 0;
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
         System.out.println(formatter.format(date));
@@ -139,9 +134,6 @@ public class Admin extends User {
             avreage.add(Data.getInstance().outdoorTemps.get(i).getDegrees());
         }
 
-        for (int i = 0; i < avreage.size(); i++) {
-            sum += avreage.get(i);
-        }
 
         if (Data.getInstance().outdoorTemps.size() >= 1) {
             Collections.sort(Data.getInstance().outdoorTemps);
@@ -154,10 +146,12 @@ public class Admin extends User {
                 if (Data.getInstance().outdoorTemps.get(i).getTimeStamp().contains(dateFormat.format(dateObject))) {
                     System.out.println("Outdoor temperature: " + Data.getInstance().outdoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + Data.getInstance().outdoorTemps.get(i).getTimeStamp());
                     System.out.println("----------------------------------");
+                    sum += Data.getInstance().outdoorTemps.get(i).getDegrees();
+                    indexes++;
                 }
             }
 
-            System.out.println("Average temperature:" + sum / avreage.size() + "°C");
+            System.out.println("Average temperature:" + sum / indexes + "°C");
         } else {
             System.out.println("You have not saved anything!!");
         }
