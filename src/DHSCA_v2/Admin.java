@@ -125,6 +125,7 @@ public class Admin extends User {
         Date date = new Date();
         int indexes = 0;
         Calendar calendar = Calendar.getInstance();
+        DecimalFormat myFormat= new DecimalFormat("#.##");
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
         System.out.println(formatter.format(date));
 
@@ -150,8 +151,8 @@ public class Admin extends User {
                     indexes++;
                 }
             }
-
-            System.out.println("Average temperature:" + sum / indexes + "°C");
+            sum/=indexes;
+            System.out.println("Average temperature:" + myFormat.format(sum) + "°C");
         } else {
             System.out.println("You have not saved anything!!");
         }
