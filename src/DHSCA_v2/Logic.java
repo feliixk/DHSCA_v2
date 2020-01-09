@@ -125,6 +125,8 @@ public class Logic {
         } while (choice != 0);
     }
 
+    //
+
     public void printApartments() {
         System.out.println("--------------------------------------------------------");
         if (Data.getInstance().currentLoggedInUser instanceof Admin) {

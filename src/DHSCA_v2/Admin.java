@@ -1,5 +1,6 @@
 package DHSCA_v2;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -167,6 +168,7 @@ public class Admin extends User {
         Collections.sort(Data.getInstance().outdoorTemps);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Calendar cal = Calendar.getInstance();
+        DecimalFormat myFormat= new DecimalFormat("#.##");
         double sum;
         int times;
         int timesTotal = 0;
@@ -175,27 +177,29 @@ public class Admin extends User {
         for (int i = 7; 0 < i; i--) {
             sum = 0;
             times = 0;
+            Date currentDate = cal.getTime();
             for (int u = 0; u < Data.getInstance().outdoorTemps.size(); u++) {
                 if (Data.getInstance().outdoorTemps.get(u).getTimeStamp().contains(dateFormat.format(cal.getTime()))) {
+                    currentDate = cal.getTime();
                     sum += Data.getInstance().outdoorTemps.get(u).getDegrees();
                     sumTotal += Data.getInstance().outdoorTemps.get(u).getDegrees();
                     times++;
                     timesTotal++;
+                    System.out.println("");// så att man får bättre utskrift
                     System.out.println("Outdoor temperature: " + Data.getInstance().outdoorTemps.get(u).getDegrees() + "°C" + "\nDate: " + Data.getInstance().outdoorTemps.get(u).getTimeStamp());
-                    if (Data.getInstance().outdoorTemps.get(u).getTimeStamp().contains(dateFormat.format(cal.getTime()))) {
-                        for (int c = 0; c < 1; c++) {
-                            System.out.println("Average: " + sum / times + "%" + " of this \ndate: " + dateFormat.format(cal.getTime()));
-                            System.out.println("----------------------------------");
+                    System.out.println("----------------------------------");
 
-                        }
-                    }
                 }
             }
-            //System.out.println(dateFormat.format(cal.getTime()));
+            if (sum != 0) {
+                sum/=times;
+                System.out.println("Average: " + myFormat.format(sum) + "°C" + "  \nDate: " + dateFormat.format(currentDate));
+                System.out.println("----------------------------------");
+            }
             cal.add(Calendar.DATE, -1);
         }
-        sumTotal/=timesTotal;
-        System.out.printf("Average: %.2f%% of the seven days%n",sumTotal );
+        sumTotal /= timesTotal;
+        System.out.printf("Average: %.2f°C of total %n", sumTotal);
     }
 
     @Override
