@@ -193,7 +193,7 @@ public class ApartmentOwner extends User {
           flera dagar average
          */
         sums = sums/indexes;
-        System.out.println("Total average: " + deci.format(sums));
+        System.out.println("Total average: " + deci.format(sums) + "°C");
        // System.out.println("Average: " + sum/indexes + "°C" );
     }
 
