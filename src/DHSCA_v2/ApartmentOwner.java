@@ -122,14 +122,13 @@ public class ApartmentOwner extends User {
                     noSaved = false;
                 }
             }
-            if (!noSaved) {
-                System.out.println("Average: " + sum / indexes + "°C");
-            } else if (noSaved) {
+           if (noSaved) {
                 System.out.println("You do not have any temperatures saved!\nTry adding some indoor measurements with option [1]");
             }
 
 
         }
+        System.out.println("Average: " + sum / indexes + "°C");
     }
 
     public void printIndoorTemp7Days(){

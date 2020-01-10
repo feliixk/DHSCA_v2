@@ -12,7 +12,7 @@ public class DistrictHeatSavingsApp {
     public static void main(String[] args) {
         DistrictHeatSavingsApp DHSCA = new DistrictHeatSavingsApp();
         Data.getInstance().userArrayList.add(new Admin("admin", "root"));
-        
+
 
         try {
             Data.getInstance().loadFromFile();
