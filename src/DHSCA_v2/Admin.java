@@ -73,10 +73,15 @@ public class Admin extends User {
         int apartmentNumber;
         String dateInput;
         double averageHeatSetting = 0;
+        double averageHeatMonthSetting = 0;
         double daily_base_amount = 0;
         double daily_saving_or_penalty = 0;
+        double total_saving_or_penalty = 0;
+        double rent_cost = 0;
         int numberOfHeatValues = 0;
+        int numberOfHeatMonthValues = 0;
         ArrayList<HeatRegulation> heatRegulationsInMethod = new ArrayList<>();
+        ArrayList<HeatRegulation> heatRegulationsMonth = new ArrayList<>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date dateObject = new Date();
         String formattedDate = "";
@@ -88,17 +93,29 @@ public class Admin extends User {
         System.out.println("Type the date you want to show (yyyy-MM-dd): ");
         dateInput = input.nextLine();
 
+        String monthInput = dateInput.substring(0, 7);
+        //System.out.println("DEBUG MONTH INPUT: " + monthInput);
+        //System.out.println("DEBUG TOTAL INPUT: " + dateInput);
+
         for (HeatRegulation heatRegulation :
                 Data.getInstance().heatValues) {
             if (apartmentNumber == heatRegulation.aptNumber && heatRegulation.getTimeStamp().contains(dateInput)) {
                 heatRegulationsInMethod.add(heatRegulation);
             }
+
+            if (apartmentNumber == heatRegulation.aptNumber && heatRegulation.getTimeStamp().contains(monthInput)) {
+
+
+                heatRegulationsMonth.add(heatRegulation);
+            }
+
         }
 
         for (User u : Data.getInstance().userArrayList) {
             if (u instanceof ApartmentOwner) {
                 if (apartmentNumber == ((ApartmentOwner) u).getApartmentNumber()) {
                     daily_base_amount = ((ApartmentOwner) u).getRentCost() / 300;
+                    rent_cost = ((ApartmentOwner) u).getRentCost();
                 }
             }
         }
@@ -110,15 +127,46 @@ public class Admin extends User {
             numberOfHeatValues++;
         }
 
+        //Funkar inte än
+       // for (HeatRegulation heatRegulation :
+         //       heatRegulationsMonth) {
+
+       //     for (int i = 0; )
+        //    averageHeatMonthSetting += heatRegulation.getPercentageValue();
+         //   numberOfHeatMonthValues++;
+        //}
+
+        for (int i = 0; i < heatRegulationsMonth.size(); i++){
+            for (int x = 0; x < i; x++){
+
+            }
+        }
+
+
         averageHeatSetting = averageHeatSetting / 100;
+        averageHeatMonthSetting = averageHeatMonthSetting / 100;
+
         daily_saving_or_penalty = (averageHeatSetting / numberOfHeatValues) * 20 - daily_base_amount;
 
         Double averageValues = (averageHeatSetting / numberOfHeatValues) * 100;
 
-        System.out.println("TEST " + daily_base_amount);
+        double tester = 0;
+
+        for (HeatRegulation heatRegulation :
+                heatRegulationsMonth) {
+
+            //System.out.println("DEBUG MONTHLY PERCENTAGE VALUES: " + heatRegulation.getPercentageValue() + ", ");
+
+            total_saving_or_penalty += (averageHeatMonthSetting / numberOfHeatMonthValues) * 20 - daily_base_amount;
+            tester++;
+
+        }
+        averageHeatMonthSetting += averageHeatMonthSetting / 100;
 
         System.out.println("Average heat setting for this apartment today is: " + String.format("%.2f", averageValues) + " %");
         System.out.println("Daily saving or penalty for this day : " + String.format("%.2f", daily_saving_or_penalty) + " SEK");
+        //System.out.println("Total saving or penalty this month so far: " + (total_saving_or_penalty));
+        //System.out.println("Total rent cost this month so far: " + (rent_cost + total_saving_or_penalty));
     }
 
     public void printOutdoorTemp_Currentday() {
@@ -127,7 +175,6 @@ public class Admin extends User {
         Calendar calendar = Calendar.getInstance();
         DecimalFormat myFormat= new DecimalFormat("#.##");
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
-        System.out.println(formatter.format(date));
 
         ArrayList<Double> avreage = new ArrayList<>();
         double sum = 0;
