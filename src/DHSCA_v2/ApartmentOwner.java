@@ -29,12 +29,37 @@ public class ApartmentOwner extends User {
 
     }
 
-    public HeatRegulation changeHeatingValue(User user){
+    public void changeHeatingValue(User user){
+        List<HeatRegulation> thingsToBeAdd = new ArrayList<HeatRegulation>();
         String timeStamp = Data.getInstance().heatRegulation.readTimestamp();
         double heatValue = Data.getInstance().heatRegulation.readHeatValueFromKeyBoard();
         int aptNumber = ((ApartmentOwner) user).getApartmentNumber();
+        thingsToBeAdd.clear();
 
-        return new HeatRegulation(aptNumber, heatValue, timeStamp);
+        System.out.println("apt nr: " + aptNumber);
+        boolean added = false;
+
+
+        for (HeatRegulation heatR : Data.getInstance().heatValues) {
+                if (heatR.aptNumber == aptNumber && heatR.getTimeStamp().substring(0, 10).startsWith(timeStamp.substring(0, 10))) {
+                    heatR.setPercentageValue(heatValue);
+                    System.out.println("DATE ALREADY EXISTS, CORRECT DATE, UPDATING HEATVALUE");
+                    added = true;
+                    break;
+                } else if (heatR.aptNumber == aptNumber && !heatR.getTimeStamp().substring(0, 10).startsWith(timeStamp.substring(0, 10))) {
+                    System.out.println("DATE ALREADY EXISTS, BUT WRONG DATE, NOT UPDATING HEATVALUE");
+                }
+                else if (heatR.aptNumber != aptNumber) {
+                System.out.println("DEBUG WRONG USER");
+                } else {
+                    System.out.println("no heat value");
+        }
+    }
+
+        if (!added) {
+        Data.getInstance().heatValues.add(new HeatRegulation(aptNumber, heatValue, timeStamp));
+        System.out.println("ADDING TO ARRAYLIST HEATVALUES");
+    }
 
     }
 
@@ -43,7 +68,7 @@ public class ApartmentOwner extends User {
     }
 
 
-    public void showAverageHeatSetting(User user){
+    public void showAverageHeatSetting(User user) {
         Data.getInstance().savingOrPenalty.clear();
         Scanner input = new Scanner(System.in);
         int apartmentNumber;
@@ -59,96 +84,164 @@ public class ApartmentOwner extends User {
         String formattedDate = "";
         apartmentNr = ((ApartmentOwner) user).getApartmentNumber();
 
-        System.out.println("DEBUG: " + apartmentNr);
+        System.out.println("DEBUG APARTMENTNUMBER: " + apartmentNr);
 
         System.out.println("Type the date you want to show (yyyy-MM-dd): ");
         dateInput = input.nextLine();
 
-        for (HeatRegulation heatRegulation :
-                Data.getInstance().heatValues) {
-            if (apartmentNr == heatRegulation.aptNumber && heatRegulation.getTimeStamp().contains(dateInput)){
-                heatRegulationsInMethod.add(heatRegulation);
-            }
-        }
+
+        //for (HeatRegulation heatRegulation :
+        //        Data.getInstance().heatValues) {
+        //   if (apartmentNr == heatRegulation.aptNumber && heatRegulation.getTimeStamp().contains(dateInput)){
+        //       heatRegulationsInMethod.add(heatRegulation);
+        //   }else{
+        //      System.out.println("ERROR");
+        //  }
+        //}
 
         daily_base_amount = ((ApartmentOwner) user).getRentCost() / 300;
 
         //Tillfällig metod
-        for (HeatRegulation heatRegulation:
-                heatRegulationsInMethod) {
-            averageHeatSetting += heatRegulation.getPercentageValue();
-            numberOfHeatValues++;
+
+        double averageHeatMonthSetting = 0;
+        int numberOfHeatMonthValues = 0;
+        double total_saving_penalty = 0;
+        String monthInput = dateInput.substring(0, 7);
+
+        for (int i = 0; i < Data.getInstance().heatValues.size(); i++) {
+            if (apartmentNr == Data.getInstance().heatValues.get(i).aptNumber && Data.getInstance().heatValues.get(i).getTimeStamp().startsWith(dateInput)) {
+                //System.out.println("HEATVALUES SIZE: " + Data.getInstance().heatValues.size());
+                //System.out.println("APARTMENT FOUND");
+                averageHeatSetting = Data.getInstance().heatValues.get(i).getPercentageValue();
+                numberOfHeatValues = Data.getInstance().heatValues.get(i).getAmountOfValues();
+                //System.out.println("DEBUG LOOP HEAT: " + averageHeatSetting);
+                //System.out.println("DEBUG LOOP VALUES: " + numberOfHeatValues);
+                break;
+            }else{
+
+            }
+        }
+        for (int i = 0; i < Data.getInstance().heatValues.size(); i++) {
+            if (apartmentNr == Data.getInstance().heatValues.get(i).aptNumber && Data.getInstance().heatValues.get(i).getTimeStamp().contains(monthInput)) {
+
+
+                if(Data.getInstance().heatValues.get(i).getAmountOfValues() > 1){
+                    averageHeatMonthSetting += (Data.getInstance().heatValues.get(i).getPercentageValue() / Data.getInstance().heatValues.get(i).getAmountOfValues());
+                    numberOfHeatMonthValues++;
+                    System.out.println("DEBUGGER: GETTING AVERAGE VALUE, MORE THAN 1 VALUE IN DAY " + Data.getInstance().heatValues.get(i).getTimeStamp().substring(0,10));
+                }else{
+                    averageHeatMonthSetting += Data.getInstance().heatValues.get(i).getPercentageValue();
+                    numberOfHeatMonthValues += Data.getInstance().heatValues.get(i).getAmountOfValues();
+                    System.out.println("DEBUGGER: GETTING AVERAGE VALUE, ONLY 1 VALUE IN DAY " + Data.getInstance().heatValues.get(i).getTimeStamp().substring(0,10));
+                }
+            }
         }
 
-        averageHeatSetting = averageHeatSetting / 100;
-        daily_saving_or_penalty = (averageHeatSetting / numberOfHeatValues) * 20 - daily_base_amount;
-        Double averageValues = (averageHeatSetting/numberOfHeatValues)*100;
 
-        monthlySavingOrPenalty += daily_saving_or_penalty;
-        System.out.println("Average heat setting for this apartment today is: " + String.format("%.2f", averageValues) + " %");
-        System.out.println("Daily saving or penalty for this day : " + String.format("%.2f", daily_saving_or_penalty) + " SEK");
-        System.out.println("Total saving/penalty this month so far: " + monthlySavingOrPenalty);
-        System.out.println("Total rent cost this month so far: ");
+            //System.out.println("AverageHeatSetting: " + averageHeatSetting);
+            //System.out.println("number of heatvalues: " + numberOfHeatValues);
 
+
+            daily_saving_or_penalty = (averageHeatSetting / numberOfHeatValues) * 20 - daily_base_amount;
+
+           // System.out.println("Average Heat Month Setting: " + averageHeatMonthSetting);
+        //System.out.println("Number of heat values Setting: " + numberOfHeatMonthValues);
+
+            for (int i = 0; i < numberOfHeatMonthValues; i++){
+                total_saving_penalty += ((averageHeatMonthSetting / numberOfHeatMonthValues) * 20 - daily_base_amount);
+                //System.out.println("Debug total_saving_penalty: " + total_saving_penalty);
+            }
+
+            /*
+
+            index 0: total_saving_penalty = 400/4 * 20 - 10; = 1990;
+            index 1: total_saving_penalty = 3980
+
+
+             */
+            //System.out.println("Total saving/penalty DEBUG: " + total_saving_penalty);
+
+
+
+            Double averageValues = (averageHeatSetting / numberOfHeatValues) * 100;
+
+            monthlySavingOrPenalty += daily_saving_or_penalty;
+
+            double total_rent_cost = ((ApartmentOwner) user).getRentCost() + total_saving_penalty;
+
+            //----------------------------------
+        System.out.println("-------------------------------\nResults: ");
+
+            System.out.println("Average heat setting for this apartment today is: " + String.format("%.2f", averageValues) + " %");
+            System.out.println("Daily saving or penalty for this day : " + String.format("%.2f", daily_saving_or_penalty) + " SEK");
+            System.out.println("Total saving/penalty this month so far: " + total_saving_penalty);
+            System.out.println("Total rent cost this month so far: " + total_rent_cost);
+
+            System.out.println("------");
+            for (HeatRegulation hReg : Data.getInstance().heatValues){
+                if (hReg.aptNumber == apartmentNr){
+                    System.out.println(hReg.toString());
+                }
+            }
 
     }
 
-    public void printIndoorTempToday() {
-        int timer = 1;
-        double sum = 0;
-        boolean noSaved = true;
-        int indexes = 0;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateObject = new Date();
+        public void printIndoorTempToday () {
+            int timer = 1;
+            double sum = 0;
+            boolean noSaved = true;
+            int indexes = 0;
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date dateObject = new Date();
 
-        // for (int i = 0; i < Data.getInstance().indoorTemps.size() ; i++) {
-        //    sum = sum + Data.getInstance().indoorTemps.get(i).getDegrees();
+            // for (int i = 0; i < Data.getInstance().indoorTemps.size() ; i++) {
+            //    sum = sum + Data.getInstance().indoorTemps.get(i).getDegrees();
 
-        //}
+            //}
 
             /*
             Gör så att högsta index skrivs först
              */
-        Collections.sort(Data.getInstance().indoorTemps);
+            Collections.sort(Data.getInstance().indoorTemps);
 
 
-        for (int i = 0; i < Data.getInstance().indoorTemps.size(); i++) {
-            if (Data.getInstance().indoorTemps.get(i).getAptNumber() == ((ApartmentOwner) Data.getInstance().currentLoggedInUser).apartmentNumber) {
-                if (Data.getInstance().indoorTemps.get(i).getTimeStamp().contains(dateFormat.format(dateObject))) {
-                    System.out.println("Outdoor temperature: " + Data.getInstance().indoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + Data.getInstance().indoorTemps.get(i).getTimeStamp());
-                    System.out.println("----------------------------------");
-                    sum += Data.getInstance().indoorTemps.get(i).getDegrees();
-                    indexes++;
-                    noSaved = false;
+            for (int i = 0; i < Data.getInstance().indoorTemps.size(); i++) {
+                if (Data.getInstance().indoorTemps.get(i).getAptNumber() == ((ApartmentOwner) Data.getInstance().currentLoggedInUser).apartmentNumber) {
+                    if (Data.getInstance().indoorTemps.get(i).getTimeStamp().contains(dateFormat.format(dateObject))) {
+                        System.out.println("Outdoor temperature: " + Data.getInstance().indoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + Data.getInstance().indoorTemps.get(i).getTimeStamp());
+                        System.out.println("----------------------------------");
+                        sum += Data.getInstance().indoorTemps.get(i).getDegrees();
+                        indexes++;
+                        noSaved = false;
+                    }
                 }
-            }
-           if (noSaved) {
-                System.out.println("You do not have any temperatures saved!\nTry adding some indoor measurements with option [1]");
-            }
+                if (noSaved) {
+                    System.out.println("You do not have any temperatures saved!\nTry adding some indoor measurements with option [1]");
+                }
 
 
+            }
+            System.out.println("Average: " + sum / indexes + "°C");
         }
-        System.out.println("Average: " + sum / indexes + "°C");
-    }
-
-    public void printIndoorTemp7Days(){
-        double sums = 0;
-        int index;
-        double sum;
-        int indexes = 0;
-
-        Collections.sort(Data.getInstance().indoorTemps);
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar calendarDate = Calendar.getInstance();
-        DecimalFormat deci = new DecimalFormat("#.##");
 
 
+        public void printIndoorTemp7Days() {
+            double sums = 0;
+            int index;
+            double sum;
+            int indexes = 0;
 
-        //for (int i = 0; i < Data.getInstance().indoorTemps.size(); i++) {
-          //  sum = sum + Data.getInstance().indoorTemps.get(i).getDegrees();
-        //}
+            Collections.sort(Data.getInstance().indoorTemps);
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar calendarDate = Calendar.getInstance();
+            DecimalFormat deci = new DecimalFormat("#.##");
 
-        //System.out.println("Saved measurements for apartment: " + indoorTemps.get(index).getApartmentNumber(apartmentOwner));
+
+            //for (int i = 0; i < Data.getInstance().indoorTemps.size(); i++) {
+            //  sum = sum + Data.getInstance().indoorTemps.get(i).getDegrees();
+            //}
+
+            //System.out.println("Saved measurements for apartment: " + indoorTemps.get(index).getApartmentNumber(apartmentOwner));
             /*
             Gör så att högsta index skrivs först
              */
@@ -156,10 +249,10 @@ public class ApartmentOwner extends User {
 
             //System.out.println("Saved measurements for apartment: " + indoorTemps.get(index).getApartmentNumber(apartmentOwner));
 
-        for (int i = 7; 0 < i ; i--) {
-            Date dateToday = calendarDate.getTime();
-            sum = 0;
-            index = 0;
+            for (int i = 7; 0 < i; i--) {
+                Date dateToday = calendarDate.getTime();
+                sum = 0;
+                index = 0;
 
                 for (int j = 0; j < Data.getInstance().indoorTemps.size(); j++) {
                     if (Data.getInstance().indoorTemps.get(j).getAptNumber() == ((ApartmentOwner) Data.getInstance().currentLoggedInUser).apartmentNumber) {
@@ -180,21 +273,23 @@ public class ApartmentOwner extends User {
                  /*
             En dags average
              */
-           if (sum > 0){
-               sum =  sum/index;
-               System.out.println("Average: " + deci.format(sum) + "°C" +
-                       "\nDate: " + dateFormatter.format(dateToday));
-               System.out.println("-------------------------");
-           }
-           calendarDate.add(Calendar.DATE, -1);
-        }
+                if (sum > 0) {
+                    sum = sum / index;
+                    System.out.println("Average: " + deci.format(sum) + "°C" +
+                            "\nDate: " + dateFormatter.format(dateToday));
+                    System.out.println("-------------------------");
+                }
+                calendarDate.add(Calendar.DATE, -1);
+            }
          /*
           flera dagar average
          */
-        sums = sums/indexes;
-        System.out.println("Total average: " + deci.format(sums) + "°C");
-       // System.out.println("Average: " + sum/indexes + "°C" );
-    }
+            sums = sums / indexes;
+
+            System.out.println("Total average: " + deci.format(sums) + "°C");
+            // System.out.println("Average: " + sum/indexes + "°C" );
+        }
+
 
     public int getApartmentNumber() {
         return apartmentNumber;

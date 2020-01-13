@@ -8,14 +8,17 @@ import java.util.Scanner;
 
 public class HeatRegulation extends SensorValue {
     private double percentageValue;
+    private double Totals;
+    private int amountsOfValues;
     public int aptNumber;
     private boolean validInput = false;
 
 
     public HeatRegulation(int aptNumber, double percentageValue, String timeStamp){
         super(timeStamp);
-        this.percentageValue = percentageValue;
+        this.Totals += (percentageValue / 100);
         this.aptNumber = aptNumber;
+        amountsOfValues++;
     }
 
     public double readHeatValueFromKeyBoard(){
@@ -36,6 +39,18 @@ public class HeatRegulation extends SensorValue {
 
 
     public double getPercentageValue(){
-        return percentageValue;
+        return Totals;
     }
+
+    public void setPercentageValue(Double value) {
+        this.Totals += (value/100);
+
+
+        amountsOfValues++;
+
+        System.out.println("Totals: " + Totals);
+        System.out.println("Values: " + amountsOfValues);
+    }
+
+    public int getAmountOfValues() { return amountsOfValues;}
 }

@@ -13,6 +13,13 @@ public class DistrictHeatSavingsApp {
         DistrictHeatSavingsApp DHSCA = new DistrictHeatSavingsApp();
         Data.getInstance().userArrayList.add(new Admin("admin", "root"));
 
+        Data.getInstance().heatValues.add(new HeatRegulation(1, 100, "2020-01-13 12:12:12"));
+        Data.getInstance().heatValues.add(new HeatRegulation(1, 100, "2020-01-12 12:12:12"));
+        Data.getInstance().heatValues.add(new HeatRegulation(1, 100, "2020-01-11 12:12:12"));
+        Data.getInstance().heatValues.add(new HeatRegulation(1, 100, "2020-01-10 12:12:12"));
+        Data.getInstance().heatValues.add(new HeatRegulation(1, 100, "2020-01-09 12:12:12"));
+        //Test values
+        //Förutsätter att aptNumber 1 finns i users.txt
 
         try {
             Data.getInstance().loadFromFile();

@@ -62,9 +62,7 @@ public class Logic {
 
                     } else if (Data.getInstance().currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde change heat value>");
-                        Data.getInstance().heatValues.add
-                                (Data.getInstance().apartmentOwner.changeHeatingValue
-                                        (Data.getInstance().currentLoggedInUser));
+                        Data.getInstance().apartmentOwner.changeHeatingValue(Data.getInstance().currentLoggedInUser);
                     }
                     break;
                 case 3:

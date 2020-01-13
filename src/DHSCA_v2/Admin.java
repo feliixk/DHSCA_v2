@@ -16,13 +16,12 @@ public class Admin extends User {
         int aptNumber = 0;
         int rentCost = 0;
         boolean validInput = false;
-        System.out.print("Please set the name of the owner: ");
-        user = input.nextLine();
 
-        if (user.contains("admin")) {
-            System.out.println("Owner cannot be admin");
+        do {
+            System.out.print("Please set the name of the owner (not admin): ");
             user = input.nextLine();
-        }
+        }while (user.contains("admin"));
+
         System.out.print("Please set the password of the owner: ");
         pass = input.nextLine();
 
@@ -70,103 +69,100 @@ public class Admin extends User {
 
     public void showAverageHeatSetting() {
         Scanner input = new Scanner(System.in);
-        int apartmentNumber;
-        String dateInput;
+        final String regex = "^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$";
+        int aptNumber = 0;
+        String timeStamp;
         double averageHeatSetting = 0;
         double averageHeatMonthSetting = 0;
         double daily_base_amount = 0;
         double daily_saving_or_penalty = 0;
-        double total_saving_or_penalty = 0;
+        String monthInput;
         double rent_cost = 0;
         int numberOfHeatValues = 0;
         int numberOfHeatMonthValues = 0;
-        ArrayList<HeatRegulation> heatRegulationsInMethod = new ArrayList<>();
-        ArrayList<HeatRegulation> heatRegulationsMonth = new ArrayList<>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateObject = new Date();
-        String formattedDate = "";
-
-        System.out.println("Type number of apartment to show: ");
-        apartmentNumber = input.nextInt();
-        input.nextLine();
-
-        System.out.println("Type the date you want to show (yyyy-MM-dd): ");
-        dateInput = input.nextLine();
-
-        String monthInput = dateInput.substring(0, 7);
-        //System.out.println("DEBUG MONTH INPUT: " + monthInput);
-        //System.out.println("DEBUG TOTAL INPUT: " + dateInput);
-
-        for (HeatRegulation heatRegulation :
-                Data.getInstance().heatValues) {
-            if (apartmentNumber == heatRegulation.aptNumber && heatRegulation.getTimeStamp().contains(dateInput)) {
-                heatRegulationsInMethod.add(heatRegulation);
+        boolean validInput = false;
+        while (!validInput) {
+            try {
+                System.out.print("Type number of apartment to show: ");
+                aptNumber = Integer.parseInt(input.nextLine());
+                validInput = true;
+            } catch (NumberFormatException e) {
+                System.out.println("<ERROR> Only numeric values allowed");
             }
-
-            if (apartmentNumber == heatRegulation.aptNumber && heatRegulation.getTimeStamp().contains(monthInput)) {
-
-
-                heatRegulationsMonth.add(heatRegulation);
-            }
-
         }
+
+        String dateInput = "";
+        Date dateObject = new Date();
+        do {
+            System.out.println("Type the date you want to show (yyyy-MM-dd)\nIf you press enter you will get the current date.");
+            dateInput = input.nextLine();
+            if (!dateInput.matches(regex) && !dateInput.equals("")) {
+                System.out.println("Wrong format");
+            }
+
+        } while (!dateInput.matches(regex) && !dateInput.equals(""));
+
+        if (!dateInput.equalsIgnoreCase("")) {
+            timeStamp = dateInput;
+        } else timeStamp = dateFormat.format(dateObject);
+        System.out.println(timeStamp);
 
         for (User u : Data.getInstance().userArrayList) {
             if (u instanceof ApartmentOwner) {
-                if (apartmentNumber == ((ApartmentOwner) u).getApartmentNumber()) {
+                if (aptNumber == ((ApartmentOwner) u).getApartmentNumber()) {
                     daily_base_amount = ((ApartmentOwner) u).getRentCost() / 300;
                     rent_cost = ((ApartmentOwner) u).getRentCost();
                 }
             }
         }
 
-        //Tillfällig metod
-        for (HeatRegulation heatRegulation :
-                heatRegulationsInMethod) {
-            averageHeatSetting += heatRegulation.getPercentageValue();
-            numberOfHeatValues++;
-        }
+        averageHeatMonthSetting = 0;
+        numberOfHeatMonthValues = 0;
+        double total_saving_penalty = 0;
+        monthInput = timeStamp.substring(0, 7);
 
-        //Funkar inte än
-       // for (HeatRegulation heatRegulation :
-         //       heatRegulationsMonth) {
-
-       //     for (int i = 0; )
-        //    averageHeatMonthSetting += heatRegulation.getPercentageValue();
-         //   numberOfHeatMonthValues++;
-        //}
-
-        for (int i = 0; i < heatRegulationsMonth.size(); i++){
-            for (int x = 0; x < i; x++){
+        for (int i = 0; i < Data.getInstance().heatValues.size(); i++) {
+            if (aptNumber == Data.getInstance().heatValues.get(i).aptNumber && Data.getInstance().heatValues.get(i).getTimeStamp().startsWith(timeStamp)) {
+                averageHeatSetting = Data.getInstance().heatValues.get(i).getPercentageValue();
+                numberOfHeatValues = Data.getInstance().heatValues.get(i).getAmountOfValues();
+                break;
+            }else{
 
             }
         }
+        for (int i = 0; i < Data.getInstance().heatValues.size(); i++) {
+            if (aptNumber == Data.getInstance().heatValues.get(i).aptNumber && Data.getInstance().heatValues.get(i).getTimeStamp().contains(monthInput)) {
 
 
-        averageHeatSetting = averageHeatSetting / 100;
-        averageHeatMonthSetting = averageHeatMonthSetting / 100;
+                if(Data.getInstance().heatValues.get(i).getAmountOfValues() > 1){
+                    averageHeatMonthSetting += (Data.getInstance().heatValues.get(i).getPercentageValue() / Data.getInstance().heatValues.get(i).getAmountOfValues());
+                    numberOfHeatMonthValues++;
+                    //System.out.println("DEBUGGER: GETTING AVERAGE VALUE, MORE THAN 1 VALUE IN DAY " + Data.getInstance().heatValues.get(i).getTimeStamp().substring(0,10));
+                }else{
+                    averageHeatMonthSetting += Data.getInstance().heatValues.get(i).getPercentageValue();
+                    numberOfHeatMonthValues += Data.getInstance().heatValues.get(i).getAmountOfValues();
+                    //System.out.println("DEBUGGER: GETTING AVERAGE VALUE, ONLY 1 VALUE IN DAY " + Data.getInstance().heatValues.get(i).getTimeStamp().substring(0,10));
+                }
+            }
+        }
 
         daily_saving_or_penalty = (averageHeatSetting / numberOfHeatValues) * 20 - daily_base_amount;
 
-        Double averageValues = (averageHeatSetting / numberOfHeatValues) * 100;
-
-        double tester = 0;
-
-        for (HeatRegulation heatRegulation :
-                heatRegulationsMonth) {
-
-            //System.out.println("DEBUG MONTHLY PERCENTAGE VALUES: " + heatRegulation.getPercentageValue() + ", ");
-
-            total_saving_or_penalty += (averageHeatMonthSetting / numberOfHeatMonthValues) * 20 - daily_base_amount;
-            tester++;
-
+        for (int i = 0; i < numberOfHeatMonthValues; i++){
+            total_saving_penalty += ((averageHeatMonthSetting / numberOfHeatMonthValues) * 20 - daily_base_amount);
         }
-        averageHeatMonthSetting += averageHeatMonthSetting / 100;
+
+        Double averageValues = (averageHeatSetting / numberOfHeatValues) * 100;
+        double total_rent_cost = rent_cost + total_saving_penalty;
+
+        //----------------------------------
+        System.out.println("-------------------------------\nResults: ");
 
         System.out.println("Average heat setting for this apartment today is: " + String.format("%.2f", averageValues) + " %");
         System.out.println("Daily saving or penalty for this day : " + String.format("%.2f", daily_saving_or_penalty) + " SEK");
-        //System.out.println("Total saving or penalty this month so far: " + (total_saving_or_penalty));
-        //System.out.println("Total rent cost this month so far: " + (rent_cost + total_saving_or_penalty));
+        System.out.println("Total saving/penalty this month so far: " + total_saving_penalty + " SEK");
+        System.out.println("Total rent cost this month so far: " + total_rent_cost + " SEK");
     }
 
     public void printOutdoorTemp_Currentday() {
