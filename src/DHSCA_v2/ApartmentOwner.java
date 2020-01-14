@@ -189,13 +189,15 @@ public class ApartmentOwner extends User {
             Gör så att högsta index skrivs först
              */
             Collections.sort(Data.getInstance().indoorTemps);
+            System.out.println();
 
 
             for (int i = 0; i < Data.getInstance().indoorTemps.size(); i++) {
                 if (Data.getInstance().indoorTemps.get(i).getAptNumber() == ((ApartmentOwner) Data.getInstance().currentLoggedInUser).apartmentNumber) {
                     if (Data.getInstance().indoorTemps.get(i).getTimeStamp().contains(dateFormat.format(dateObject))) {
+
                         System.out.println("Outdoor temperature: " + Data.getInstance().indoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + Data.getInstance().indoorTemps.get(i).getTimeStamp());
-                        System.out.println("----------------------------------");
+
                         sum += Data.getInstance().indoorTemps.get(i).getDegrees();
                         indexes++;
                         noSaved = false;
@@ -204,9 +206,11 @@ public class ApartmentOwner extends User {
                 if (noSaved) {
                     System.out.println("You do not have any temperatures saved!\nTry adding some indoor measurements with option [1]");
                 }
+                System.out.println();
 
 
             }
+
             System.out.println("Average: " + sum / indexes + "°C");
         }
 
@@ -234,7 +238,7 @@ public class ApartmentOwner extends User {
             // Collections.sort(Data.getInstance().indoorTemps);
 
             //System.out.println("Saved measurements for apartment: " + indoorTemps.get(index).getApartmentNumber(apartmentOwner));
-
+            System.out.println();
             for (int i = 7; 0 < i; i--) {
                 Date dateToday = calendarDate.getTime();
                 sum = 0;
@@ -249,10 +253,11 @@ public class ApartmentOwner extends User {
                             sums += Data.getInstance().indoorTemps.get(j).getDegrees();
                             indexes++;
 
+
                             System.out.println("Indoor temperature: " + Data.getInstance().indoorTemps.get(j).getDegrees() + "°C " +
                                     "\nDate: " + Data.getInstance().indoorTemps.get(j).getTimeStamp());
 
-                            System.out.println("-------------------------");
+                            System.out.println();
                         }
                     }
                 }
