@@ -292,9 +292,12 @@ public class ApartmentOwner extends User {
         String dateInput1 = "";
         String dateInput2 = "";
         Collections.sort(Data.getInstance().indoorTemps);
+        System.out.println("");
+        System.out.println("choose between this intervals down below ");
+        System.out.println("");
         for (int i = 0; i < Data.getInstance().indoorTemps.size(); i++) {
             if (Data.getInstance().indoorTemps.get(i).getAptNumber() == ((ApartmentOwner) Data.getInstance().currentLoggedInUser).apartmentNumber) {
-                System.out.println("Outdoor temperature: " + Data.getInstance().indoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + Data.getInstance().indoorTemps.get(i).getTimeStamp());
+                System.out.println("Indoor temperature: " + Data.getInstance().indoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + Data.getInstance().indoorTemps.get(i).getTimeStamp());
                 System.out.println("");
             }
         }
@@ -305,7 +308,7 @@ public class ApartmentOwner extends User {
 
             dateInput1 = input.nextLine();
             if (!dateInput1.matches(regex)) {
-                System.out.println("<ERROR> Wrong format");
+                System.out.println("Wrong format");
             }
 
         } while (!dateInput1.matches(regex));
@@ -314,19 +317,20 @@ public class ApartmentOwner extends User {
             System.out.println("please input the oldest time interval in this format yyyy-MM-dd HH:mm:ss ");
             dateInput2 = input.nextLine();
             if (!dateInput2.matches(regex)) {
-                System.out.println("<ERROR> Wrong format");
+                System.out.println("Wrong format");
             }
 
         }
 
         while (!dateInput2.matches(regex));
+        System.out.println("----------------------------------");
 
 
         for (int i = 0; i < Data.getInstance().indoorTemps.size(); i++) {
             if (Data.getInstance().indoorTemps.get(i).getAptNumber() == ((ApartmentOwner) Data.getInstance().currentLoggedInUser).apartmentNumber) {
-            if (Data.getInstance().indoorTemps.get(i).getTimeStamp().contains(dateInput1)) {
-                index1 += i;
-            }
+                if (Data.getInstance().indoorTemps.get(i).getTimeStamp().contains(dateInput1)) {
+                    index1 += i;
+                }
 
             }
 
@@ -344,11 +348,12 @@ public class ApartmentOwner extends User {
             }
 
         }
+        System.out.println("");
         double average=0;
         int times =0;
         for (; index1 <=index2; index1++) {
             if (Data.getInstance().indoorTemps.get(index1).getAptNumber() == ((ApartmentOwner) Data.getInstance().currentLoggedInUser).apartmentNumber) {
-                System.out.println("Outdoor temperature: " + Data.getInstance().indoorTemps.get(index1).getDegrees() + "°C" + "\nDate: " + Data.getInstance().indoorTemps.get(index1).getTimeStamp());
+                System.out.println("Indoor temperature: " + Data.getInstance().indoorTemps.get(index1).getDegrees() + "°C" + "\nDate: " + Data.getInstance().indoorTemps.get(index1).getTimeStamp());
                 average += Data.getInstance().indoorTemps.get(index1).getDegrees();
                 times++;
                 System.out.println("");
