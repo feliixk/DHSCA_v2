@@ -74,7 +74,7 @@ public class Admin extends User {
         String timeStamp;
         double averageHeatSetting = 0;
         double averageHeatMonthSetting = 0;
-        double daily_base_amount = 0;
+        double daily_base_amount = 10;
         double daily_saving_or_penalty = 0;
         String monthInput;
         double rent_cost = 0;
@@ -98,7 +98,7 @@ public class Admin extends User {
             System.out.println("Type the date you want to show (yyyy-MM-dd)\nIf you press enter you will get the current date.");
             dateInput = input.nextLine();
             if (!dateInput.matches(regex) && !dateInput.equals("")) {
-                System.out.println("Wrong format");
+                System.out.println("<ERROR> Wrong format");
             }
 
         } while (!dateInput.matches(regex) && !dateInput.equals(""));
@@ -111,7 +111,6 @@ public class Admin extends User {
         for (User u : Data.getInstance().userArrayList) {
             if (u instanceof ApartmentOwner) {
                 if (aptNumber == ((ApartmentOwner) u).getApartmentNumber()) {
-                    daily_base_amount = ((ApartmentOwner) u).getRentCost() / 300;
                     rent_cost = ((ApartmentOwner) u).getRentCost();
                 }
             }

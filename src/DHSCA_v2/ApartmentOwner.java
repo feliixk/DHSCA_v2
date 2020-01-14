@@ -71,37 +71,18 @@ public class ApartmentOwner extends User {
     public void showAverageHeatSetting(User user) {
         Data.getInstance().savingOrPenalty.clear();
         Scanner input = new Scanner(System.in);
-        int apartmentNumber;
         String dateInput;
         double averageHeatSetting = 0;
-        double daily_base_amount = 0;
+        double daily_base_amount = 10;
         double daily_saving_or_penalty = 0;
         int numberOfHeatValues = 0;
         int apartmentNr;
-        ArrayList<HeatRegulation> heatRegulationsInMethod = new ArrayList<>();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateObject = new Date();
-        String formattedDate = "";
         apartmentNr = ((ApartmentOwner) user).getApartmentNumber();
 
         System.out.println("DEBUG APARTMENTNUMBER: " + apartmentNr);
 
         System.out.println("Type the date you want to show (yyyy-MM-dd): ");
         dateInput = input.nextLine();
-
-
-        //for (HeatRegulation heatRegulation :
-        //        Data.getInstance().heatValues) {
-        //   if (apartmentNr == heatRegulation.aptNumber && heatRegulation.getTimeStamp().contains(dateInput)){
-        //       heatRegulationsInMethod.add(heatRegulation);
-        //   }else{
-        //      System.out.println("ERROR");
-        //  }
-        //}
-
-        daily_base_amount = ((ApartmentOwner) user).getRentCost() / 300;
-
-        //Tillfällig metod
 
         double averageHeatMonthSetting = 0;
         int numberOfHeatMonthValues = 0;
@@ -128,11 +109,11 @@ public class ApartmentOwner extends User {
                 if(Data.getInstance().heatValues.get(i).getAmountOfValues() > 1){
                     averageHeatMonthSetting += (Data.getInstance().heatValues.get(i).getPercentageValue() / Data.getInstance().heatValues.get(i).getAmountOfValues());
                     numberOfHeatMonthValues++;
-                    System.out.println("DEBUGGER: GETTING AVERAGE VALUE, MORE THAN 1 VALUE IN DAY " + Data.getInstance().heatValues.get(i).getTimeStamp().substring(0,10));
+                    //System.out.println("DEBUGGER: GETTING AVERAGE VALUE, MORE THAN 1 VALUE IN DAY " + Data.getInstance().heatValues.get(i).getTimeStamp().substring(0,10));
                 }else{
                     averageHeatMonthSetting += Data.getInstance().heatValues.get(i).getPercentageValue();
                     numberOfHeatMonthValues += Data.getInstance().heatValues.get(i).getAmountOfValues();
-                    System.out.println("DEBUGGER: GETTING AVERAGE VALUE, ONLY 1 VALUE IN DAY " + Data.getInstance().heatValues.get(i).getTimeStamp().substring(0,10));
+                    //System.out.println("DEBUGGER: GETTING AVERAGE VALUE, ONLY 1 VALUE IN DAY " + Data.getInstance().heatValues.get(i).getTimeStamp().substring(0,10));
                 }
             }
         }
@@ -144,12 +125,12 @@ public class ApartmentOwner extends User {
 
             daily_saving_or_penalty = (averageHeatSetting / numberOfHeatValues) * 20 - daily_base_amount;
 
-           // System.out.println("Average Heat Month Setting: " + averageHeatMonthSetting);
-        //System.out.println("Number of heat values Setting: " + numberOfHeatMonthValues);
+            //System.out.println("Average Heat Month Setting: " + averageHeatMonthSetting);
+            //System.out.println("Number of heat values Setting: " + numberOfHeatMonthValues);
 
             for (int i = 0; i < numberOfHeatMonthValues; i++){
                 total_saving_penalty += ((averageHeatMonthSetting / numberOfHeatMonthValues) * 20 - daily_base_amount);
-                //System.out.println("Debug total_saving_penalty: " + total_saving_penalty);
+                System.out.println("Debug total_saving_penalty: " + total_saving_penalty);
             }
 
             /*
@@ -159,9 +140,7 @@ public class ApartmentOwner extends User {
 
 
              */
-            //System.out.println("Total saving/penalty DEBUG: " + total_saving_penalty);
-
-
+            System.out.println("Total saving/penalty DEBUG: " + total_saving_penalty);
 
             Double averageValues = (averageHeatSetting / numberOfHeatValues) * 100;
 
@@ -176,13 +155,6 @@ public class ApartmentOwner extends User {
             System.out.println("Daily saving or penalty for this day : " + String.format("%.2f", daily_saving_or_penalty) + " SEK");
             System.out.println("Total saving/penalty this month so far: " + total_saving_penalty);
             System.out.println("Total rent cost this month so far: " + total_rent_cost);
-
-            System.out.println("------");
-            for (HeatRegulation hReg : Data.getInstance().heatValues){
-                if (hReg.aptNumber == apartmentNr){
-                    System.out.println(hReg.toString());
-                }
-            }
 
     }
 
