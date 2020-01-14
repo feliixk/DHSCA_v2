@@ -30,6 +30,7 @@ public class ApartmentOwner extends User {
     }
 
     public void changeHeatingValue(User user){
+        final String regex = "^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$";
         List<HeatRegulation> thingsToBeAdd = new ArrayList<HeatRegulation>();
         String timeStamp = Data.getInstance().heatRegulation.readTimestamp();
         double heatValue = Data.getInstance().heatRegulation.readHeatValueFromKeyBoard();
@@ -65,6 +66,9 @@ public class ApartmentOwner extends User {
 
 
     public void showAverageHeatSetting(User user) {
+        final String regex = "^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String timeStamp;
         Data.getInstance().savingOrPenalty.clear();
         Scanner input = new Scanner(System.in);
         String dateInput;
@@ -75,10 +79,24 @@ public class ApartmentOwner extends User {
         int apartmentNr;
         apartmentNr = ((ApartmentOwner) user).getApartmentNumber();
 
-        System.out.println("DEBUG APARTMENTNUMBER: " + apartmentNr);
+        //System.out.println("DEBUG APARTMENTNUMBER: " + apartmentNr);
 
-        System.out.println("Type the date you want to show (yyyy-MM-dd): ");
-        dateInput = input.nextLine();
+
+        Date dateObject = new Date();
+        do {
+            System.out.println("Type the date you want to show (yyyy-MM-dd)\nIf you press enter you will get the current date.");
+            timeStamp = input.nextLine();
+            if (!timeStamp.matches(regex) && !timeStamp.equals("")) {
+                System.out.println("<ERROR> Wrong format");
+            }
+
+        } while (!timeStamp.matches(regex) && !timeStamp.equals(""));
+
+        if (!timeStamp.equalsIgnoreCase("")) {
+            dateInput = timeStamp;
+        } else dateInput = dateFormat.format(dateObject);
+
+
 
         double averageHeatMonthSetting = 0;
         int numberOfHeatMonthValues = 0;
@@ -126,7 +144,7 @@ public class ApartmentOwner extends User {
 
             for (int i = 0; i < numberOfHeatMonthValues; i++){
                 total_saving_penalty += ((averageHeatMonthSetting / numberOfHeatMonthValues) * 20 - daily_base_amount);
-                System.out.println("Debug total_saving_penalty: " + total_saving_penalty);
+                //System.out.println("Debug total_saving_penalty: " + total_saving_penalty);
             }
 
             /*
@@ -136,7 +154,7 @@ public class ApartmentOwner extends User {
 
 
              */
-            System.out.println("Total saving/penalty DEBUG: " + total_saving_penalty);
+            //System.out.println("Total saving/penalty DEBUG: " + total_saving_penalty);
 
             Double averageValues = (averageHeatSetting / numberOfHeatValues) * 100;
 
