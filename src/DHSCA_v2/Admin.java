@@ -106,7 +106,6 @@ public class Admin extends User {
         if (!dateInput.equalsIgnoreCase("")) {
             timeStamp = dateInput;
         } else timeStamp = dateFormat.format(dateObject);
-        System.out.println(timeStamp);
 
         for (User u : Data.getInstance().userArrayList) {
             if (u instanceof ApartmentOwner) {

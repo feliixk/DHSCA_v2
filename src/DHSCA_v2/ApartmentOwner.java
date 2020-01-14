@@ -36,34 +36,30 @@ public class ApartmentOwner extends User {
         int aptNumber = ((ApartmentOwner) user).getApartmentNumber();
         thingsToBeAdd.clear();
 
-        System.out.println("apt nr: " + aptNumber);
+        //System.out.println("apt nr: " + aptNumber);
         boolean added = false;
 
 
         for (HeatRegulation heatR : Data.getInstance().heatValues) {
                 if (heatR.aptNumber == aptNumber && heatR.getTimeStamp().substring(0, 10).startsWith(timeStamp.substring(0, 10))) {
                     heatR.setPercentageValue(heatValue);
-                    System.out.println("DATE ALREADY EXISTS, CORRECT DATE, UPDATING HEATVALUE");
+                    //System.out.println("DATE ALREADY EXISTS, CORRECT DATE, UPDATING HEATVALUE");
                     added = true;
                     break;
                 } else if (heatR.aptNumber == aptNumber && !heatR.getTimeStamp().substring(0, 10).startsWith(timeStamp.substring(0, 10))) {
-                    System.out.println("DATE ALREADY EXISTS, BUT WRONG DATE, NOT UPDATING HEATVALUE");
+                    //System.out.println("DATE ALREADY EXISTS, BUT WRONG DATE, NOT UPDATING HEATVALUE");
                 }
                 else if (heatR.aptNumber != aptNumber) {
-                System.out.println("DEBUG WRONG USER");
+                //System.out.println("DEBUG WRONG USER");
                 } else {
-                    System.out.println("no heat value");
+                    //System.out.println("no heat value");
         }
     }
 
         if (!added) {
         Data.getInstance().heatValues.add(new HeatRegulation(aptNumber, heatValue, timeStamp));
-        System.out.println("ADDING TO ARRAYLIST HEATVALUES");
+        //System.out.println("ADDING TO ARRAYLIST HEATVALUES");
     }
-
-    }
-
-    public void calculateMonthlySavingOrPenalty(double dailySavings){
 
     }
 
