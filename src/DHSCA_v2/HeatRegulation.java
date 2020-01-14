@@ -28,9 +28,21 @@ public class HeatRegulation extends SensorValue {
         Scanner input = new Scanner(System.in);
         //TODO: Fixa så man inte kan skriva över 100%
 
-        System.out.println("Input desired heat value: ");
-        System.out.print("> ");
-        heatValue = Double.parseDouble(input.nextLine());
+        while (!validInput) {
+            try {
+                System.out.println("Input desired heat value (0-100%): ");
+                System.out.print("> ");
+                heatValue = Double.parseDouble(input.nextLine());
+                if (heatValue < 0 || heatValue > 100){
+                    System.out.println("<ERROR> Input was not in 0-100% range");
+                }else{
+                    validInput = true;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("<ERROR> Only numeric values allowed");
+            }
+        }
+
 
 
         return heatValue;
@@ -47,9 +59,6 @@ public class HeatRegulation extends SensorValue {
 
 
         amountsOfValues++;
-
-        System.out.println("Totals: " + Totals);
-        System.out.println("Values: " + amountsOfValues);
     }
 
     public int getAmountOfValues() { return amountsOfValues;}

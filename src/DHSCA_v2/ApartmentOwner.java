@@ -161,14 +161,15 @@ public class ApartmentOwner extends User {
             monthlySavingOrPenalty += daily_saving_or_penalty;
 
             double total_rent_cost = ((ApartmentOwner) user).getRentCost() + total_saving_penalty;
+            double rentcost = ((ApartmentOwner) user).getRentCost();
 
             //----------------------------------
         System.out.println("-------------------------------\nResults: ");
 
-            System.out.println("Average heat setting for this apartment today is: " + String.format("%.2f", averageValues) + " %");
+            System.out.println("Average heat setting for your apartment today is: " + String.format("%.2f", averageValues) + " %");
             System.out.println("Daily saving or penalty for this day : " + String.format("%.2f", daily_saving_or_penalty) + " SEK");
-            System.out.println("Total saving/penalty this month so far: " + total_saving_penalty);
-            System.out.println("Total rent cost this month so far: " + total_rent_cost);
+            System.out.println("Total saving/penalty this month so far: " + String.format("%.2f", total_saving_penalty) + " SEK");
+            System.out.println("Total rent cost this month so far: " + String.format("%.2f", total_rent_cost) + " (Base rent cost is: " + rentcost + ")");
 
     }
 
@@ -304,7 +305,7 @@ public class ApartmentOwner extends User {
 
             dateInput1 = input.nextLine();
             if (!dateInput1.matches(regex)) {
-                System.out.println("Wrong format");
+                System.out.println("<ERROR> Wrong format");
             }
 
         } while (!dateInput1.matches(regex));
@@ -313,7 +314,7 @@ public class ApartmentOwner extends User {
             System.out.println("please input the oldest time interval in this format yyyy-MM-dd HH:mm:ss ");
             dateInput2 = input.nextLine();
             if (!dateInput2.matches(regex)) {
-                System.out.println("Wrong format");
+                System.out.println("<ERROR> Wrong format");
             }
 
         }

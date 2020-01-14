@@ -17,13 +17,13 @@ public class Temperature extends SensorValue {
         while (counter == 0) {
             try {
 
-                System.out.println("Enter what temperature: ");
+                System.out.println("Enter the indoor temperature: ");
                 System.out.print("> ");
                 degrees = Double.parseDouble(input.nextLine());
                 counter++;
             }
             catch (NumberFormatException e) {
-                System.out.println("<ERROR> Enter a valid temperature, please!");
+                System.out.println("<ERROR> Enter a valid temperature");
             }
         }
         return degrees;

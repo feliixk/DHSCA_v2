@@ -22,7 +22,7 @@ public class SensorValue implements Comparable <SensorValue>{
             System.out.println("please input the current date and time (yyyy-MM-dd HH:mm:ss)\nIf you press enter you will get the current time.");
             dateInput = input.nextLine();
             if (!dateInput.matches(regex) && !dateInput.equals("")) {
-                System.out.println("Wrong format");
+                System.out.println("<ERROR> Wrong format");
             }
 
         } while (!dateInput.matches(regex) && !dateInput.equals(""));

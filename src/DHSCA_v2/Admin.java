@@ -158,9 +158,9 @@ public class Admin extends User {
         System.out.println("-------------------------------\nResults: ");
 
         System.out.println("Average heat setting for this apartment today is: " + String.format("%.2f", averageValues) + " %");
-        System.out.println("Daily saving or penalty for this day : " + String.format("%.2f", daily_saving_or_penalty) + " SEK");
-        System.out.println("Total saving/penalty this month so far: " + total_saving_penalty + " SEK");
-        System.out.println("Total rent cost this month so far: " + total_rent_cost + " SEK");
+        System.out.println("Daily saving or penalty for this day: " + String.format("%.2f", daily_saving_or_penalty) + " SEK");
+        System.out.println("Total saving/penalty this month so far: " + String.format("%.2f", total_saving_penalty) + " SEK");
+        System.out.println("Total rent cost this month so far: " + String.format("%.2f", total_rent_cost) + " (Base rent cost is: " + rent_cost + ")");
     }
 
     public void printOutdoorTemp_Currentday() {

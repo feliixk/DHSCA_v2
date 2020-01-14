@@ -163,8 +163,10 @@ public class Logic {
 
         while (result == null) {
             System.out.println("Please enter your username: ");
+            System.out.println("> ");
             String username = input.nextLine();
             System.out.println("Please enter your password: ");
+            System.out.println("> ");
             String password = input.nextLine();
 
             if(username.length() < 1 && password.length() < 1) {
@@ -187,7 +189,7 @@ public class Logic {
             }
 
             if (result == null) {
-                System.out.println("<Unable to find username or password>");
+                System.out.println("<ERROR> Unable to find username or password");
             }
         }
         return result;
