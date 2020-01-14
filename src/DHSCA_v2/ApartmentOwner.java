@@ -282,6 +282,91 @@ public class ApartmentOwner extends User {
         }
 
 
+    public void printoutSelectedTimeInterval() {
+        int index2 = 0;
+        int index1 = 0;
+        Scanner input = new Scanner(System.in);
+
+        final String regex = "[2][0][\\d]{2}[-]([0][\\d]|([1][0-2]))[-]([0][1-9]|[1-2][\\d]|[3][0-1])[ ]([0-1]{1}[\\d]{1}|([2][0-3]))[:][0-5][\\d][:][0-5][\\d]";
+        String dateInput1 = "";
+        String dateInput2 = "";
+        Collections.sort(Data.getInstance().indoorTemps);
+        for (int i = 0; i < Data.getInstance().indoorTemps.size(); i++) {
+            if (Data.getInstance().indoorTemps.get(i).getAptNumber() == ((ApartmentOwner) Data.getInstance().currentLoggedInUser).apartmentNumber) {
+                System.out.println("Outdoor temperature: " + Data.getInstance().indoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + Data.getInstance().indoorTemps.get(i).getTimeStamp());
+                System.out.println("");
+            }
+        }
+        System.out.println("----------------------------------");
+
+        do {
+            System.out.println("please input the latest time interval in this format yyyy-MM-dd HH:mm:ss ");
+
+            dateInput1 = input.nextLine();
+            if (!dateInput1.matches(regex)) {
+                System.out.println("Wrong format");
+            }
+
+        } while (!dateInput1.matches(regex));
+
+        do {
+            System.out.println("please input the oldest time interval in this format yyyy-MM-dd HH:mm:ss ");
+            dateInput2 = input.nextLine();
+            if (!dateInput2.matches(regex)) {
+                System.out.println("Wrong format");
+            }
+
+        }
+
+        while (!dateInput2.matches(regex));
+
+
+        for (int i = 0; i < Data.getInstance().indoorTemps.size(); i++) {
+            if (Data.getInstance().indoorTemps.get(i).getAptNumber() == ((ApartmentOwner) Data.getInstance().currentLoggedInUser).apartmentNumber) {
+            if (Data.getInstance().indoorTemps.get(i).getTimeStamp().contains(dateInput1)) {
+                index1 += i;
+            }
+
+            }
+
+        }
+        for (int i = 0; i < Data.getInstance().indoorTemps.size(); i++) {
+            if (Data.getInstance().indoorTemps.get(i).getAptNumber() == ((ApartmentOwner) Data.getInstance().currentLoggedInUser).apartmentNumber) {
+                if (Data.getInstance().indoorTemps.get(i).getTimeStamp().contains(dateInput2)) {
+                    index2 += i;
+
+                }
+                double sum = 0;
+                for (int b = index1; b <= index2; b++) {
+                    sum += Data.getInstance().indoorTemps.get(b).getDegrees();
+                }
+            }
+
+        }
+        double average=0;
+        int times =0;
+        for (; index1 <=index2; index1++) {
+            if (Data.getInstance().indoorTemps.get(index1).getAptNumber() == ((ApartmentOwner) Data.getInstance().currentLoggedInUser).apartmentNumber) {
+                System.out.println("Outdoor temperature: " + Data.getInstance().indoorTemps.get(index1).getDegrees() + "°C" + "\nDate: " + Data.getInstance().indoorTemps.get(index1).getTimeStamp());
+                average += Data.getInstance().indoorTemps.get(index1).getDegrees();
+                times++;
+                System.out.println("");
+            }
+
+        }
+        average/=times;
+        System.out.printf("Average: %.2f°C  %n",average);
+        System.out.println("----------------------------------");
+    }
+
+
+
+
+
+
+
+
+
     public int getApartmentNumber() {
         return apartmentNumber;
     }

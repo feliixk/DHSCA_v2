@@ -32,6 +32,7 @@ public class Logic {
                         "\n[4] Show today's indoor measurement" +
                         "\n[5] Show last 7 day's indoor measurement" +
                         "\n[6] Show apartments" +
+                        "\n[7] Show all measurements for selected time interval"+
                         "\n[0] Exit menu" +
                         "\n[666] TERMINATE APPLICATION");
                 System.out.println("--------------------------------------------------------");
@@ -106,7 +107,14 @@ public class Logic {
                     printApartments();
                     break;
                 case 7:
-                    //Data.getInstance().admin.printoutSelectedTime();
+                    if (Data.getInstance().currentLoggedInUser instanceof ApartmentOwner) {
+                        System.out.println("<Du valde Show all measurements for selected time interval>");
+                        Data.getInstance().apartmentOwner.printoutSelectedTimeInterval();
+                    }
+                   /*if (Data.getInstance().currentLoggedInUser instanceof Admin){
+                       Data.getInstance().admin.printoutSelectedTime();
+                   }*/
+                   break;
 
                 case 0:
                     System.out.println("<Exiting menu>");
