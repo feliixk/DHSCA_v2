@@ -36,6 +36,7 @@ public class Logic {
                         "\n[0] Exit menu" +
                         "\n[666] TERMINATE APPLICATION");
                 System.out.println("--------------------------------------------------------");
+                System.out.print("> ");
             }
 
             try {

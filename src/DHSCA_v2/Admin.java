@@ -18,17 +18,20 @@ public class Admin extends User {
         boolean validInput = false;
 
         do {
-            System.out.print("Please set the name of the owner (not admin): ");
+            System.out.println("Please set the name of the owner (not admin): ");
+            System.out.print("> ");
             user = input.nextLine();
         }while (user.contains("admin"));
 
-        System.out.print("Please set the password of the owner: ");
+        System.out.println("Please set the password of the owner: ");
+        System.out.print("> ");
         pass = input.nextLine();
 
         //Tillfällig lösning.
         while (!validInput) {
             try {
-                System.out.print("Please set the Apartment number: ");
+                System.out.println("Please set the Apartment number: ");
+                System.out.print("> ");
                 aptNumber = Integer.parseInt(input.nextLine());
                 validInput = true;
             } catch (NumberFormatException e) {
@@ -38,7 +41,8 @@ public class Admin extends User {
         validInput = false;
         while (!validInput) {
             try {
-                System.out.print("Please set the rent cost: ");
+                System.out.println("Please set the rent cost: ");
+                System.out.print("> ");
                 rentCost = Integer.parseInt(input.nextLine());
                 validInput = true;
             } catch (NumberFormatException e) {
@@ -46,7 +50,8 @@ public class Admin extends User {
             }
         }
 
-        System.out.print("Please set the building address: ");
+        System.out.println("Please set the building address: ");
+        System.out.print("> ");
         buildingAddress = input.nextLine();
 
 
@@ -60,6 +65,7 @@ public class Admin extends User {
         String timestamp = Data.getInstance().outdoorTemp.readTimestamp();
         double tempstamp = Data.getInstance().outdoorTemp.readTempFromKeyboard();
         System.out.println("Insert building adress: ");
+        System.out.print("> ");
         input.next();
         String buildingadress = input.nextLine();
         OutdoorTemp test = new OutdoorTemp(buildingadress, tempstamp, timestamp);
@@ -84,7 +90,8 @@ public class Admin extends User {
         boolean validInput = false;
         while (!validInput) {
             try {
-                System.out.print("Type number of apartment to show: ");
+                System.out.println("Type number of apartment to show: ");
+                System.out.print("> ");
                 aptNumber = Integer.parseInt(input.nextLine());
                 validInput = true;
             } catch (NumberFormatException e) {
@@ -96,6 +103,7 @@ public class Admin extends User {
         Date dateObject = new Date();
         do {
             System.out.println("Type the date you want to show (yyyy-MM-dd)\nIf you press enter you will get the current date.");
+            System.out.print("> ");
             dateInput = input.nextLine();
             if (!dateInput.matches(regex) && !dateInput.equals("")) {
                 System.out.println("<ERROR> Wrong format");

@@ -84,7 +84,8 @@ public class ApartmentOwner extends User {
 
         Date dateObject = new Date();
         do {
-            System.out.println("Type the date you want to show (yyyy-MM-dd)\nIf you press enter you will get the current date.");
+            System.out.println("Type the date you want to show (yyyy-MM-dd)\n(If you press enter you will get the current date.)");
+            System.out.print("> ");
             timeStamp = input.nextLine();
             if (!timeStamp.matches(regex) && !timeStamp.equals("")) {
                 System.out.println("<ERROR> Wrong format");
@@ -305,7 +306,7 @@ public class ApartmentOwner extends User {
 
         do {
             System.out.println("Please input the latest time interval in this format yyyy-MM-dd HH:mm:ss ");
-
+            System.out.print("> ");
             dateInput1 = input.nextLine();
             if (!dateInput1.matches(regex)) {
                 System.out.println("<ERROR> Wrong format");
@@ -314,7 +315,8 @@ public class ApartmentOwner extends User {
         } while (!dateInput1.matches(regex));
 
         do {
-            System.out.println("please input the oldest time interval in this format yyyy-MM-dd HH:mm:ss ");
+            System.out.println("Please input the oldest time interval in this format yyyy-MM-dd HH:mm:ss ");
+            System.out.print("> ");
             dateInput2 = input.nextLine();
             if (!dateInput2.matches(regex)) {
                 System.out.println("<ERROR> Wrong format");
