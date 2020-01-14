@@ -1,5 +1,6 @@
 package DHSCA_v2;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Temperature extends SensorValue {
@@ -11,10 +12,20 @@ public class Temperature extends SensorValue {
         this.degrees = degrees;
     }
     public  double readTempFromKeyboard(){
-        System.out.println("Enter what temperature: ");
-        System.out.print("> ");
-        double degrees = input.nextDouble();
-        input.nextLine();
+        double degrees =0;
+        int counter = 0;
+        while (counter == 0) {
+            try {
+
+                System.out.println("Enter what temperature: ");
+                System.out.print("> ");
+                degrees = Double.parseDouble(input.nextLine());
+                counter++;
+            }
+            catch (NumberFormatException e) {
+                System.out.println("<ERROR> Enter a valid temperature, please!");
+            }
+        }
         return degrees;
     }
 
