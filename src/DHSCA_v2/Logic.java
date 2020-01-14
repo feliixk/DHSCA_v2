@@ -163,10 +163,10 @@ public class Logic {
 
         while (result == null) {
             System.out.println("Please enter your username: ");
-            System.out.println("> ");
+            System.out.print("> ");
             String username = input.nextLine();
             System.out.println("Please enter your password: ");
-            System.out.println("> ");
+            System.out.print("> ");
             String password = input.nextLine();
 
             if(username.length() < 1 && password.length() < 1) {
