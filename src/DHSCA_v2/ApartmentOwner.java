@@ -205,7 +205,7 @@ public class ApartmentOwner extends User {
                     }
                 }
                 if (noSaved) {
-                    System.out.println("You do not have any temperatures saved!\nTry adding some indoor measurements with option [1]");
+                    System.out.println("<ERROR> You do not have any temperatures saved!\nTry adding some indoor measurements with option [1]");
                 }
                 System.out.println();
 
@@ -304,11 +304,11 @@ public class ApartmentOwner extends User {
         System.out.println("----------------------------------");
 
         do {
-            System.out.println("please input the latest time interval in this format yyyy-MM-dd HH:mm:ss ");
+            System.out.println("Please input the latest time interval in this format yyyy-MM-dd HH:mm:ss ");
 
             dateInput1 = input.nextLine();
             if (!dateInput1.matches(regex)) {
-                System.out.println("Wrong format");
+                System.out.println("<ERROR> Wrong format");
             }
 
         } while (!dateInput1.matches(regex));
@@ -317,7 +317,7 @@ public class ApartmentOwner extends User {
             System.out.println("please input the oldest time interval in this format yyyy-MM-dd HH:mm:ss ");
             dateInput2 = input.nextLine();
             if (!dateInput2.matches(regex)) {
-                System.out.println("Wrong format");
+                System.out.println("<ERROR> Wrong format");
             }
 
         }

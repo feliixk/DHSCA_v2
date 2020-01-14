@@ -26,7 +26,6 @@ public class HeatRegulation extends SensorValue {
         double heatValue = 0;
         boolean cont = true;
         Scanner input = new Scanner(System.in);
-        //TODO: Fixa så man inte kan skriva över 100%
 
         while (!validInput) {
             try {
@@ -42,13 +41,8 @@ public class HeatRegulation extends SensorValue {
                 System.out.println("<ERROR> Only numeric values allowed");
             }
         }
-
-
-
         return heatValue;
-
     }
-
 
     public double getPercentageValue(){
         return Totals;
@@ -56,8 +50,6 @@ public class HeatRegulation extends SensorValue {
 
     public void setPercentageValue(Double value) {
         this.Totals += (value/100);
-
-
         amountsOfValues++;
     }
 
