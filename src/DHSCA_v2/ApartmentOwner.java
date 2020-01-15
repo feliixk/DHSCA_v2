@@ -160,6 +160,7 @@ public class ApartmentOwner extends User {
             boolean noSaved = true;
             int indexes = 0;
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            DecimalFormat deci = new DecimalFormat("#.##");
             Date dateObject = new Date();
             Collections.sort(Data.getInstance().indoorTemps);
             System.out.println();
@@ -184,7 +185,8 @@ public class ApartmentOwner extends User {
             if (noSaved) {
                 System.out.println("<ERROR> You do not have any temperatures saved!\nTry adding some indoor measurements with option [1]");
             }
-            System.out.println("Average: " + sum / indexes + "°C");
+            sum = sum/indexes;
+            System.out.println("Average: " + deci.format(sum) + "°C");
         }
 
 

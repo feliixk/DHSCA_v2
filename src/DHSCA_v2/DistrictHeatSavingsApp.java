@@ -17,8 +17,12 @@ public class DistrictHeatSavingsApp {
         Data.getInstance().indoorTemps.add(new IndoorTemp(1, 20, "2020-01-15 16:20:10"));
         Data.getInstance().indoorTemps.add(new IndoorTemp(1, 17, "2020-01-15 08:20:11"));
         Data.getInstance().indoorTemps.add(new IndoorTemp(1, 18, "2020-01-14 17:02:40"));
+
         Data.getInstance().indoorTemps.add(new IndoorTemp(22, 20, "2020-01-16 08:20:20"));
-        Data.getInstance().indoorTemps.add(new IndoorTemp(22, 17, "2020-01-15 17:11:45"));
+        Data.getInstance().indoorTemps.add(new IndoorTemp(22, 21, "2020-01-15 20:11:26"));
+        Data.getInstance().indoorTemps.add(new IndoorTemp(22, 15, "2020-01-15 10:22:05"));
+        Data.getInstance().indoorTemps.add(new IndoorTemp(22, 18, "2020-01-14 18:15:43"));
+        Data.getInstance().indoorTemps.add(new IndoorTemp(22, 17, "2020-01-14 09:05:22"));
 
 
         Data.getInstance().outdoorTemps.add(new OutdoorTemp("Monk 1", 15, "2020-01-16 09:00:17"));
