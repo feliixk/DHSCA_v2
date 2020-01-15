@@ -10,6 +10,9 @@ public class Admin extends User {
         super(user, pass);
     }
 
+    /*
+    This method adds a new Apartment Owner, returnar ett User-objekt
+     */
     public User addApartmentOwner() {
         Scanner input = new Scanner(System.in);
         String user, pass, buildingAddress;
@@ -27,7 +30,6 @@ public class Admin extends User {
         System.out.print("> ");
         pass = input.nextLine();
 
-        //Tillfällig lösning.
         while (!validInput) {
             try {
                 System.out.println("Please set the Apartment number: ");
@@ -72,7 +74,9 @@ public class Admin extends User {
         return test;
     }
 
-
+    /* This method shows the average heat setting for a selected apartment for a certain date
+    Also shows total savings/penalty for the month
+     */
     public void showAverageHeatSetting() {
         Scanner input = new Scanner(System.in);
         final String regex = "^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$";
@@ -94,7 +98,6 @@ public class Admin extends User {
         Date dateObject = new Date();
         boolean validInput = false;
 
-        // Prompts the admin to input apartment number and checks if a correct input is entered
         while (!validInput) {
             try {
                 System.out.println("Type number of apartment to show: ");
@@ -106,7 +109,6 @@ public class Admin extends User {
             }
         }
 
-        // Asks the admin to input the date, also checks if the input is in the correct format.
         do {
             System.out.println("Type the date you want to show (yyyy-MM-dd)\nIf you press enter you will get the current date.");
             System.out.print("> ");
@@ -120,7 +122,6 @@ public class Admin extends User {
             timeStamp = dateInput;
         } else timeStamp = dateFormat.format(dateObject);
 
-        // Getting the rent cost for the requested apartment owner
         for (User u : Data.getInstance().userArrayList) {
             if (u instanceof ApartmentOwner) {
                 if (aptNumber == ((ApartmentOwner) u).getApartmentNumber()) {
@@ -129,7 +130,6 @@ public class Admin extends User {
             }
         }
 
-        // Get month from input date
         monthInput = timeStamp.substring(0, 7);
         for (int i = 0; i < Data.getInstance().heatValues.size(); i++) {
             if (aptNumber == Data.getInstance().heatValues.get(i).aptNumber && Data.getInstance().heatValues.get(i).getTimeStamp().startsWith(timeStamp)) {
@@ -140,7 +140,6 @@ public class Admin extends User {
             }
         }
 
-        //Checks all heatvalues for given month
         for (int i = 0; i < Data.getInstance().heatValues.size(); i++) {
             if (aptNumber == Data.getInstance().heatValues.get(i).aptNumber && Data.getInstance().heatValues.get(i).getTimeStamp().contains(monthInput)) {
                 if(Data.getInstance().heatValues.get(i).getAmountOfValues() > 1){
@@ -157,12 +156,10 @@ public class Admin extends User {
             total_saving_penalty += ((averageHeatMonthSetting / numberOfHeatMonthValues) * 20 - daily_base_amount);
         }
 
-        // Calculates daily saving/penalty, Average Heat Value today & total rent cost
         daily_saving_or_penalty = (averageHeatSetting / numberOfHeatValues) * 20 - daily_base_amount;
         totalAverageHeatSettingToday = (averageHeatSetting / numberOfHeatValues) * 100;
         total_rent_cost = rentcost + total_saving_penalty;
 
-        // Checks if average heat setting value exists
         String out;
         if (totalAverageHeatSettingToday.isNaN()){
             out = "<ERROR>No heat values saved for this day";
@@ -170,7 +167,6 @@ public class Admin extends User {
             out = String.format("%.2f", totalAverageHeatSettingToday) + " %";
         }
 
-        // Prints out all info and formats it for the user
         System.out.println("--------------------------------------------------------\n" +
                 "Results for Apartment " + aptNumber + " on " +  timeStamp + ":\n--------------------------------------------------------");
         System.out.println("Average heat setting\t: " + out);
@@ -233,7 +229,7 @@ public class Admin extends User {
                     sumTotal += Data.getInstance().outdoorTemps.get(u).getDegrees();
                     times++;
                     timesTotal++;
-                    System.out.println("");// så att man får bättre utskrift
+                    System.out.println("");
                     System.out.println("Outdoor temperature: " + Data.getInstance().outdoorTemps.get(u).getDegrees() + "°C" + "\nDate: " + Data.getInstance().outdoorTemps.get(u).getTimeStamp());
                     System.out.println("----------------------------------");
 
