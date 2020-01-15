@@ -11,7 +11,7 @@ public class HeatRegulation extends SensorValue {
     private double Totals;
     private int amountsOfValues;
     public int aptNumber;
-    private boolean validInput = false;
+    private boolean validInput;
 
 
     public HeatRegulation(int aptNumber, double percentageValue, String timeStamp){
@@ -26,7 +26,11 @@ public class HeatRegulation extends SensorValue {
         double heatValue = 0;
         boolean cont = true;
         Scanner input = new Scanner(System.in);
+        validInput = false;
 
+        /* Checks that the input is in correct range and that nothing
+        else but nummer values are added
+         */
         while (!validInput) {
             try {
                 System.out.println("Input desired heat value (0-100%): ");
