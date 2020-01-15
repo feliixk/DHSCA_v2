@@ -8,6 +8,9 @@ import java.util.Scanner;
 
 public class Logic {
 
+    /*
+    Menu which shows all options for both admin and standard user (ApartmentOwner)
+     */
     public void showMenu() {
         int choice;
         Scanner input = new Scanner(System.in);
@@ -88,17 +91,7 @@ public class Logic {
                 case 5:
                     if (Data.getInstance().currentLoggedInUser instanceof Admin) {
                         System.out.println("<Du valde show average heat setting>");
-                        //för testning
-/*                        Data.getInstance().heatValues.add(new HeatRegulation(3, 23.3, "2019-12-06 21:34:55"));
-                        Data.getInstance().heatValues.add(new HeatRegulation(3, 56, "2019-12-07 21:34:55"));
-                        Data.getInstance().heatValues.add(new HeatRegulation(1, 23.3, "2019-12-06 21:34:55"));
-                        Data.getInstance().heatValues.add(new HeatRegulation(3, 23.3, "2019-12-06 20:34:55"));
-                        Data.getInstance().heatValues.add(new HeatRegulation(2, 23.3, "2019-12-06 21:34:55"));
-                        Data.getInstance().heatValues.add(new HeatRegulation(3, 23.3, "2019-12-06 21:34:55"));*/
-
                         Data.getInstance().admin.showAverageHeatSetting();
-
-                        //Data.getInstance().heatValues.clear();
                     } else if (Data.getInstance().currentLoggedInUser instanceof ApartmentOwner) {
                         System.out.println("<Du valde show last 7 day's indoor measurement>");
                         Data.getInstance().apartmentOwner.printIndoorTemp7Days();
@@ -112,9 +105,6 @@ public class Logic {
                         System.out.println("<Du valde Show all measurements for selected time interval>");
                         Data.getInstance().apartmentOwner.printoutSelectedTimeInterval();
                     }
-                   /*if (Data.getInstance().currentLoggedInUser instanceof Admin){
-                       Data.getInstance().admin.printoutSelectedTime();
-                   }*/
                    break;
 
                 case 0:
@@ -158,6 +148,9 @@ public class Logic {
         System.out.println("--------------------------------------------------------");
     }
 
+    /*
+    Login method which allows us to login as admin, and as users (stored in users.txt)
+     */
     public User login() {
         User result = null;
         Scanner input = new Scanner(System.in);

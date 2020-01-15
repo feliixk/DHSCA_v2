@@ -11,7 +11,7 @@ public class Temperature extends SensorValue {
         super(timeStamp);
         this.degrees = degrees;
     }
-    public  double readTempFromKeyboard(){
+    public double readTempFromKeyboard(){
         double degrees =0;
         int counter = 0;
         while (counter == 0) {
