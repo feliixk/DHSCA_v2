@@ -9,7 +9,8 @@ import java.util.Scanner;
 public class Logic {
 
     /*
-    Menu which shows all options for both admin and standard user (ApartmentOwner)
+    Menu which shows all options for both admin and standard user (ApartmentOwner). Method checks
+    for currently logged in user and chooses correct menu.
      */
     public void showMenu() {
         int choice;
@@ -106,7 +107,6 @@ public class Logic {
                         Data.getInstance().apartmentOwner.printoutSelectedTimeInterval();
                     }
                    break;
-
                 case 0:
                     System.out.println("<Exiting menu>");
                     Data.getInstance().currentLoggedInUser = null;
@@ -122,8 +122,10 @@ public class Logic {
         } while (choice != 0);
     }
 
-    //
-
+    /*
+    Method that shows all apartmentowners. If you are logged in as a user you will see what user you arelogged
+    in as. If you are logged in as an admin you can see all info about the apartmentowners.
+     */
     public void printApartments() {
         System.out.println("--------------------------------------------------------");
         if (Data.getInstance().currentLoggedInUser instanceof Admin) {
@@ -149,7 +151,7 @@ public class Logic {
     }
 
     /*
-    Login method which allows us to login as admin, and as users (stored in users.txt)
+    Login method which allows us to login as admin, and as apartmentowners (stored in users.txt).
      */
     public User login() {
         User result = null;

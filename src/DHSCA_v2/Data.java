@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Data {
     private static Data single_instance = null;
 
-    // all data här (alltid public)
+    // all data here (public)
     public User currentLoggedInUser;
     public ArrayList<User> userArrayList = new ArrayList<>();
     public ArrayList<OutdoorTemp> outdoorTemps = new ArrayList<>();
@@ -21,6 +21,10 @@ public class Data {
     public ApartmentOwner apartmentOwner = new ApartmentOwner("", "", 0, 0, "");
     public Logic logic = new Logic();
 
+    /*
+    Method that saves all apartmentowners stored in the arrays to the textfile users.txt. The admin user is hardcoded
+    into the program as it should be and isn't stored in textfile format.
+     */
     public void saveToFile(){
         try {
             File users = new File("users.txt");
@@ -45,6 +49,10 @@ public class Data {
         }
     }
 
+    /*
+    Method that load all the apartmentowners stored in the textfile users.txt into the arrays during program startup
+    (adminuser excluded)
+     */
     public void loadFromFile() throws FileNotFoundException {
         Scanner fileScanner = new Scanner(new File("users.txt"));
         while(fileScanner.hasNextLine()){
@@ -60,6 +68,7 @@ public class Data {
     }
 
     private Data() {
+        //empty private constructor
     }
 
     public static Data getInstance()
