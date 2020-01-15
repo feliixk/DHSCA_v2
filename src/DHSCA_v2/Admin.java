@@ -174,12 +174,14 @@ public class Admin extends User {
         System.out.println("Total saving/penalty this month\t: " + String.format("%.2f", total_saving_penalty) + " SEK");
         System.out.println("Total rent cost this month\t\t: " + String.format("%.2f", total_rent_cost) + " SEK (Base rent cost is: " + rentcost + ")");
     }
-
+/*
+this method will print out every value inputted today.
+*/
     public void printOutdoorTemp_Currentday() {
         int indexes = 0;
         DecimalFormat myFormat= new DecimalFormat("#.##");
         ArrayList<Double> avreage = new ArrayList<>();
-
+        System.out.println();
         double sum = 0;
         for (var i = 0; i < Data.getInstance().outdoorTemps.size(); i++) {
             avreage.add(Data.getInstance().outdoorTemps.get(i).getDegrees());
@@ -195,24 +197,27 @@ public class Admin extends User {
             for (int i = 0; i < Data.getInstance().outdoorTemps.size(); i++) {
                 if (Data.getInstance().outdoorTemps.get(i).getTimeStamp().contains(dateFormat.format(dateObject))) {
                     System.out.println("Outdoor temperature: " + Data.getInstance().outdoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + Data.getInstance().outdoorTemps.get(i).getTimeStamp());
-                    System.out.println("----------------------------------");
                     sum += Data.getInstance().outdoorTemps.get(i).getDegrees();
                     indexes++;
+                    System.out.println();
                 }
             }
+            System.out.println("----------------------------------");
             sum/=indexes;
             System.out.println("Average temperature:" + myFormat.format(sum) + "°C");
         } else {
             System.out.println("You have not saved anything!!");
         }
     }
-
-
+/*
+this method will take current date and print out every value within 7 days.
+*/
     public void printOutdoorTemp_7lastDays() {
         Collections.sort(Data.getInstance().outdoorTemps);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Calendar cal = Calendar.getInstance();
         DecimalFormat myFormat= new DecimalFormat("#.##");
+        System.out.println();
         double sum;
         int times;
         int timesTotal = 0;
@@ -229,9 +234,8 @@ public class Admin extends User {
                     sumTotal += Data.getInstance().outdoorTemps.get(u).getDegrees();
                     times++;
                     timesTotal++;
-                    System.out.println("");
                     System.out.println("Outdoor temperature: " + Data.getInstance().outdoorTemps.get(u).getDegrees() + "°C" + "\nDate: " + Data.getInstance().outdoorTemps.get(u).getTimeStamp());
-                    System.out.println("----------------------------------");
+                    System.out.println();
 
                 }
             }
