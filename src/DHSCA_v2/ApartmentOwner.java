@@ -251,14 +251,14 @@ public class ApartmentOwner extends User {
             for (int i = 0; i < Data.getInstance().indoorTemps.size() ; i++) {
                 if (Data.getInstance().indoorTemps.get(i).getAptNumber() == ((ApartmentOwner) Data.getInstance().currentLoggedInUser).apartmentNumber){
                     if (Data.getInstance().indoorTemps.size() != 0){
-                        System.out.println(1);
-
-                    } else if (Data.getInstance().indoorTemps.size() == 0) {
-                        System.out.println("<ERROR> This user doesn't have any indoor temperature values " +
-                                "\nPlease enter a value at option [1] ");
+                        System.out.println("");
+                        System.out.println("choose between this intervals down below ");
+                        System.out.println("");
                     }
-
-                }
+                }else{
+                    System.out.println("\n<ERROR> This user doesn't have any indoor temperature values " +
+                            "\nPlease enter a value at option [1] ");}
+                break;
             }
         } else {
             System.out.println("<ERROR> Please enter a value at option [1]");
@@ -268,12 +268,18 @@ public class ApartmentOwner extends User {
         final String regex = "[2][0][\\d]{2}[-]([0][\\d]|([1][0-2]))[-]([0][1-9]|[1-2][\\d]|[3][0-1])[ ]([0-1]{1}[\\d]{1}|([2][0-3]))[:][0-5][\\d][:][0-5][\\d]";
         String dateInput1 = "";
         String dateInput2 = "";
+        String latestDateInput = "";
         Collections.sort(Data.getInstance().indoorTemps);
         System.out.println("");
         System.out.println("choose between this intervals down below ");
         System.out.println("");
+        
         for (int i = 0; i < Data.getInstance().indoorTemps.size(); i++) {
             if (Data.getInstance().indoorTemps.get(i).getAptNumber() == ((ApartmentOwner) Data.getInstance().currentLoggedInUser).apartmentNumber) {
+                if (i == 0){
+                    latestDateInput = Data.getInstance().indoorTemps.get(0).getTimeStamp();
+                    System.out.println(latestDateInput);
+                }
                 System.out.println("Indoor temperature: " + Data.getInstance().indoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + Data.getInstance().indoorTemps.get(i).getTimeStamp());
                 System.out.println("");
             }
@@ -281,14 +287,20 @@ public class ApartmentOwner extends User {
         System.out.println("----------------------------------");
 
         do {
-            System.out.println("Please input the latest time interval in this format yyyy-MM-dd HH:mm:ss ");
+            System.out.println("Please input the latest time interval in this format yyyy-MM-dd HH:mm:ss (Press enter to get the latest value automatically)");
             System.out.print("> ");
             dateInput1 = input.nextLine();
-            if (!dateInput1.matches(regex)) {
+            if (!dateInput1.matches(regex) && !dateInput1.equals("")) {
                 System.out.println("<ERROR> Wrong format");
             }
 
-        } while (!dateInput1.matches(regex));
+        } while (!dateInput1.matches(regex) && !dateInput1.equals(""));
+
+        if (dateInput1.equalsIgnoreCase("")) {
+            dateInput1 = "> " + latestDateInput;
+        }
+
+        System.out.println(dateInput1);
 
         do {
             System.out.println("Please input the oldest time interval in this format yyyy-MM-dd HH:mm:ss ");
