@@ -177,9 +177,6 @@ public class ApartmentOwner extends User {
                         noSaved = false;
                     }
                 }
-
-
-
             }
             if (noSaved) {
                 System.out.println("<ERROR> You do not have any temperatures saved!\nTry adding some indoor measurements with option [1]");
