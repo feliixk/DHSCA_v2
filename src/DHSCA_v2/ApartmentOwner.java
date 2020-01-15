@@ -161,15 +161,6 @@ public class ApartmentOwner extends User {
             int indexes = 0;
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date dateObject = new Date();
-
-            // for (int i = 0; i < Data.getInstance().indoorTemps.size() ; i++) {
-            //    sum = sum + Data.getInstance().indoorTemps.get(i).getDegrees();
-
-            //}
-
-            /*
-            Gör så att högsta index skrivs först
-             */
             Collections.sort(Data.getInstance().indoorTemps);
             System.out.println();
 
@@ -209,17 +200,7 @@ public class ApartmentOwner extends User {
             DecimalFormat deci = new DecimalFormat("#.##");
 
 
-            //for (int i = 0; i < Data.getInstance().indoorTemps.size(); i++) {
-            //  sum = sum + Data.getInstance().indoorTemps.get(i).getDegrees();
-            //}
 
-            //System.out.println("Saved measurements for apartment: " + indoorTemps.get(index).getApartmentNumber(apartmentOwner));
-            /*
-            Gör så att högsta index skrivs först
-             */
-            // Collections.sort(Data.getInstance().indoorTemps);
-
-            //System.out.println("Saved measurements for apartment: " + indoorTemps.get(index).getApartmentNumber(apartmentOwner));
             System.out.println();
             for (int i = 7; 0 < i; i--) {
                 Date dateToday = calendarDate.getTime();
@@ -260,7 +241,6 @@ public class ApartmentOwner extends User {
             sums = sums / indexes;
 
             System.out.println("Total average: " + deci.format(sums) + "°C");
-            // System.out.println("Average: " + sum/indexes + "°C" );
         }
 
 
