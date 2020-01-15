@@ -247,6 +247,24 @@ public class ApartmentOwner extends User {
         int index1 = 0;
         Scanner input = new Scanner(System.in);
 
+        if (Data.getInstance().indoorTemps.size()>0){
+            for (int i = 0; i < Data.getInstance().indoorTemps.size() ; i++) {
+                if (Data.getInstance().indoorTemps.get(i).getAptNumber() == ((ApartmentOwner) Data.getInstance().currentLoggedInUser).apartmentNumber){
+                    if (Data.getInstance().indoorTemps.size() != 0){
+                        System.out.println(1);
+
+                    } else if (Data.getInstance().indoorTemps.size() == 0) {
+                        System.out.println("<ERROR> This user doesn't have any indoor temperature values " +
+                                "\nPlease enter a value at option [1] ");
+                    }
+
+                }
+            }
+        } else {
+            System.out.println("<ERROR> Please enter a value at option [1]");
+        }
+
+
         final String regex = "[2][0][\\d]{2}[-]([0][\\d]|([1][0-2]))[-]([0][1-9]|[1-2][\\d]|[3][0-1])[ ]([0-1]{1}[\\d]{1}|([2][0-3]))[:][0-5][\\d][:][0-5][\\d]";
         String dateInput1 = "";
         String dateInput2 = "";

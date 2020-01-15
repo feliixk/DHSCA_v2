@@ -12,7 +12,7 @@ public class DistrictHeatSavingsApp {
     public static void main(String[] args) {
         DistrictHeatSavingsApp DHSCA = new DistrictHeatSavingsApp();
         Data.getInstance().userArrayList.add(new Admin("admin", "root"));
-
+        
         Data.getInstance().indoorTemps.add(new IndoorTemp(1, 15, "2020-01-16 09:10:15"));
         Data.getInstance().indoorTemps.add(new IndoorTemp(1, 20, "2020-01-15 16:20:10"));
         Data.getInstance().indoorTemps.add(new IndoorTemp(1, 17, "2020-01-15 08:20:11"));
