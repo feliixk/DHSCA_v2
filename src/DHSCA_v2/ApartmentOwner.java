@@ -7,9 +7,9 @@ import java.util.*;
 
 public class ApartmentOwner extends User {
 
-    public int apartmentNumber;
-    public int rentCost;
-    public String buildingAddress;
+    private int apartmentNumber;
+    private int rentCost;
+    private String buildingAddress;
 
     public ApartmentOwner(String name, String pass, int apartmentNumber, int rentCost, String buildingAddress){
         super(name, pass);

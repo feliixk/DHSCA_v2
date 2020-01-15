@@ -43,8 +43,8 @@ public class Data {
                 String password = user.getPass();
                 if(user instanceof ApartmentOwner){
                     int apartmentNumber = ((ApartmentOwner) user).getApartmentNumber();
-                    String buildingAdress = ((ApartmentOwner) user).buildingAddress;
-                    int rentCost = ((ApartmentOwner) user).rentCost;
+                    String buildingAdress = ((ApartmentOwner) user).getBuildingAddress();
+                    int rentCost = ((ApartmentOwner) user).getRentCost();
                     printWriter.println(name + ", " + password + ", " + apartmentNumber + ", " + rentCost + ", " + buildingAdress);
                 }
             }
