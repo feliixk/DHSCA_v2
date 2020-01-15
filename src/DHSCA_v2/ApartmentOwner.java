@@ -245,37 +245,37 @@ public class ApartmentOwner extends User {
     public void printoutSelectedTimeInterval() {
         int index2 = 0;
         int index1 = 0;
-        boolean valueExists = true;
+        boolean cont = false;
         Scanner input = new Scanner(System.in);
 
         if (Data.getInstance().indoorTemps.size()>0){
             for (int i = 0; i < Data.getInstance().indoorTemps.size() ; i++) {
-                if (Data.getInstance().indoorTemps.get(i).getAptNumber() == ((ApartmentOwner) Data.getInstance().currentLoggedInUser).apartmentNumber){
-                    if (valueExists){
-                        System.out.println("");
-                        System.out.println("Choose between these intervals down below: ");
-                        System.out.println("--------------------------------------------------------");
-                        break;
+                cont = true;
+                    if (cont) {
+                        if (Data.getInstance().indoorTemps.get(i).getAptNumber() == ((ApartmentOwner) Data.getInstance().currentLoggedInUser).apartmentNumber) {
+                            System.out.println("");
+                            System.out.println("Choose between these intervals down below: ");
+                            System.out.println("--------------------------------------------------------");
+                            break;
+                        } else {
+                            cont = false;
+                        }
                     }
-
-                }else{
-                    System.out.println("\n<ERROR> This user doesn't have any indoor temperature values " +
-                            "\nPlease enter a value at option [1] ");
-                    valueExists = false;
-                    break;
-                }
 
             }
         }
 
-        final String regex = "[2][0][\\d]{2}[-]([0][\\d]|([1][0-2]))[-]([0][1-9]|[1-2][\\d]|[3][0-1])[ ]([0-1]{1}[\\d]{1}|([2][0-3]))[:][0-5][\\d][:][0-5][\\d]";
-        String dateInput1 = "";
-        String dateInput2 = "";
-        String tempDate = "";
-        String latestDateInput = "";
-        Collections.sort(Data.getInstance().indoorTemps);
+        if (!cont) {
+            System.out.println("\n<ERROR> This user doesn't have any indoor temperature values " +
+                    "\nPlease enter a value at option [1] ");
+        }else{
+            final String regex = "[2][0][\\d]{2}[-]([0][\\d]|([1][0-2]))[-]([0][1-9]|[1-2][\\d]|[3][0-1])[ ]([0-1]{1}[\\d]{1}|([2][0-3]))[:][0-5][\\d][:][0-5][\\d]";
+            String dateInput1 = "";
+            String dateInput2 = "";
+            String tempDate = "";
+            String latestDateInput = "";
+            Collections.sort(Data.getInstance().indoorTemps);
 
-        if (valueExists) {
             for (int i = 0; i < Data.getInstance().indoorTemps.size(); i++) {
                 if (Data.getInstance().indoorTemps.get(i).getAptNumber() == ((ApartmentOwner) Data.getInstance().currentLoggedInUser).apartmentNumber) {
                     if (i == 0) {
