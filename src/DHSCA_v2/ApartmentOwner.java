@@ -297,7 +297,7 @@ public class ApartmentOwner extends User {
 
             } while (!tempDate.matches(regex) && !tempDate.equals(""));
 
-            if (dateInput1.equalsIgnoreCase("")) {
+            if (tempDate.equalsIgnoreCase("")) {
                 dateInput1 = latestDateInput;
             }else{ dateInput1 = tempDate;}
 
