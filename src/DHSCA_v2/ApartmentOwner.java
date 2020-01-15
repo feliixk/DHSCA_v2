@@ -364,7 +364,7 @@ public class ApartmentOwner extends User {
     }
 
     public String getName(){
-        return user;
+        return getUser();
     }
 
     @Override
@@ -372,7 +372,7 @@ public class ApartmentOwner extends User {
         return "ApartmentOwner{" +
                 "apartmentNumber=" + apartmentNumber +
                 ", buildingAddress='" + buildingAddress + '\'' +
-                ", user='" + user + '\'' +
+                ", user='" + getUser() + '\'' +
                 '}';
     }
 }

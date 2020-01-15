@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Data {
+    private Data() {
+        //empty private constructor
+    }
+
     private static Data single_instance = null;
 
     // all data here (public)
@@ -14,6 +18,7 @@ public class Data {
     public ArrayList<IndoorTemp> indoorTemps = new ArrayList<>();
     public ArrayList<String> sensorValues = new ArrayList<>();
     public ArrayList<HeatRegulation> heatValues = new ArrayList<HeatRegulation>();
+
     public HeatRegulation heatRegulation = new HeatRegulation(0, 0, "");
     public Admin admin = new Admin("", "");
     public OutdoorTemp outdoorTemp = new OutdoorTemp("",0,"");
@@ -65,10 +70,6 @@ public class Data {
             String buildingAdress = stringSplitter[4];
             userArrayList.add(new ApartmentOwner(name, password, apartmentNumber, rentCost, buildingAdress));
         }
-    }
-
-    private Data() {
-        //empty private constructor
     }
 
     public static Data getInstance()
