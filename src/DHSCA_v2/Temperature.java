@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Temperature extends SensorValue {
-    Scanner input = new Scanner(System.in);
+    private Scanner input = new Scanner(System.in);
     private double degrees;
 
     public Temperature(double degrees, String timeStamp) {
