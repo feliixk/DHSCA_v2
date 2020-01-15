@@ -77,6 +77,7 @@ public class ApartmentOwner extends User {
         double total_saving_penalty = 0;
         int numberOfHeatValues = 0;
         int numberOfHeatMonthValues = 0;
+        Double totalAverageHeatSettingToday;
         double total_rent_cost;
         double rentcost;
         int apartmentNr;
@@ -131,15 +132,23 @@ public class ApartmentOwner extends User {
             total_saving_penalty += ((averageHeatMonthSetting / numberOfHeatMonthValues) * 20 - daily_base_amount);
         }
 
-        Double averageValues = (averageHeatSetting / numberOfHeatValues) * 100;
+        totalAverageHeatSettingToday = (averageHeatSetting / numberOfHeatValues) * 100;
 
         rentcost = ((ApartmentOwner) user).getRentCost();
         total_rent_cost = rentcost + total_saving_penalty;
 
+        // Checks if average heat setting value exists
+        String out;
+        if (totalAverageHeatSettingToday.isNaN()){
+            out = "<ERROR>No heat values saved for this day";
+        }else{
+            out = String.format("%.2f", totalAverageHeatSettingToday) + " %";
+        }
+
         // Prints out all info and formats it for the user
         System.out.println("--------------------------------------------------------\n" +
                 "Results for date " +  dateInput + ":\n--------------------------------------------------------");
-        System.out.println("Average heat setting\t: " + String.format("%.2f", averageValues) + " %");
+        System.out.println("Average heat setting\t: " + out);
         System.out.println("Daily saving or penalty\t: " + String.format("%.2f", daily_saving_or_penalty) + " SEK\n");
         System.out.println("Total saving/penalty this month\t: " + String.format("%.2f", total_saving_penalty) + " SEK");
         System.out.println("Total rent cost this month\t\t: " + String.format("%.2f", total_rent_cost) + " SEK (Base rent cost is: " + rentcost + ")");
