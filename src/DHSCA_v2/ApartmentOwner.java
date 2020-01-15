@@ -165,16 +165,15 @@ public class ApartmentOwner extends User {
             Collections.sort(Data.getInstance().indoorTemps);
             System.out.println();
 
-
             for (int i = 0; i < Data.getInstance().indoorTemps.size(); i++) {
                 if (Data.getInstance().indoorTemps.get(i).getAptNumber() == ((ApartmentOwner) Data.getInstance().currentLoggedInUser).apartmentNumber) {
                     if (Data.getInstance().indoorTemps.get(i).getTimeStamp().contains(dateFormat.format(dateObject))) {
 
                         System.out.println("Indoor temperature: " + Data.getInstance().indoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + Data.getInstance().indoorTemps.get(i).getTimeStamp());
-                        System.out.println("----------------------------------");
                         sum += Data.getInstance().indoorTemps.get(i).getDegrees();
                         indexes++;
                         noSaved = false;
+                        System.out.println();
                     }
                 }
             }
@@ -182,6 +181,7 @@ public class ApartmentOwner extends User {
                 System.out.println("<ERROR> You do not have any temperatures saved!\nTry adding some indoor measurements with option [1]");
             }
             sum = sum/indexes;
+            System.out.println("----------------------------------");
             System.out.println("Average: " + deci.format(sum) + "°C");
         }
 
