@@ -170,15 +170,14 @@ public class ApartmentOwner extends User {
                 if (Data.getInstance().indoorTemps.get(i).getAptNumber() == ((ApartmentOwner) Data.getInstance().currentLoggedInUser).apartmentNumber) {
                     if (Data.getInstance().indoorTemps.get(i).getTimeStamp().contains(dateFormat.format(dateObject))) {
 
-                        System.out.println("Outdoor temperature: " + Data.getInstance().indoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + Data.getInstance().indoorTemps.get(i).getTimeStamp());
-
+                        System.out.println("Indoor temperature: " + Data.getInstance().indoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + Data.getInstance().indoorTemps.get(i).getTimeStamp());
+                        System.out.println("----------------------------------");
                         sum += Data.getInstance().indoorTemps.get(i).getDegrees();
                         indexes++;
                         noSaved = false;
                     }
                 }
 
-                System.out.println();
 
 
             }
