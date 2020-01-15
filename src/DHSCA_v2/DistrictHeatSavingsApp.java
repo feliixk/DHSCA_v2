@@ -13,9 +13,6 @@ public class DistrictHeatSavingsApp {
         DistrictHeatSavingsApp DHSCA = new DistrictHeatSavingsApp();
         Data.getInstance().userArrayList.add(new Admin("admin", "root"));
 
-        //Test values
-        //Förutsätter att aptNumber 1 finns i users.txt
-
         try {
             Data.getInstance().loadFromFile();
         } catch (FileNotFoundException e) {
