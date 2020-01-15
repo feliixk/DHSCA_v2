@@ -265,6 +265,7 @@ public class ApartmentOwner extends User {
             }
         }
 
+
         if (!cont) {
             System.out.println("\n<ERROR> This user doesn't have any indoor temperature values " +
                     "\nPlease enter a value at option [1] ");
@@ -278,9 +279,7 @@ public class ApartmentOwner extends User {
 
             for (int i = 0; i < Data.getInstance().indoorTemps.size(); i++) {
                 if (Data.getInstance().indoorTemps.get(i).getAptNumber() == ((ApartmentOwner) Data.getInstance().currentLoggedInUser).apartmentNumber) {
-                    if (i == 0) {
                         latestDateInput = Data.getInstance().indoorTemps.get(0).getTimeStamp();
-                    }
                     System.out.println("Indoor temperature: " + Data.getInstance().indoorTemps.get(i).getDegrees() + "°C" + "\nDate: " + Data.getInstance().indoorTemps.get(i).getTimeStamp());
                     System.out.println("");
                 }
