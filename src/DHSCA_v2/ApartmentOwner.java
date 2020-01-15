@@ -270,9 +270,6 @@ public class ApartmentOwner extends User {
         String dateInput2 = "";
         String latestDateInput = "";
         Collections.sort(Data.getInstance().indoorTemps);
-        System.out.println("");
-        System.out.println("choose between this intervals down below ");
-        System.out.println("");
         
         for (int i = 0; i < Data.getInstance().indoorTemps.size(); i++) {
             if (Data.getInstance().indoorTemps.get(i).getAptNumber() == ((ApartmentOwner) Data.getInstance().currentLoggedInUser).apartmentNumber) {
