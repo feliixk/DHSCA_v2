@@ -103,9 +103,8 @@ public class ApartmentOwner extends User {
         // Gets average heat setting value for the given input date
         for (int i = 0; i < Data.getInstance().heatValues.size(); i++) {
             if (apartmentNr == Data.getInstance().heatValues.get(i).aptNumber && Data.getInstance().heatValues.get(i).getTimeStamp().startsWith(dateInput)) {
-                averageHeatSetting = Data.getInstance().heatValues.get(i).getPercentageValue();
-                numberOfHeatValues = Data.getInstance().heatValues.get(i).getAmountOfValues();
-                break;
+                averageHeatSetting += Data.getInstance().heatValues.get(i).getPercentageValue();
+                numberOfHeatValues += Data.getInstance().heatValues.get(i).getAmountOfValues();
             }else{
                 //doesnt exist
             }

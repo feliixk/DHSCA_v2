@@ -133,9 +133,9 @@ public class Admin extends User {
         monthInput = timeStamp.substring(0, 7);
         for (int i = 0; i < Data.getInstance().heatValues.size(); i++) {
             if (aptNumber == Data.getInstance().heatValues.get(i).aptNumber && Data.getInstance().heatValues.get(i).getTimeStamp().startsWith(timeStamp)) {
-                averageHeatSetting = Data.getInstance().heatValues.get(i).getPercentageValue();
-                numberOfHeatValues = Data.getInstance().heatValues.get(i).getAmountOfValues();
-                break;
+                averageHeatSetting += Data.getInstance().heatValues.get(i).getPercentageValue();
+                numberOfHeatValues += Data.getInstance().heatValues.get(i).getAmountOfValues();
+
             }else{
             }
         }
