@@ -129,8 +129,11 @@ public class ApartmentOwner extends User {
 
         // Calculates total saving/penalty this month
         for (int i = 0; i < numberOfHeatMonthValues; i++){
-            total_saving_penalty = ((averageHeatMonthSetting / numberOfHeatMonthValues) * 20 - daily_base_amount);
-        }
+            if (numberOfHeatMonthValues > 1){
+                total_saving_penalty += ((averageHeatMonthSetting / numberOfHeatMonthValues) * 20 - daily_base_amount);
+            }else {
+                total_saving_penalty = ((averageHeatMonthSetting / numberOfHeatMonthValues) * 20 - daily_base_amount);
+            }}
 
         totalAverageHeatSettingToday = (averageHeatSetting / numberOfHeatValues) * 100;
 
