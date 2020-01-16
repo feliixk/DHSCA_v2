@@ -7,9 +7,9 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class HeatRegulation extends SensorValue {
-    private double percentageValue;
-    private double Totals;
-    private int amountsOfValues;
+    public double percentageValue;
+    public double Totals;
+    public int amountsOfValues;
     public int aptNumber;
     private boolean validInput;
 
@@ -52,7 +52,7 @@ public class HeatRegulation extends SensorValue {
         return Totals;
     }
 
-    public void setPercentageValue(Double value) {
+    public void setPercentageValue(double value) {
         this.Totals += (value/100);
         amountsOfValues++;
     }

@@ -153,7 +153,7 @@ public class Admin extends User {
         }
 
         for (int i = 0; i < numberOfHeatMonthValues; i++){
-            total_saving_penalty += ((averageHeatMonthSetting / numberOfHeatMonthValues) * 20 - daily_base_amount);
+            total_saving_penalty = ((averageHeatMonthSetting / numberOfHeatMonthValues) * 20 - daily_base_amount);
         }
 
         daily_saving_or_penalty = (averageHeatSetting / numberOfHeatValues) * 20 - daily_base_amount;

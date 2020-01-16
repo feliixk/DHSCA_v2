@@ -32,10 +32,11 @@ public class DistrictHeatSavingsApp {
         Data.getInstance().outdoorTemps.add(new OutdoorTemp("Monk 1", 16, "2020-01-05 11:20:17"));
 
         Data.getInstance().heatValues.add(new HeatRegulation(1, 25, "2020-01-16 07:15:23"));
-        Data.getInstance().heatValues.add(new HeatRegulation(1, 50, "2020-01-16 10:53:56"));
-        Data.getInstance().heatValues.add(new HeatRegulation(1, 90, "2020-01-15 05:39:42"));
+        //Data.getInstance().heatValues.get(0).setPercentageValue(50.0);
+        Data.getInstance().heatValues.add(new HeatRegulation(1, 50, "2020-01-16 05:15:23"));
+        Data.getInstance().heatValues.add(new HeatRegulation(1, 75, "2020-01-15 10:15:23"));
+        Data.getInstance().heatValues.add(new HeatRegulation(1, 100, "2020-01-13 07:15:23"));
 
-        Data.getInstance().heatValues.add(new HeatRegulation(1, 30, "2020-01-14 15:10:10"));
         Data.getInstance().heatValues.add(new HeatRegulation(22, 25, "2020-01-12 10:10:10"));
         Data.getInstance().heatValues.add(new HeatRegulation(22, 25, "2020-01-14 10:10:10"));
         Data.getInstance().heatValues.add(new HeatRegulation(1, 100, "2019-12-12 10:10:10"));
