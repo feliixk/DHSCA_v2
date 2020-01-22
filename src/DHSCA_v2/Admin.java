@@ -129,7 +129,7 @@ public class Admin extends User {
                 }
             }
         }
-
+        // Gets heatvalues for this day
         monthInput = timeStamp.substring(0, 7);
         for (int i = 0; i < Data.getInstance().heatValues.size(); i++) {
             if (aptNumber == Data.getInstance().heatValues.get(i).aptNumber && Data.getInstance().heatValues.get(i).getTimeStamp().startsWith(timeStamp)) {
@@ -139,7 +139,7 @@ public class Admin extends User {
             }else{
             }
         }
-
+        // Gets heatvalues for whole month
         for (int i = 0; i < Data.getInstance().heatValues.size(); i++) {
             if (aptNumber == Data.getInstance().heatValues.get(i).aptNumber && Data.getInstance().heatValues.get(i).getTimeStamp().contains(monthInput)) {
                 if(Data.getInstance().heatValues.get(i).getAmountOfValues() > 1){

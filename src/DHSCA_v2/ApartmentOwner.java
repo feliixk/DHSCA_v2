@@ -26,7 +26,7 @@ public class ApartmentOwner extends User {
     }
 
     /*
-    Method for changing heatvalue for given user
+    Method for changing heatvalue for a given user
      */
     public void changeHeatingValue(User user){
         final String regex = "^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$";
@@ -157,6 +157,9 @@ public class ApartmentOwner extends User {
         System.out.println("Total rent cost this month\t\t: " + String.format("%.2f", total_rent_cost) + " SEK (Base rent cost is: " + rentcost + ")");
     }
 
+        /*
+        This method prints all indoor temperature measurements today and gives an average value
+        */
         public void printIndoorTempToday () {
             int timer = 1;
             double sum = 0;
@@ -188,7 +191,9 @@ public class ApartmentOwner extends User {
             System.out.println("Average: " + deci.format(sum) + "°C");
         }
 
-
+        /*
+        This method prints the last 7 days indoor temperatures and sorts them with the latest date first
+         */
         public void printIndoorTemp7Days() {
             double sums = 0;
             int index;
@@ -245,6 +250,9 @@ public class ApartmentOwner extends User {
         }
 
 
+        /*
+        This method shows the average indoor temperature between 2 time intervals
+         */
     public void printoutSelectedTimeInterval() {
         int index2 = 0;
         int index1 = 0;
